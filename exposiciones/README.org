@@ -11,14 +11,16 @@
   como lo refleja la rúbrica, obtiene una calificación un poco más alta)
   el que ustedes me planteen los temas de su interés.
 
-  |----------+--------------------------------------------------+------------------------------------------------------------+------------+-----------+------------+---|
-  | Fecha    | Tema                                             | Integrantes                                                | Documentos | Preguntas | Evaluación |   |
-  |----------+--------------------------------------------------+------------------------------------------------------------+------------+-----------+------------+---|
-  | 7/marzo  | Control de acceso de los recursos a los usuarios | Fredin Alberto Vázquez Martínez, Israel Arellano Hernández |            |           |            |   |
-  | 9/marzo  | GNU en consolas de videojuegos                   | Refugio Rangel de la Rosa, Fernando Arciga                 |            |           |            |   |
-  | 14/marzo | Sistema de archivos GoogleFS                     | Marco Sánchez y Mario Terán                                |            |           |            |   |
-  | 16/marzo | Contenedores -- Docker                           | David Carranza y Gamaliel Ríos                             |            |           |            |   |
-  |----------+--------------------------------------------------+------------------------------------------------------------+------------+-----------+------------+---|
+  |----------+--------------------------------------------------+------------------------------------------------------------+-------------------------------------------------------------------------------------------------+---------------------------------------------|
+  | Fecha    | Tema                                             | Integrantes                                                | Documentos                                                                                      | Evaluación                                  |
+  |----------+--------------------------------------------------+------------------------------------------------------------+-------------------------------------------------------------------------------------------------+---------------------------------------------|
+  | 7/marzo  | Control de acceso de los recursos a los usuarios | Fredin Alberto Vázquez Martínez, Israel Arellano Hernández | [[./VázquezFredin-ArellanoIsrael/Informacion.md][Documento de texto]], [[./VázquezFredin-ArellanoIsrael/Mecanismos_de_Autenticación_Exposición/genially.html][Exposición (Genially; abrir _localmente_ con el navegador, no desde GitHub)]] | [[./VázquezFredin-ArellanoIsrael/evaluacion_alumnos.pdf][Evalución de los alumnos]], [[./VázquezFredin-ArellanoIsrael/evaluacion.org][Evaluación global]] |
+  | 9/marzo  | GNU en consolas de videojuegos                   | Refugio Rangel de la Rosa, Fernando Arciga                 |                                                                                                 |                                             |
+  | 14/marzo | Sistema de archivos GoogleFS                     | Marco Sánchez y Mario Terán                                |                                                                                                 |                                             |
+  | 16/marzo | Contenedores -- Docker                           | David Carranza y Gamaliel Ríos                             |                                                                                                 |                                             |
+  | 21/marzo | Ventajas y desventajas de TPM                    | Luis Fernando Morales Zilli y Omar Magno García            |                                                                                                 |                                             |
+  | 23/marzo | Cifrado                                          | Laylet Rojas y Miguel Ángel Ruiz Sánchez                   |                                                                                                 |                                             |
+  |----------+--------------------------------------------------+------------------------------------------------------------+-------------------------------------------------------------------------------------------------+---------------------------------------------|
   #+TBLFM: 
 
 * Rúbrica de evaluación
