@@ -1,3 +1,0 @@
-Profesor, cuando ejecuto el comando git add, aparece el mensaje:  LF will be replaced by CRLF the next time Git touches it. Estoy investigándolo, pero si pudiera brindarme más luz al respecto, lo agradecería. Además de eso, hace poco me enteré que para loggearse en GitHub estaba implementándose un cifrado simétrico, pero hasta hoy yo no he recibido una notificación similar, usted sabe algo al respecto?
-
-Saludos.
