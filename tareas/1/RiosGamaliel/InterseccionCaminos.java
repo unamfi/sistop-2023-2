@@ -28,7 +28,7 @@ public class InterseccionCaminos {
       randGen.setSeed(LocalDateTime.now().getNano());
       try {
         while (true) {
-          Thread.sleep(250);
+          Thread.sleep(100);
           int index = randGen.nextInt(4);
 
           synchronized (autos.get(index)) {
@@ -47,22 +47,22 @@ public class InterseccionCaminos {
 
     // Carril izquierda (←)
     new Thread(
-      new Carril("IZQ", autos.get(0), s[1], s[0], s[3], producerMutex[0])
+      new Carril("IZQ", TipoCarril.HORIZONTAL, autos.get(0), s[1], s[0], s[2], producerMutex[0])
     ).start();
 
     // Carril abajo (↓)
     new Thread(
-      new Carril("ABJ", autos.get(1), s[0], s[2], s[1], producerMutex[1])
+      new Carril("ABJ", TipoCarril.VERTICAL, autos.get(1), s[0], s[2], s[3], producerMutex[1])
     ).start();
 
     // Carril derecha (→)
     new Thread(
-      new Carril("DER", autos.get(2), s[2], s[3], s[0], producerMutex[2])
+      new Carril("DER", TipoCarril.HORIZONTAL, autos.get(2), s[2], s[3], s[1], producerMutex[2])
     ).start();
 
     // Carril arriba (↑)
     new Thread(
-      new Carril("ARR", autos.get(3), s[3], s[1], s[2], producerMutex[3])
+      new Carril("ARR", TipoCarril.VERTICAL, autos.get(3), s[3], s[1], s[0], producerMutex[3])
     ).start();
   }
 }
