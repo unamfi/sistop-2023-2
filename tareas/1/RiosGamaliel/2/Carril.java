@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class Carril implements Runnable {
@@ -11,7 +10,6 @@ public class Carril implements Runnable {
 
   private static Semaphore s = new Semaphore(1), s1 = new Semaphore(2);
   private static int numSemVert = 0, numSemHor = 0;
-  private static final Random randGen = new Random();
 
   public Carril(String id, TipoCarril tipoCarril, List<TipoAuto> autos, Semaphore con1, Semaphore  con2, Semaphore izq, Semaphore mutex) {
     this.id = id;
@@ -21,6 +19,34 @@ public class Carril implements Runnable {
     this.con2 = con2;
     this.izq = izq;
     this.mutex = mutex;
+  }
+
+  private void girarDerecha() throws InterruptedException {
+    this.con1.acquire();
+    System.out.printf("[%s] Avanzo una vez\n", id);
+    System.out.printf("[%s] Giro der\n", id);
+    this.con1.release();
+  }
+
+  private void girarIzquierda() throws InterruptedException {
+    con1.acquire();
+    System.out.printf("[%s] Avanzo una vez\n", id);
+    con2.acquire();
+    con1.release();
+    System.out.printf("[%s] Avanzo otra vez\n", id);
+    izq.acquire();
+    con2.release();
+    System.out.printf("[%s] Giro izq y avanzo\n", id);
+    izq.release();
+  }
+
+  private void continuarDerecho() throws InterruptedException {
+    con1.acquire();
+    System.out.printf("[%s] Avanzo una vez\n", id);
+    con2.acquire();
+    con1.release();
+    System.out.printf("[%s] Avanzo otra vez\n", id);
+    con2.release();
   }
 
   @Override
@@ -51,36 +77,13 @@ public class Carril implements Runnable {
 
         System.out.printf("[%s] Llega auto (%s)\n", id, auto.toString());
 
-        con1.acquire();
-        System.out.printf("[%s] Avanzo una vez\n", id, auto.toString());
+        if (auto == TipoAuto.CONTINUAR)
+          continuarDerecho();
+        else if (auto == TipoAuto.GIRO_DER)
+          girarDerecha();
+        else if (auto == TipoAuto.GIRO_IZQ)
+          girarIzquierda();
 
-        Thread.sleep(200+randGen.nextInt(200));
-
-        if (auto == TipoAuto.GIRO_DER) {
-          System.out.printf("[%s] Giro der\n", id, auto.toString());
-          con1.release();
-        } else if (auto == TipoAuto.CONTINUAR) {
-
-          con2.acquire();
-          con1.release();
-
-          System.out.printf("[%s] Avanzo otra vez\n", id, auto.toString());
-
-          con2.release();
-
-        } else if (auto == TipoAuto.GIRO_IZQ) {
-
-          con2.acquire();
-          con1.release();
-
-          System.out.printf("[%s] Avanzo otra vez\n", id, auto.toString());
-
-
-          izq.acquire();
-          con2.release();
-          System.out.printf("[%s] Giro izq y avanzo\n", id, auto.toString());
-          izq.release();
-        }
         System.out.printf("[%s] Me voy\n", id, auto.toString());
 
         if (this.tipoCarril == TipoCarril.VERTICAL)
@@ -97,7 +100,7 @@ public class Carril implements Runnable {
           }
       }
     } catch (InterruptedException e) {
-      System.exit(0);
+      System.exit(1);
     }
   }
 }
