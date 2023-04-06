@@ -39,7 +39,7 @@ de atender.
 
 De forma general, estas situaciones se atendieron de la siguiente forma:
 - La generación de autos se hizo a través del patrón `productor/consumidor`.  
-  El _hilo productor_ cada cierto tiempo genera dos númoros aleatorios. El 
+  El _hilo productor_ cada cierto tiempo genera dos números aleatorios. El 
   primero indica a qué carril llegará el nuevo auto, mientras que el segundo 
   indica qué tipo de auto será; se tienen tres tipos de auto:
   - `CONTINUAR`: Es un auto que continúa derecho sobre el mismo carril.
@@ -87,7 +87,7 @@ De forma general, estas situaciones se atendieron de la siguiente forma:
 - Hasta este punto, todo funcionó de forma adecuada. Los hilos _consumidores_ 
   detectaban la señalización del hilo _productor_ y desencolaban los autos.  
   Al comenzar a programar el mecanismo para pasar por las secciones de 
-  intersección, me dí cuenta de que cada una de ellas era en realidad un 
+  intersección, me di cuenta de que cada una de ellas era en realidad un 
   _mutex_, por lo que se implementó una de **cuatro _mutexes_**. Implementados 
   a través de la clase `Semaphore`. La parte más complicada del problema es 
   justamente lo siguiente. Una intersección sólo puede estar ocupada por un 
@@ -95,7 +95,7 @@ De forma general, estas situaciones se atendieron de la siguiente forma:
   auto está en una sección, no puede abandonarla hasta que la sección 
   siguiente esté libre (si sucede esto, alguien más puede llegar a la sección 
   recién liberada mientras la siguiente sección aún no ha sido liberada y el 
-  auto estaría en una incertidubmbre cuántica por algunos instantes). Lo 
+  auto estaría en una incertidumbre cuántica por algunos instantes). Lo 
   primero fue identificar los movimientos posibles para cada carril:
   - **Continuar:** Se entra por una sección, se toma la que está 
     inmediatamente enfrente y se continúa por la calle.
@@ -105,9 +105,9 @@ De forma general, estas situaciones se atendieron de la siguiente forma:
     gira a la izquierda, se toma la sección siguiente y se continúa por la 
     calle.
 
-  Este moviemiento es el mismo para todas las secciones, lo único que cambia 
+  Este movimiento es el mismo para todas las secciones, lo único que cambia 
   es la orientación inicial que tiene cada carril. Al ejecutarlo sin ningún 
-  mecanismo de sincrinización adicional se obtuvo el sigueinte estado de 
+  mecanismo de sincronización adicional se obtuvo el siguiente estado de 
   inanición:
     | <!-- -->| <!-- -->|
     | --- | --- |
@@ -117,7 +117,7 @@ De forma general, estas situaciones se atendieron de la siguiente forma:
   Tal como se puede ver, es imposible avanzar más ya que de forma transitiva 
   para que un carril avance, se necesita que otro carril avance, pero este 
   necesita que otro carril avance, pero este necesita que otro carril avance y 
-  así hata llegar a que se necesita que el mismo hilo inicial avance (lo cual 
+  así hasta llegar a que se necesita que el mismo hilo inicial avance (lo cual 
   es imposible).
 
   Justamente en este punto es en donde se encontraron las dos aproximaciones:
@@ -134,7 +134,7 @@ De forma general, estas situaciones se atendieron de la siguiente forma:
      _exclusión categórica_. La implementación de esta versión del programa se 
      realizó a través de un _lightswitch_ (o _apagador_ en español), en donde 
      se tienen dos categorías:
-     - `VERTICAL`: Hace referencia a los carriles que se mueven a la izqueirda 
+     - `VERTICAL`: Hace referencia a los carriles que se mueven a la izquierda 
        y a la derecha.
      - `HORIZONTAL`: Hace referencia a los carriles que se mueven hacia abajo 
        y hacia arriba.
@@ -150,7 +150,7 @@ De forma general, estas situaciones se atendieron de la siguiente forma:
 ## Refinamientos
 Inicialmente, se planteó una solución que ya consideraba el **Refinamiento 1** 
 por si misma. Sin embargo, sólo se consideraban movimientos de frente; es 
-decir, no se consideraban vuletas. Por ello, se creó una nueva versión donde 
+decir, no se consideraban vueltas. Por ello, se creó una nueva versión donde 
 se aplicaba el **Refinamiento 2** y es ahí donde surgió la enumeración 
 `TipoAuto`, la cual indica qué tipo de movimiento hace cada auto.
 
