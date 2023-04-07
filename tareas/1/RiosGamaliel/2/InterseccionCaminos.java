@@ -7,35 +7,52 @@ import java.util.concurrent.Semaphore;
 /**
  * Implementación del problema:
  * - "Intersección de caminos"
+ * Versión: 2
  */
 public class InterseccionCaminos {
-  private static Semaphore[] s = {
+
+  /**
+   * Arreglo de mutex para controlar el acceso a la lista de autos por hilo.
+   */
+  private static Semaphore[] autosMutex = {
     new Semaphore(1), new Semaphore(1), new Semaphore(1), new Semaphore(1)
   };
 
-  private static Semaphore[] producerMutex = {
+  /**
+   * Arreglo de señalizaciones para notificar cuando el productor ha creado autos.
+   */
+  private static Semaphore[] producerSignal = {
     new Semaphore(0), new Semaphore(0), new Semaphore(0), new Semaphore(0)
   };
 
+  /**
+   * Lista donde se almacenan las colas de autos para cada uno de los hilos.
+   */
   private static List<List<TipoAuto>> autos = List.of(
     new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
   );
 
   public static void main(String... args) {
 
+    // Lógica del PRODUCTOR
     Runnable autoProducer = () -> {
       Random randGen = new Random();
       randGen.setSeed(LocalDateTime.now().getNano());
       try {
         while (true) {
           Thread.sleep(100);
-          int index = randGen.nextInt(4);
+          
+          // Selección del carril
+          int carril = randGen.nextInt(4);
 
-          synchronized (autos.get(index)) {
+          synchronized (autos.get(carril)) {
+            // Selección del tipo de auto
             int tipoAuto = randGen.nextInt(3);
-            autos.get(index).add(TipoAuto.values()[tipoAuto]);
+            autos.get(carril).add(TipoAuto.values()[tipoAuto]);
           }
-          producerMutex[index].release();
+
+          // Señalización al CONSUMIDOR
+          producerSignal[carril].release();
         }
       } catch (InterruptedException e) {
         System.exit(0);
@@ -47,22 +64,22 @@ public class InterseccionCaminos {
 
     // Carril izquierda (←)
     new Thread(
-      new Carril("IZQ", TipoCarril.HORIZONTAL, autos.get(0), s[1], s[0], s[2], producerMutex[0])
+      new Carril("IZQ", TipoCarril.HORIZONTAL, autos.get(0), autosMutex[1], autosMutex[0], autosMutex[2], producerSignal[0])
     ).start();
 
     // Carril abajo (↓)
     new Thread(
-      new Carril("ABJ", TipoCarril.VERTICAL, autos.get(1), s[0], s[2], s[3], producerMutex[1])
+      new Carril("ABJ", TipoCarril.VERTICAL, autos.get(1), autosMutex[0], autosMutex[2], autosMutex[3], producerSignal[1])
     ).start();
 
     // Carril derecha (→)
     new Thread(
-      new Carril("DER", TipoCarril.HORIZONTAL, autos.get(2), s[2], s[3], s[1], producerMutex[2])
+      new Carril("DER", TipoCarril.HORIZONTAL, autos.get(2), autosMutex[2], autosMutex[3], autosMutex[1], producerSignal[2])
     ).start();
 
     // Carril arriba (↑)
     new Thread(
-      new Carril("ARR", TipoCarril.VERTICAL, autos.get(3), s[3], s[1], s[0], producerMutex[3])
+      new Carril("ARR", TipoCarril.VERTICAL, autos.get(3), autosMutex[3], autosMutex[1], autosMutex[0], producerSignal[3])
     ).start();
   }
 }

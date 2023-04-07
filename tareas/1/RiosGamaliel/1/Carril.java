@@ -1,53 +1,82 @@
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Lógica de cada uno de los carriles
+ */
 public class Carril implements Runnable {
   
+  /**
+   * El nombre con el cual se identifica al hilo
+   */
   private final String id;
+
+  /**
+   * La lista de autos asignada al carril
+   */
   private final List<TipoAuto> autos;
-  private final Semaphore mutex, con1, con2, izq;
 
-  private static Semaphore s1 = new Semaphore(3);
+  /**
+   * La señalización que usa el PRODUCTOR para 
+   * notificar la creación de un nuevo auto
+   */
+  private final Semaphore producerSignal;
+  
+  /**
+   * Secciones a utilizar para los movimientos. 
+   * Se toman de forma relativa al carril en cuestión.
+   */
+  private final Semaphore frente1, frente2, izquierda;
 
-  public Carril(String id, List<TipoAuto> autos, Semaphore con1, Semaphore  con2, Semaphore izq, Semaphore mutex) {
+  /**
+   * Multiplex para evitar que más de tres carriles 
+   * procesen autos al mismo tiempo.
+   */
+  private static Semaphore multiplex = new Semaphore(3);
+
+  public Carril(String id, List<TipoAuto> autos, Semaphore frente1, Semaphore  frente2, Semaphore izquierda, Semaphore producerSignal) {
     this.id = id;
     this.autos = autos;
-    this.con1 = con1;
-    this.con2 = con2;
-    this.izq = izq;
-    this.mutex = mutex;
+    this.frente1 = frente1;
+    this.frente2 = frente2;
+    this.izquierda = izquierda;
+    this.producerSignal = producerSignal;
   }
 
   private void girarDerecha() throws InterruptedException {
-    this.con1.acquire();
+    this.frente1.acquire();
     System.out.printf("[%s] Avanzo una vez\n", id);
+    Thread.sleep(15);
     System.out.printf("[%s] Giro der\n", id);
-    this.con1.release();
-    System.out.printf("[%s] Me voy\n", id);
+    this.frente1.release();
   }
 
   private void girarIzquierda() throws InterruptedException {
-    con1.acquire();
+    frente1.acquire();
     System.out.printf("[%s] Avanzo una vez\n", id);
-    con2.acquire();
-    con1.release();
+    Thread.sleep(15);
+    frente2.acquire();
+    frente1.release();
     System.out.printf("[%s] Avanzo otra vez\n", id);
-    izq.acquire();
-    con2.release();
+    Thread.sleep(15);
+    izquierda.acquire();
+    frente2.release();
     System.out.printf("[%s] Giro izq y avanzo\n", id);
-    izq.release();
-    System.out.printf("[%s] Me voy\n", id);
+    Thread.sleep(15);
+    izquierda.release();
   }
 
   private void continuarDerecho() throws InterruptedException {
-    con1.acquire();
+    frente1.acquire();
     System.out.printf("[%s] Avanzo una vez\n", id);
-    con2.acquire();
-    con1.release();
+    Thread.sleep(15);
+    frente2.acquire();
+    frente1.release();
     System.out.printf("[%s] Avanzo otra vez\n", id);
-    con2.release();
-    System.out.printf("[%s] Me voy\n", id);
+    Thread.sleep(15);
+    frente2.release();
   }
+
 
   @Override
   public void run() {
@@ -56,14 +85,17 @@ public class Carril implements Runnable {
     try {
       while (true) {
         Thread.sleep(1000);
-        mutex.acquire();
-        s1.acquire();
+        
+        // Se espera la señalización de PRODUCTOR
+        producerSignal.acquire();
+        multiplex.acquire();
 
-
+        // Se consume el primer auto de la lista
         synchronized (autos) {
           auto = autos.remove(0);
         }
 
+        // Se procesa el auto
         System.out.printf("[%s] Llega auto (%s)\n", id, auto.toString());
 
         if (auto == TipoAuto.CONTINUAR)
@@ -75,7 +107,8 @@ public class Carril implements Runnable {
 
         System.out.printf("[%s] Me voy\n", id, auto.toString());
 
-        s1.release();
+        // Se libera un espacio del multiplex
+        multiplex.release();
       }
     } catch (InterruptedException e) {
       System.exit(0);

@@ -24,7 +24,7 @@ $ javac -d out/ --source-path <version>/ <version>/InterseccionCaminos.java
 ```
 Posteriormente, para ejecutarlo se tiene que utilizar el siguiente comando:
 ```bash
-$ java --class-path out InterseccionCaminos
+$ java --class-path out/ InterseccionCaminos
 ```
 
 ---
@@ -162,3 +162,8 @@ carril podría ser capaz de manejar hasta tres secciones al mismo tiempo;
 mejorando el uso de las secciones del cruce y del tiempo. A pesar de esto, 
 sólo dejé un auto por carril ya que supuse que iban a salir más posibilidades 
 de _inanición_.
+
+De igual forma, tal vez faltó implementar de forma 
+más intuitiva la visualización del avance. Sin 
+embargo, es posible seguir de forma general la 
+bitácora de ejecución.

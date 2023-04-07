@@ -1,3 +1,20 @@
+/**
+ * Enumeración que indica las distintas operaciones que 
+ * un auto puede realizar al entrar al cruce.
+ */
 public enum TipoAuto {
-  CONTINUAR, GIRO_DER, GIRO_IZQ
+  /**
+   * Continuar derecho
+   */
+  CONTINUAR,
+
+  /**
+   * Girar a la derecha
+   */
+  GIRO_DER,
+
+  /**
+   * Girar a la izquierda
+   */
+  GIRO_IZQ
 }

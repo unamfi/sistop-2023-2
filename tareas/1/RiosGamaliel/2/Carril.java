@@ -3,50 +3,87 @@ import java.util.concurrent.Semaphore;
 
 public class Carril implements Runnable {
   
+  /**
+   * El nombre con el cual se identifica al hilo
+   */
   private final String id;
+
+  /**
+   * Tipo de carril (HORIZONTAL o VERTICAL) para la exclusión mutua
+   */
   private final TipoCarril tipoCarril;
+
+  /**
+   * La lista de autos asignada al carril
+   */
   private final List<TipoAuto> autos;
-  private final Semaphore mutex, con1, con2, izq;
 
-  private static Semaphore s = new Semaphore(1), s1 = new Semaphore(2);
-  private static int numSemVert = 0, numSemHor = 0;
+  /**
+   * La señalización que usa el PRODUCTOR para 
+   * notificar la creación de un nuevo auto
+   */
+  private final Semaphore producerSignal;
 
-  public Carril(String id, TipoCarril tipoCarril, List<TipoAuto> autos, Semaphore con1, Semaphore  con2, Semaphore izq, Semaphore mutex) {
+  /**
+   * Secciones a utilizar para los movimientos. 
+   * Se toman de forma relativa al carril en cuestión.
+   */
+  private final Semaphore frente1, frente2, izquierda;
+
+  /**
+   * Semáforo a través del cual se construye la implementación 
+   * del apagador.
+   */
+  private static Semaphore apagador = new Semaphore(1);
+
+  /**
+   * Cantidad de carriles que hay de cada tipo procesando 
+   * un auto al mismo tiempo.
+   */
+  private static int numCarrilesVert = 0, numCarrilesHor = 0;
+
+  public Carril(String id, TipoCarril tipoCarril, List<TipoAuto> autos, Semaphore frente1, Semaphore  frente2, Semaphore izquierda, Semaphore producerSignal) {
     this.id = id;
     this.tipoCarril = tipoCarril;
     this.autos = autos;
-    this.con1 = con1;
-    this.con2 = con2;
-    this.izq = izq;
-    this.mutex = mutex;
+    this.frente1 = frente1;
+    this.frente2 = frente2;
+    this.izquierda = izquierda;
+    this.producerSignal = producerSignal;
   }
 
   private void girarDerecha() throws InterruptedException {
-    this.con1.acquire();
+    this.frente1.acquire();
     System.out.printf("[%s] Avanzo una vez\n", id);
+    Thread.sleep(15);
     System.out.printf("[%s] Giro der\n", id);
-    this.con1.release();
+    this.frente1.release();
   }
 
   private void girarIzquierda() throws InterruptedException {
-    con1.acquire();
+    frente1.acquire();
     System.out.printf("[%s] Avanzo una vez\n", id);
-    con2.acquire();
-    con1.release();
+    Thread.sleep(15);
+    frente2.acquire();
+    frente1.release();
     System.out.printf("[%s] Avanzo otra vez\n", id);
-    izq.acquire();
-    con2.release();
+    Thread.sleep(15);
+    izquierda.acquire();
+    frente2.release();
     System.out.printf("[%s] Giro izq y avanzo\n", id);
-    izq.release();
+    Thread.sleep(15);
+    izquierda.release();
   }
 
   private void continuarDerecho() throws InterruptedException {
-    con1.acquire();
+    frente1.acquire();
     System.out.printf("[%s] Avanzo una vez\n", id);
-    con2.acquire();
-    con1.release();
+    Thread.sleep(15);
+    frente2.acquire();
+    frente1.release();
     System.out.printf("[%s] Avanzo otra vez\n", id);
-    con2.release();
+    Thread.sleep(15);
+    frente2.release();
   }
 
   @Override
@@ -56,25 +93,28 @@ public class Carril implements Runnable {
     try {
       while (true) {
         Thread.sleep(1000);
-        mutex.acquire();
 
+        // Se espera la señalización de PRODUCTOR
+        producerSignal.acquire();
+
+        // Lógica del apagador (entrada)
         if (this.tipoCarril == TipoCarril.VERTICAL)
           synchronized (TipoCarril.VERTICAL) {
-            if (++numSemVert == 1)
-              s.acquire();
-            s1.acquire();
+            if (++numCarrilesVert == 1)
+              apagador.acquire();
           }
         else
           synchronized (TipoCarril.HORIZONTAL) {
-            if (++numSemHor == 1)
-              s.acquire();
-            s1.acquire();
+            if (++numCarrilesHor == 1)
+              apagador.acquire();
           }
 
+        // Se consume el primer auto de la lista
         synchronized (autos) {
           auto = autos.remove(0);
         }
 
+        // Se procesa el auto
         System.out.printf("[%s] Llega auto (%s)\n", id, auto.toString());
 
         if (auto == TipoAuto.CONTINUAR)
@@ -86,17 +126,16 @@ public class Carril implements Runnable {
 
         System.out.printf("[%s] Me voy\n", id, auto.toString());
 
+        // Lógica del apagador (salida)
         if (this.tipoCarril == TipoCarril.VERTICAL)
           synchronized (TipoCarril.VERTICAL) {
-            s1.release();
-            if (--numSemVert == 0)
-              s.release();
+            if (--numCarrilesVert == 0)
+              apagador.release();
           }
         else
           synchronized (TipoCarril.HORIZONTAL) {
-            s1.release();
-            if (--numSemHor == 0)
-              s.release();
+            if (--numCarrilesHor == 0)
+              apagador.release();
           }
       }
     } catch (InterruptedException e) {
