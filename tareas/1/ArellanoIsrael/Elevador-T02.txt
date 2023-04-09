@@ -1,0 +1,44 @@
+Problema escogido: El elevador
+•	El elevador de la Facultad se descompone demasiado, porque sus usuarios no respetan los límites. 
+•	Te toca evitar este desgaste (y el peligro que conlleva). 
+•	Implementa el elevador como un hilo, y a cada persona que quiere usarlo como otro hilo.
+•	El elevador de la Facultad de Ingeniería da servicio a cinco pisos. 
+•	Un usuario puede llamarlo en cualquiera de ellos 
+•	Puede querer ir a cualquiera otro de ellos.
+•	El elevador tiene capacidad para cinco pasajeros 
+•	Recuerden que el peso canónico de todo ingeniero (estudiante o docente) es constante. 
+•	Para ir del piso x a y, el elevador tiene que cruzar todos los pisos intermedios 
+•	Los usuarios prefieren esperar dentro del elevador que fuera de él 
+•	Si el elevador va subiendo y pasa por el piso x, donde está A esperando para bajar, A aborda al elevador (no espera a que vaya en la dirección correcta).
+
+
+Lenguaje y entorno: 
+Para la realización de este código se utilizo el lenguaje de pytohn3 en VISUAL STUDIO CODE además de la comprobación de resultados en VS y en www.onlinegdb.com
+No es necesario saber mucho de este código para su ejecución, ya que en el código vienen inicializados cuantos hilos vamos a querer para las personas y cuantos pisos hay en total, 
+pero si seria bueno decir que el numero de pisos es estático ya que lo coloque así, si se quisiera hacer “dinámico” se tendría que realizar una variable para cambiar los piso dependiendo 
+de lo que desee el programador, pero este código solo funciona con 5 pisos amenos que se cambien las elecciones de pisos aleatorios.
+Además, si se quieren ver los emojis puestos personalmente no me funciono correrlo en visual studio por lo que utiliza la pagina ya antes mencionada para correr mi programa. 
+Si se desea ejecutar de una manera sencilla solamente sería correr el programa, así como esta en un compilador que acepte el uso de emojis o de otro caso en la página antes mencionada.
+
+
+Estrategias utilizadas:
+Primitivas de sincronización:
+•	Semáforos
+•	Mutex
+ 
+Patrones
+•	Señalizar
+Este patrón lo podemos observar, ya que primeramente tenemos un mutex de las llamadas que se realizan al elevador, tenemos que esperar a que realicen una llamada para posteriormente indicarle a la lista de llamadas del elevador que tenemos una llamada pendiente, 
+y no es hasta este momento que posteriormente el elevador se puede mover.
+•	Mutex
+El mutex lo podemos ver en nuestro mutex_llamada ya que además de estar inicializado en 1 sabemos que varios hilos deben de pasar por este mutex ya que no solamente existe una llamada, sino dependiendo de las personas que estén esperando el elevador será el número de llamadas.
+En este código no fue necesario implementar apagadores, torniquetes , ni barreras, ya que no era tan complejo como para necesitar alguna exclusión categórica o que los hilos pasaran por un lugar determinado .
+
+
+Explicación del programa:
+El código implementa un elevador que tiene 5 pisos el cual es capaz de recoger personas en diferentes pisos y cada llamada es registrada en una lista para tener en cuenta el orden en el que fueron registrados, además de colocar una restricción del máximo de personas que puede tener el elevador el cual es 5.
+La clase Persona representa a cada una de las personas que llaman al elevador. La llamada al elevador se simula con el método llama_elevador(), el cual agrega la solicitud a la lista global de llamadas al elevador y libera el semáforo movimiento_elevador para indicar que hay una solicitud nueva que debe ser atendida. 
+El método paseo_elevador() simula el recorrido que cada persona quiere hacer.
+La clase Elevador representa el elevador en sí mismo. El hilo creado con la instancia de esta clase comienza en el método run(), el cual es el proceso completo que el elevador lleva a cabo. 
+El método revisa si hay personas dentro del elevador que deben descender en el piso actual y las elimina de la lista personas_en_elevador. Luego revisa la lista de llamadas al elevador y agrega a las personas en el elevador si el elevador aún no ha alcanzado su capacidad máxima. 
+También se actualiza el estado del elevador y se imprime información en la pantalla para mostrar el piso actual y el movimiento del elevador.
