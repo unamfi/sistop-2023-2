@@ -1,0 +1,5 @@
+Hecho por: Frías Hernández Camille Emille Román
+
+Se realizó el ejercico del cruce del río con una suerte de combinación entre barrera e interruptor 
+Fue realizado en python en visual studio code
+Se supone funciona pero luego he tenido que ejecutarlo 2 veces para que funcione bien y el error no se vuelve a replicar por los misterios de la vida, probablemente funcione a la primera de todas formas
