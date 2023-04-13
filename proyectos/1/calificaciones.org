@@ -280,6 +280,15 @@
 
 * A dive into the world of MS-DOS viruses
 
+** César Aranzua
+- Archivos :: [[./AranzuaCesar/AranzuaCesar.pdf][AranzuaCesar.pdf]]
+- Comentarios ::
+  - ¡Buen resumen!
+  - Me gusta que te llaman la atención puntos que no son "explícitos"
+    en el artículo, sugiere que hiciste una lectura bastante a
+    profundidad.
+- Calificación :: 10
+
 ** David Carranza
 - Archivos :: [[./CarranzaDavid/Proyecto 1 - Virus DOS.pdf][Proyecto 1 - Virus DOS.pdf]]
 - Comentarios ::
