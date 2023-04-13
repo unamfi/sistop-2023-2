@@ -1,0 +1,4 @@
+# Ignora archivos OBJECT de C
+*.o
+# Ignora archivos ejecutables producto de la compilación
+*.exe
