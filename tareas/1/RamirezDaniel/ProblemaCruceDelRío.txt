@@ -1,0 +1,12 @@
+Problema del Cruce del río
+
+Para el código se utilizó Xcode, en python y para ejecutar se utilizó la terminal.
+
+Se utilizaron dos semaforos semHackers y semSefrs.
+
+No se aplicó ningún refinamiento.
+
+En el problema no se utilizó un for, ya que en el momento de la ejecución sólo hacia una vez los procesos.
+
+Al problema le faltan algunas mejoras para poder cumplir como todo lo que se pide, pero funciona bien.
+
