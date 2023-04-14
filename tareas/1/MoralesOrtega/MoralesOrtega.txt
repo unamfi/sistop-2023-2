@@ -1,0 +1,53 @@
+#Tarea 1: Ejercicios de sincronización
+
+Alumno: Morales Ortega Carlos
+Fecha de entrega: 2023.04.13
+
+
+#Problema "Los alumnos y el asesor"
+
+Se utilizo el lenguaje Python, versión 3.10.6. Como entorno de desarrollo se utilizo una terminal en linux, usando una distribución de Ubuntu 22.04.2.
+
+Para ejecutar el prgrama, es necesario tener un equipo/herramienta que pueda correr programas en Python, y en caso de usar terminal solo basta ubicarse en la carpeta donde se enucentra el programa y ejecutar la instrucción:
+	$ ./alumno_asesor_MOC.py
+
+#Estrategia
+Se optó por utilizar las siguientes estrategias:
+	-Semaforos: estos se utilizan para un
+	 PROFESOR, donde nos ayuda a indicar si el profesor esta atendiendo
+	 dudas o bien esperando dudas.
+	 ALUMNO, el cual nos ayuda a indicar si existen alumnos, ya sea a fuera
+	 del salón o adentro del salón.
+	 DUDA, este sirve tanto para indicar que se ha tomado una duda, como 
+	 que existe su lugar dentro del salón, ya que no pueden haber alumnos 
+	 con 0 dudas dentro del salón.
+
+	-Mutex: para poder acceder a la región crítica que se tenía,
+	 en este caso la región crítica era la variable "numSillas".
+	 Ya que indicaba los lugares disponibles en el salón y como varios
+	 hilos de "alumnos" accedían a esta región, se utilizó un mutex para
+	 la protección.
+	
+	-Señalizar: Como fundamento. Para que un hilo informe a otro que ha
+	 terminado su tarea, para la presente implementación:
+	 *Señalizar cuando el profesor ha resuelto duda
+	 *Señalizar si las dudas (lugar salón de clase) han sido resueltas
+	 (se abandona el salón)  
+	 *Señalizar cuando un alumno ha llegado y se ha ido.
+ 
+	-Rendezevous: podría decirse que es como un Rendezevous doble, la 
+	 interacción entre maestro y alumno, ya que se esperan mutuamente,
+	 tanto el profesor espera al alumno a que "llegue", como el alumno
+	 al profesor a que acabe de resolver una duda (si la esta resolviendo).
+
+En general, esas fueron las estrategias que se siguieron y la razón de estas.
+
+#Refinamientos
+Para este problema no existían refinamientos.
+
+#Dudas
+En la presente implementación, no quedo bien la parte de resolver "n" dudas, ya que use tres condiciones, quizás porque mi estrategia que seguí no fue la más adecuada, pero en estricto sentido, para una duda,se  quita el ciclo while existan dudas... y todo funcionaría bien. De igual forma, hasta el uso de un bucle for hubiera ayudado. 
+
+Mi principal problema y razón de usar esas 3 condiciones fue que sino se caían en bloqueos mutuos, ahora que lo pienso creo que la solución podía haber sido más en las acciones que hacían el profesor...
+
+Finalmente, creo que las dudas que tenía de hilos fueron resueltas, al menos en la parte de como funcionan, ya implementarlo es otra cosa.  
