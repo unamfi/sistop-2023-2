@@ -1,0 +1,58 @@
+Universidad Nacional Autonoma de Mexico
+Materia: Sistemas Operativos			Grupo: 06		Semestre 2023-2
+Nombre: Uriarte Ortiz Enrique Yahir		Profesor: Ing. Gunnar Eyal Wolf Iszaevich
+
+Tarea 1: Ejercicios de Sincronización.
+
+El problema que decidieron resolver: Interseccion de Caminos.
+
+El lenguaje y entorno en que lo desarrollaron:
+¿Qué tengo que saber/tener/hacer para ejecutar su programa en mi computadora?
+El codigo se desarrollo en lenguaje PYTHON, si se desea entender el funcionamiento del codigo debe conocer los conceptos basicos del lenguaje python en el uso de semaforos e hilos, si desea compilar y ejecutar el codigo debe tener descargada la version 3.11.3 del lenguaje en su equipo asi como un programa para visualizar y ejecutar el codigo, para el caso del desarrollo se utilizo SPYDER, si gusta usarlo puede descargarlo de su pagina oficcial.
+
+Estrategia de sincronización(mecanismo/patrón) que funcionó:
+
+	  |  C1   |   C2  |
+	  |   |   |   ^   |			C1=Carril1
+	  |   v   |   |   |			C2=Carril2
+________|_______|_______|________		C3=Carril3
+	  |	    |		|			C4=Carril4
+   <--  |	    |		|  <-- C3	 
+________|_______|_______|________
+	  |	    |		|	
+   -->  |	    |		|  --> C4
+________|_______|_______|________
+	  |	    |		|	
+	  |   |   |   ^   |
+	  |   v   |   |   |
+	  |       |       |		
+
+Mi idea para el funcionamiento del codigo fue indicar el los carros del carril 1 pueden chocar con los del carril 3 y 4, y lo mismo para los del carril 2 con el 3 y 4; por lo tanto cree un mutex de semaforo para cada carril y un semaforo para los 4, el usuario decide la cantidad de carros que tansitan por cada carril. Se inicializa los carros de cada carril y luego se aplica la funcion CarroCruzeContrario1 con el que se determina el cruze con los carros del carril 1, CarroCruzeContrario2 realiza lo mismo pero para los carros del carril 2, con la opcion de que exista un choque entre los carros, si estos existen se suman a una variable global y los imprime despues del mensaje de choque. Para los carriles 1 y 2 se escoge de manera random con que otro carril, el 4 o 3, se pueden presentar los posibles choques.
+
+Aunque al final parece ser que mis conductores se organizan muy bien por que no se imprimen los choques.
+
+Aparentemente el codigo funciona bien, pero al momento de ejecutarlo lee los datos que le ingereso correctamente e imprime la inicializacion de los primeros 4 carros del carril 1 pero luego imprime este mensaje: 
+
+"Traceback (most recent call last):
+
+  File C:\Program Files\Spyder\pkgs\spyder_kernels\py3compat.py:356 in compat_exec
+    exec(code, globals, locals)
+
+  File c:\users\yahir\documents\fi unam\semestre_2023-2\sistemas operativos\untitled6.py:165
+    thread.join()
+
+  File threading.py:1008 in join
+
+RuntimeError: cannot join current thread"
+
+Trate de arreglarlo pero no encontre el por que exactamente y los tiempos de entrega me hicieron preferiri avanzar con el desarrollo del codigo. Aun asi continua con la ejecucion de todo lo demas de manera normal.
+
+En todo caso agrege otro codigo llamado "IntersecciondeCaminos.py", donde solo esta el caso del carril 1 con los carriles 3 y 4 donde aparentemente es ma comun ver choques, se que eso no deberia ocurrir pero me es un poco interesante que ocurran mas es accion para ese codigo. Asi mismo tambien aparece el mensaje de error.
+
+
+¿Se están implementando alguno de los refinamientos?
+Ninguno, se me complico el desarrollo basico del programa.
+
+
+
+
