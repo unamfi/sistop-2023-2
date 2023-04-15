@@ -1,0 +1,9 @@
+El cruce del rio
+
+El ejercicio fue programado en Python 3.10.1
+No deberia haber problema al ejecutarlo en otro entorno pero
+de todos modos fue escrito en Visual Studio Code
+
+Se utilizaron semaforos y mutex
+
+No se aplicaron refinamientos (no especificados)
