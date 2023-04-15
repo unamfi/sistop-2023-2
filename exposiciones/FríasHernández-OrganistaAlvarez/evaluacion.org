@@ -2,7 +2,7 @@
 #+author: Gunnar Wolf
 
 - Tema presentado por :: Camille Frías y Ricardo Organista
-- Calificación global :: 9.23 * 0.3 + 8.38 * 0.7 = *8.635*
+- Calificación global :: 9.23 * 0.3 + 8.88 * 0.7 = *8.985*
 
 * Evaluación grupal
 
@@ -54,12 +54,12 @@
 | *Aspecto*              | *Peso* | *Evaluación* | *Puntos* |
 |------------------------+--------+--------------+----------|
 | Originalidad del tema  |    0.1 |          7.5 |     0.75 |
-| Material desarrollado  |    0.2 |            5 |       1. |
+| Material desarrollado  |    0.2 |          7.5 |      1.5 |
 | Contenido              |    0.2 |           10 |       2. |
 | Fuentes bibliográficas |    0.1 |           10 |       1. |
 | Uso del tiempo         |    0.1 |           10 |       1. |
 | Dominio del tema       |   0.15 |           10 |      1.5 |
 | Presencia              |   0.15 |          7.5 |    1.125 |
 |------------------------+--------+--------------+----------|
-| *Global*               |        |              |     8.38 |
+| *Global*               |        |              |     8.88 |
 #+TBLFM: @<<$4..@>>$4=$2*$3::$4=vsum(@<<..@>>);f-2
