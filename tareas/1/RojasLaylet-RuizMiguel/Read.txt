@@ -1,0 +1,11 @@
+
+
+Problema a resolver: El Elevador
+Lenguaje utilizado: Python3 
+
+Se utilizó el modelo de productor-consumidor, en donde el buffer es el elevador (recurso compartido) y se utilizo mutex para controlar el acceso al elevador, permitiendo que entre sólo un alumno a la vez. 
+
+Se colocaron cierta cantidad de alumnos aleatoriamente en cada piso, en donde cada uno realizaba la petición 
+para acceder al elevador, el elevador parte del piso uno y tiene una capacidad máxima de cinco personas, el elevador va recorriendo
+piso por piso, en donde dejará al alumno dependiendo su destino, al bajar un alumno otro alumno podrá entrar al elevador y así sucesivamente hasta que no haya ningún alumno esperando en ningún piso. 
+
