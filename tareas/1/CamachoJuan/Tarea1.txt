@@ -1,0 +1,39 @@
+El problema seleccionado fue la interseccion de caminos.
+Se desarrollo en python y unicamente requiere ejecutarse para que el programa funcione.
+
+Para resolver el problema se enumeraron los cuadrantes de la siguiente forma:
+		      Norte
+		|   	|	|
+		|   ↓   |   ↑  	|
+		|	|	|
+	--------------------------------		
+	   ←	|   0	|   1	|  ←  
+Oeste   --------------------------------   Este	
+	   →	|   3   |   2   |  →             
+	--------------------------------
+		|	|	|
+		|   ↓	|   ↑	|
+		|	|   	|
+		       Sur
+Con esto se planteo que cada carro se podra crear con una direccion aleatoria utilizando un random y que ademas se simulara la llegada
+continua de los mismos mediante un ciclo for que empezara en 0 y teminara en 99999. Ademas el carro sera un hilo que se declara junto 
+el numero de cuadrante que utilizara para asi poder limitar el camino que seguiran cumpliendo el punto de qu se eviten los revases por 
+el carril izquierdo.
+Para evitar las situaciones de choque se establecio que cada uno de los cuadrantes sea un semaforo, por lo que tendremos los semaforos
+0,1,2 y 3 que seran bloqueados y desbloqueados cuando el carro case o ya haya pasado por dicho cuadrante, lo que no permitira a mas de
+un carro estar en el mismo cuadrante.
+Por ultimo para que no ocurra la inanicion se coloco un mutex que va a limitar la entrada a la interseccion, pudiendo pasar unicamente
+un carro y cuando este salga dejara pasar al siguiente, asi se evitara que unicamente esten pasando carros en una sola direccion y que
+pasen todos los autos conforme lleguen al mutex.
+Con esto se cumple con la solucion al circuito sin embargo no es la forma mas eficiente ya que al bloquear toda la unterseccion se
+desaprovechan los carros que pueden ir en direccion contraria que no causaran choques en el cruce..
+
+Para este ejercicio no se realizo ningun refinamiento.
+Sin embargo para implementar el refinamiento 1 se me ocurre que talvez en lugar de utilizar un mutex para limitra el acceso a la 
+interseccion se puedan crear otros semaforos que verifiquen los cuadrantes ocupados y los disponibles para que mediante instrucciones
+if se pueda permitir el ingreso de mas carros a la interseccion y ademas estos nuevos semaforos de monitoreo sirvan para poder evitar
+los choques en la interseccion y hacer que los carros puedan pasar de forma continua y no hasta que el mutex se desbloquee y les permita
+el paso.
+
+
+
