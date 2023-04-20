@@ -1,0 +1,21 @@
+Problema del asesor y alumnos
+Magno García Omar
+Sistemas Operativos
+
+El problema presentado nos muestra un asesor que resuelve dudas de cierta cantidad de alumnos, va uno por uno resolviendo dudas,
+y cuando no está resolviendo, está durmiendo.
+
+El lenguaje Utilizado es Python 3, y no se usó ningún tipo de extensión, por lo que debería de funcionar en cualquier dispositivo.
+La estrátegia utilizada para resolver el conflicto es el torniquete, ya que espera una cantidad de hilos para funcionar, y va atendiendo
+los problemas uno a uno.
+
+De momento no se aplicó ningún refinamiento.
+
+Un dato pequeño: No me dió ningún problema de ejecución al principio, pero de un momento a otro, dejó de mostrar resultados, antes de eso
+funcionaba. igual el uso del torniquete no me quedó claro, por lo que si quisiera saber si esta implementación es correcta o me fuí por
+otros rumbos.
+
+ACTUALIZACIÓN:
+
+Siento haber mandado la tarea hasta este dia, agregé la tarea al git, pero olvidé hacer el push, acepto toda la responsabilidad que 
+implica entregar la tarea en destiempo, sin embargo, si quisiera conocer los consejos que tiene para mejorar mis códigos de programación.
