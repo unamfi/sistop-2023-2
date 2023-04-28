@@ -2,7 +2,7 @@
 
     Planteamiento: 2023.04.27
 	Entrega: 2023.05.09
-	
+
 Vimos el tema de _planificación de procesos_: Cómo el sistema
 operativo selecciona de entre los procesos que están en la cola de
 _Listos_, y pone a uno de ellos a ejecutar en el procesador.
@@ -58,7 +58,7 @@ planificación por estos dos mecanismos. Su implementación debe:
 - Al planificar estos proceso, se toman varias decisiones. ¿Les están
   asignando determinada prioridad? ¿Están subiendo o bajando de cola?
   etc.
-  
+
   Sean explícitos respecto a estos puntos, esto es, impriman o
   representen el avance sobre ellos.
 - ¿Hay puntos que sienten que mi planteamiento deja pendientes?
@@ -71,7 +71,7 @@ planificación por estos dos mecanismos. Su implementación debe:
 Una ejecución ejemplo del planificador (más corta, sin llegar a los
 80-120 ticks ni 5-8 procesos) podría ser:
 
-    $ planificador_FB.py
+    $ ./planificador_FB.py
 	Carga de trabajo a simular en Retroalimentación Multinivel:
 	Proceso   Duración   Llegada
 	A         4          0
@@ -83,26 +83,26 @@ Una ejecución ejemplo del planificador (más corta, sin llegar a los
 	Q = n+1
 	* Inicia ejecución
 	t=0
-	 ⇒A
-	 A:prio:0
-	 ⌚: A: 1 tick
+	  ⇒A
+	  A:prio:0
+	  ⌚: A: 1 tick
 	t=1
-	 A: prio:1
-	 ⌚: A: 2 tick
+	  A: prio:1
+	  ⌚: A: 2 tick
 	t=3
-	 ⇒B
-	 A: prio:2; B: prio:0
-	 ⌚: B: 1 tick
+	  ⇒B
+	  A: prio:2; B: prio:0
+	  ⌚: B: 1 tick
 	t=4
-	 A: prio:2; B: prio:1
-	 ⌚ B: 2 tick
+	  A: prio:2; B: prio:1
+	  ⌚ B: 2 tick
 	t=6
-	 A: prio:2; B: prio:2
-	 ⌚ A: 3 tick
+	  A: prio:2; B: prio:2
+	  ⌚ A: 3 tick
 	t=7
-	 A 👍; ⇒C
-	 B: prio:2; C: prio:0
-	 ⌚ C: 1 tick
+	  A 👍; ⇒C
+	  B: prio:2; C: prio:0
+	  ⌚ C: 1 tick
 	t=8
 	(...)
 	Planificación realizada:
@@ -115,21 +115,19 @@ Una ejecución ejemplo del planificador (más corta, sin llegar a los
 	D       11     (...)
 	Prom           (...)
 
-
-   - ¿Cómo se compararía este método con los otros abordados?
-   - ¿Para qué tipo de carga es más apto y menos apto?
-   - ¿Qué tan susceptible resulta a producir inanición?
-   - ¿Qué tan /justa/ sería su ejecución?
-   - ¿Qué modificaciones requeriría para planificar procesos con
-     necesidades de tiempo real?
 # Un poquito de razonamiento 😉
 
-   - ¿Cómo se compararía este método con los otros abordados?
-   - ¿Para qué tipo de carga es más apto y menos apto?
-   - ¿Qué tan susceptible resulta a producir inanición?
-   - ¿Qué tan /justa/ sería su ejecución?
-   - ¿Qué modificaciones requeriría para planificar procesos con
-     necesidades de tiempo real?
+Estudiar e implementar diferentes esquemas de planificación debe
+llevarnos a desarrollar un poco de sentido crítico sobre de ellos. A
+tal fin, les pido que desarrollen para ambos algoritmos:
+
+- ¿Cómo se compararía este método con los otros abordados?
+- ¿Para qué tipo de carga es más apto y menos apto?
+- ¿Qué tan susceptible resulta a producir inanición?
+- ¿Qué tan _justa_ sería su ejecución?
+- ¿Qué modificaciones requeriría para planificar procesos con
+  necesidades de tiempo real? (aunque sea _tiempo real suave_)
+- ¿Alguna otra reflexión o inquietud que les provoque?
 
 # La entrega
 
