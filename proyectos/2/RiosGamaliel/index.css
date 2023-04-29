@@ -10,10 +10,11 @@
 * {
   margin: 0;
   font-family: arial;
+  color: white;
 }
 
 body {
-  background-color: white;
+  background-color: darkslategray;
 }
 
 h1 {
@@ -22,17 +23,59 @@ h1 {
 
 #process-panel {
   display: flex;
-  justify-content: space-between;
-  width: 100vw;
+  justify-content: center;
 }
 
 #process-panel>span {
-  /* background-color: var(--color-2); */
-  /* padding: 1em; */
-  width: 50px;
-  height: 50px;
+  padding: 10px 0 10px;
+  flex-grow: 1;
   display: block;
   text-align: center;
   color: white;
   outline: 2px solid white;
+}
+
+#content {
+  margin: 5em 10% 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.row>* {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+label {
+  font-weight: bolder;
+}
+
+.label_a {
+  color: var(--color-1);
+}
+
+.label_b {
+  color: var(--color-2);
+}
+
+.label_c {
+  color: var(--color-3);
+}
+
+.label_d {
+  color: var(--color-4);
+}
+
+.label_e {
+  color: var(--color-5);
+}
+
+input {
+  padding: 5px;
 }
