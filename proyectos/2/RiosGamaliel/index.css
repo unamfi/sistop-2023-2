@@ -1,0 +1,38 @@
+:root {
+  --color-1: #2370ee;
+  --color-2: #3b23ee;
+  --color-3: #a123ee;
+  --color-4: #ee23d6;
+  --color-5: #ee2370;
+  --color-6: #ee3c23;
+}
+
+* {
+  margin: 0;
+  font-family: arial;
+}
+
+body {
+  background-color: white;
+}
+
+h1 {
+  color: var(--color-1);
+}
+
+#process-panel {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+#process-panel>span {
+  /* background-color: var(--color-2); */
+  /* padding: 1em; */
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-align: center;
+  color: white;
+  outline: 2px solid white;
+}
