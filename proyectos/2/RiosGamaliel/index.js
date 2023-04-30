@@ -59,14 +59,16 @@ class MultilevelProcess extends Process {
 
   get priority() { return this.#priority };
 
-  constructor({ name, duration, start }, priority) {
+  constructor({ name, duration, start }) {
     super({ name, duration, start });
-    this.#priority = priority;
+    this.#priority = -1;
   }
 
-  execute(n) {
-    super.execute(n);
-    this.#priority++;
+  updatePriority() {
+    if (this.end === null)
+      this.#priority++;
+    else
+      this.#priority = null;
   }
 }
 
@@ -100,42 +102,60 @@ function lotteryAlgorithm(processes) {
 }
 
 function multilevelAlgorithm(processes) {
-  const queues = processes.reduce((a, b) => {
-    a[b.priority] = a[b.priority] ? [...a[b.priority], b] : [b]
-    return a;
-  }, {});
+  // Se generan todas las colas
+  const queues = {};
   const executionOrder = [];
   let n = 0;
-  let avaibleProcesses = queues;
 
   while (processes.some(p => p.end === null)) {
-    avaibleProcesses = Object.keys(queues).reduce((a, b) => {
-      const items = queues[b]
-        .filter(p => p.start <= n)
-        .filter(p => p.end === null);
-      if (items.length > 0) a[b] = items;
-      return a;
-    }, {});
+    if (!queues[0]) queues[0] = []
 
-    const minKey = Object.keys(avaibleProcesses).sort()[0];
+    processes
+      .filter(p => p.priority === -1)
+      .filter(p => p.start <= n)
+      .forEach(p => {
+        p.updatePriority();
+        queues[0].push(p);
+      });
+
+    const minKey = Object.keys(queues)
+      .filter(k => {
+        return queues[k].length > 0;
+      })
+      .sort()[0];
 
     if (minKey !== undefined) {
-      const p = avaibleProcesses[minKey][0];
+      const p = queues[minKey][0];
+
       const prevPriority = p.priority;
-      p.execute(n);
+      p.updatePriority();
       const newPriority = p.priority;
-      executionOrder.push(p.name);
+
+      let i = 2**minKey;
+      do {
+        p.execute(n);
+        executionOrder.push({
+          name: p.name, newPriority, prevPriority
+        });
+        i--;
+        n++;
+      } while(p.end === null && i > 0);
+
+      console.log(prevPriority, newPriority);
 
       queues[prevPriority] = queues[prevPriority].splice(1);
 
-      if (!queues[newPriority])
-        queues[newPriority] = []
+      if (p.end === null) {
+        if (!queues[newPriority])
+          queues[newPriority] = [];
 
-      queues[newPriority].push(p);
+        queues[newPriority].push(p);
+      }
     } else {
       executionOrder.push(null);
+      n++;
     }
-    n++;
+    // n++;
   }
 
   return { processes, executionOrder };
@@ -154,13 +174,26 @@ function generateView(processes, executionOrder) {
   });
 }
 
+function generateView2(processes, executionOrder) {
+  const panel = document.getElementById("process-panel");
+  const baseNode = document.createElement("span");
+
+  executionOrder.forEach((p, i) => {
+    const node = baseNode.cloneNode()
+    node.innerHTML = `<div><div class="cell">${p?.name || ''}</div><div>${p?.prevPriority.toString() || ''}${p !== null ? '->' : ''}${p?.newPriority.toString() || ''}</div><div>${i}</div></div>`;
+    if (p) node.style.backgroundColor = colors[p.name];
+    else node.style.backgroundColor = "white";
+    panel.appendChild(node);
+  });
+}
+
 const init = async () => {
   const processes = [];
   const processesData = [
-    { name: "a", duration: 2, start: 0, priority: 2 },
-    { name: "b", duration: 8, start: 3, priority: 4 },
-    { name: "c", duration: 3, start: 7, priority: 5 },
-    { name: "d", duration: 5, start: 11, priority: 6 },
+    { name: "a", duration: 4, start: 0, priority: 2 },
+    { name: "b", duration: 5, start: 3, priority: 4 },
+    { name: "c", duration: 8, start: 7, priority: 5 },
+    { name: "d", duration: 9, start: 11, priority: 6 },
   ];
 
   const numTickets = processesData.map(pd => pd.priority).reduce((a, b) => a + b, 1);
@@ -180,20 +213,21 @@ const init = async () => {
 const init2 = async () => {
   const processes = [];
   const processesData = [
-    { name: "a", duration: 4, start: 0, priority: 2 },
-    { name: "b", duration: 8, start: 3, priority: 4 },
-    { name: "c", duration: 3, start: 7, priority: 5 },
-    { name: "d", duration: 5, start: 11, priority: 6 },
+    { name: "a", duration: 3, start: 0 },
+    { name: "b", duration: 5, start: 1 },
+    { name: "c", duration: 2, start: 3 },
+    { name: "d", duration: 5, start: 9 },
+    { name: "e", duration: 5, start: 12 },
   ];
 
   for (var process of processesData) {
-    const { name, duration, start, priority } = process;
-    const newProcess = new MultilevelProcess({ name, duration, start }, 0);
+    const { name, duration, start } = process;
+    const newProcess = new MultilevelProcess({ name, duration, start });
     processes.push(newProcess);
   }
 
-  const result = multilevel(processes);
-  generateView(result.processes, result.executionOrder);
+  const result = multilevelAlgorithm(processes);
+  generateView2(result.processes, result.executionOrder);
 };
 
 addEventListener("DOMContentLoaded", (e) => {

@@ -23,16 +23,18 @@ h1 {
 
 #process-panel {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 #process-panel>span {
   padding: 10px 0 10px;
-  flex-grow: 1;
   display: block;
   text-align: center;
   color: white;
-  outline: 2px solid white;
+  width: 5%;
+  margin-bottom: 1em;
 }
 
 #content {
