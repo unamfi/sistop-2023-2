@@ -75,34 +75,55 @@ class LotteryProcess extends Process {
   }
 }
 
-class MultilevelAlgorithm {
+class AbstractProcessPlanningAlgorithm {
   #processes
-  #queues
   #currenTick
   #generator
 
-  get queues() {return this.#queues}
+  get processes() {return this.#processes}
+  get currentTick() {return this.#currenTick}
+  get generator() {return this.#generator}
 
   constructor(processes) {
     this.#processes = processes;
   }
 
   init() {
-    this.#queues = {};
     this.#currenTick = 0;
+    this.#generator = this.exec();
+  }
+
+  setNextTick() {
+    this.#currenTick++;
   }
 
   run() {
-    if (this.#generator === undefined)
-      this.#generator = this.#exec();
-    
-    return this.#generator.next()
+    return this.generator.next()
+  }
+
+  *exec() {
+    throw new Error("Unimplemented method.")
+  }
+}
+
+class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
+  #queues
+
+  get queues() {return this.#queues}
+
+  constructor(processes) {
+    super(processes);
+  }
+
+  init() {
+    super.init();
+    this.#queues = {};
   }
 
   getArrivalProcesses() {
-    const newProcesses = this.#processes
+    const newProcesses = this.processes
       .filter(p => p.priority === -1)
-      .filter(p => p.start === this.#currenTick)
+      .filter(p => p.start === this.currentTick)
 
     newProcesses
       .forEach(p => {
@@ -113,16 +134,18 @@ class MultilevelAlgorithm {
     return newProcesses;
   }
 
-  *#exec() {
-    while (this.#processes.some(p => p.end === null)) {
+  *exec() {
+    while (this.processes.some(p => p.end === null)) {
       if (!this.#queues[0])
         this.#queues[0] = []
 
-      let arrivaProcesses = this.getArrivalProcesses();
-      if (arrivaProcesses.length > 0)
+      let arrivalProcesses = this.getArrivalProcesses();
+
+      console.log(this.currenTick);
+      if (arrivalProcesses.length > 0)
         yield {
           type: "arrival",
-          payload: arrivaProcesses
+          payload: arrivalProcesses
         };
 
       const q = Object.keys(this.#queues)
@@ -139,16 +162,16 @@ class MultilevelAlgorithm {
         let i = 2 ** q;
         do {
           if (i < 2 ** q) {
-            arrivaProcesses = this.getArrivalProcesses();
-            if (arrivaProcesses.length > 0)
+            arrivalProcesses = this.getArrivalProcesses();
+            if (arrivalProcesses.length > 0)
               yield {
                 type: "arrival-but",
-                payload: arrivaProcesses
+                payload: arrivalProcesses
               };
           }
 
-          p.execute(this.#currenTick);
-          this.#currenTick++;
+          p.execute(this.currenTick);
+          this.setNextTick();
           yield {
             type: "execution",
             payload: p
@@ -181,7 +204,7 @@ class MultilevelAlgorithm {
         }
 
       } else {
-        this.#currenTick++;
+        this.setNextTick();
         yield {
           type: "idle",
           payload: null
@@ -192,34 +215,24 @@ class MultilevelAlgorithm {
   }
 }
 
-class LotteryAlgorithm {
-  #processes
-  #currentTick
+class LotteryAlgorithm extends AbstractProcessPlanningAlgorithm {
   #avaibleProcesses
-  #generator
 
   get avaibleProcesses() {return this.#avaibleProcesses}
 
   constructor(processes) {
-    this.#processes = processes;
-  }
-
-  run() {
-    if (this.#generator === undefined)
-      this.#generator = this.#exec();
-    
-    return this.#generator.next()
+    super(processes);
   }
 
   init() {
-    this.#currentTick = 0;
+    super.init();
     this.#avaibleProcesses = [];
   }
 
-  *#exec() {
-    while (this.#processes.some(p => p.end == null)) {
+  *exec() {
+    while (this.processes.some(p => p.end == null)) {
 
-      const newProcesses = this.#processes.filter(p => p.start === this.#currentTick);
+      const newProcesses = this.processes.filter(p => p.start === this.currentTick);
       if (newProcesses.length > 0) {
         newProcesses.forEach(p => this.#avaibleProcesses.push(p));
         yield {
@@ -239,7 +252,7 @@ class LotteryAlgorithm {
       const p = this.#avaibleProcesses.filter(p => p.containsTicket(selectedTicket))[0];
 
       if (p) {
-        p.execute(this.#currentTick);
+        p.execute(this.currentTick);
         yield {
           type: "execution",
           payload: p,
@@ -259,7 +272,7 @@ class LotteryAlgorithm {
           payload: null
         };
       }
-      this.#currentTick++;
+      this.setNextTick();
     }
     return null;
   }
