@@ -90,7 +90,7 @@ class AbstractProcessPlanningAlgorithm {
 
   init() {
     this.#currenTick = 0;
-    this.#generator = this.exec();
+    this.#generator = this._exec();
   }
 
   setNextTick() {
@@ -101,7 +101,7 @@ class AbstractProcessPlanningAlgorithm {
     return this.generator.next()
   }
 
-  *exec() {
+  *_exec() {
     throw new Error("Unimplemented method.")
   }
 }
@@ -134,7 +134,7 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
     return newProcesses;
   }
 
-  *exec() {
+  *_exec() {
     while (this.processes.some(p => p.end === null)) {
       if (!this.#queues[0])
         this.#queues[0] = []
@@ -229,7 +229,7 @@ class LotteryAlgorithm extends AbstractProcessPlanningAlgorithm {
     this.#avaibleProcesses = [];
   }
 
-  *exec() {
+  *_exec() {
     while (this.processes.some(p => p.end == null)) {
 
       const newProcesses = this.processes.filter(p => p.start === this.currentTick);
