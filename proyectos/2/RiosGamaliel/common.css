@@ -13,6 +13,18 @@
   color: white;
 }
 
+button {
+  background-color: limegreen;
+  outline: none;
+  border: none;
+  padding: 1em;
+}
+
+button:hover {
+  background-color: lime;
+  cursor: pointer;
+}
+
 body {
   background-color: darkslategray;
 }
@@ -26,6 +38,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
+  counter-set: ticks -1;
 }
 
 #process-panel>span {
@@ -35,6 +48,21 @@ h1 {
   color: white;
   width: 5%;
   margin-bottom: 1em;
+  position: relative;
+}
+
+#process-panel>span::before {
+  counter-increment: ticks;
+  content: counter(ticks);
+  position: absolute;
+  font-size: 10px;
+  left: 10%;
+  top: 10%;
+}
+
+#control-panel {
+  display: flex;
+  justify-content: flex-end;
 }
 
 #content {
