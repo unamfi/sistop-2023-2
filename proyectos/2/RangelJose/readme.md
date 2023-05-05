@@ -1,3 +1,9 @@
+# COMENTARIOS GENERALES
+En la entrega se anexan varios archivos .txt, cada procedimiento tiene en total 4 archivos correspondientes a diferentes ejecuciones. El archivo txt con terminación Doc, es el que se utiliza como ejemplo para la documentación del presente proyecto. Los otros tres archivos son ejecuciones individuales como ejemplificación. Los dos archivos fuente se ejecutan de forma individual para ver el funcionamiento del método correspondiente.
+        
+        py loteria.py
+        py multinivel.py
+
 # Planificación por Lotería
 Para iniciar con este método de planificación por lotería, primero enemos que seleccionar los procesos el número de procesos que se van a ejecutar; para ello obtiene un número aleatorio entre 5 y 8.
 
@@ -145,8 +151,6 @@ Adicionalmente, se muestra una tabla como la primera para hacer una relación de
             H         3            8                  18              0.359             0.36
                 Totales:          162
 
-## COMENTARIOS
-En la entrega se anexan cuatro archivos .txt, el llamado loteriaDoc.txt la salida de la simulación y de ella se extajeron los datos mostrados en la presente documentación. Los llamados literia1, loteria2 y loteria3.txt son otros ejemplos donde se modificó solamente la presentación final, pero el planteamiento de resolución es el mismo.
 # Planificación por Retroalimentación Multinivel
 Para ejecutar una planeación por retroalimentación, fue necesario se planteó la misma forma de solución, crear una clase llamada Proceso en donde se almacenarán todas los datos relevantes de la misma, como nombre, tiempo, etc. Adicionalmene se agrega la variable llegada, la cual corresponderá el segundo donde inicia dicho proceso, fin será la variable que indicará el segundo donde termina su ejecución, mientras que espera serán los segundos después de que está activo y antes de que termine su proceso y que no fue ejecutado.
 
