@@ -5,6 +5,10 @@ const init = async () => {
     { name: "b", duration: 5, start: 3, priority: 4 },
     { name: "c", duration: 8, start: 7, priority: 5 },
     { name: "d", duration: 9, start: 11, priority: 6 },
+    { name: "e", duration: 5, start: 12, priority: 7 },
+    { name: "f", duration: 13, start: 17, priority: 2 },
+    { name: "g", duration: 2, start: 18, priority: 7 },
+    { name: "h", duration: 5, start: 25, priority: 5 },
   ];
 
   const numTickets = processesData.map(pd => pd.priority).reduce((a, b) => a + b, 0);
@@ -22,6 +26,37 @@ const init = async () => {
 
   let timeoutId = null;
 
+  function showStatistics() {
+    const {processes} = algorithm;
+    processes.forEach(p => {
+      const cells = document.querySelectorAll(`#metrics-${p.name} td`);
+      const {T, E, P} = p.metrics;
+      cells[0].textContent = p.duration;
+      cells[1].textContent = p.start;
+      cells[2].textContent = p.end;
+      cells[3].textContent = T;
+      cells[4].textContent = E;
+      cells[5].textContent = Number.parseFloat(P).toFixed(2);
+    });
+    
+    // Se suman las métricas
+    const sum = processes
+      .reduce((prev, p) => {
+        const { T, E, P } = p.metrics;
+        return {
+          T: T + prev.T,
+          E: E + prev.E,
+          P: P + prev.P,
+        }
+      }, { T: 0, E: 0, P: 0 });
+      
+    const cells = document.querySelectorAll(`#metrics-avg td`);
+    cells[3].textContent = Number.parseFloat(sum.T / processes.length).toFixed(2);
+    cells[4].textContent = Number.parseFloat(sum.E / processes.length).toFixed(2);
+    cells[5].textContent = Number.parseFloat(sum.P / processes.length).toFixed(2);
+  }
+
+
   function animate(algorithm) {
     const currentStatus = algorithm.run();
     showTickets(algorithm);
@@ -31,7 +66,9 @@ const init = async () => {
     if (!currentStatus.done && (currentStatus.value.type === "execution" || currentStatus.value.type === "idle")) {
       addProcessCell(currentStatus.value.payload);
     } else if (currentStatus.done) {
-      clearInterval(timeoutId);
+      if (timeoutId !== null)
+        clearInterval(timeoutId);
+      showStatistics();
       document.getElementById("run-button").textContent = ">>"
     }
   }

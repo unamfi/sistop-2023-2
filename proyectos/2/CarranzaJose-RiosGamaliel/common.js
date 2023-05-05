@@ -47,6 +47,23 @@ class Process {
   get start() { return this.#start }
   get end() { return this.#end }
   get missing() { return this.#missingTime }
+  get metrics() {
+    if (this.#end === null)
+      throw new Error("This process hasn't ended yet.")
+    
+    // Tiempo de respuesta
+    const T = this.#end - this.#start + 1;
+
+    // Tiempo de espera
+    const E = T - this.#duration;
+
+    // Proporción de penalización
+    const P = T / this.#duration;
+
+    return {
+      T, E, P
+    };
+  }
 
   constructor({ name, duration, start }) {
     this.#name = name;
@@ -108,11 +125,11 @@ class LotteryProcess extends Process {
 
 class AbstractProcessPlanningAlgorithm {
   #processes
-  #currenTick
+  #currentTick
   #generator
 
   get processes() {return this.#processes}
-  get currentTick() {return this.#currenTick}
+  get currentTick() {return this.#currentTick}
   get generator() {return this.#generator}
 
   constructor(processes) {
@@ -120,12 +137,12 @@ class AbstractProcessPlanningAlgorithm {
   }
 
   init() {
-    this.#currenTick = 0;
+    this.#currentTick = 0;
     this.#generator = this._exec();
   }
 
   setNextTick() {
-    this.#currenTick++;
+    this.#currentTick++;
   }
 
   run() {
@@ -172,7 +189,6 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
 
       let arrivalProcesses = this.getArrivalProcesses();
 
-      console.log(this.currenTick);
       if (arrivalProcesses.length > 0)
         yield {
           type: "arrival",
@@ -201,7 +217,7 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
               };
           }
 
-          p.execute(this.currenTick);
+          p.execute(this.currentTick);
           this.setNextTick();
           yield {
             type: "execution",
@@ -339,7 +355,7 @@ function showMessage(response) {
     case "priority":
       message = `Cambia la prioridad de [${response.payload.name}]`
       break;
-    case "":
+    case "idle":
       message = `Nada que hacer`;
       break;
     case "arrival":

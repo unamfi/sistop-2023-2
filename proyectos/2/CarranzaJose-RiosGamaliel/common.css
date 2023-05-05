@@ -33,6 +33,30 @@ h1 {
   color: var(--color-1);
 }
 
+section {
+  margin-bottom: 1em;
+}
+
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: right;
+  padding: 0.5em;
+}
+
+#metrics-panel table {
+  width: 100%;
+}
+
+#metrics-panel th,
+#metrics-panel td {
+  width: calc(100% / 7);
+}
+
+#metrics-panel th {
+  background: var(--color-1);
+}
+
 #process-panel {
   display: flex;
   flex-wrap: wrap;

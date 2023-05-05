@@ -6,8 +6,8 @@ function init() {
     { name: "c", duration: 2, start: 3 },
     { name: "d", duration: 5, start: 9 },
     { name: "e", duration: 5, start: 12 },
-    { name: "f", duration: 15, start: 17 },
-    { name: "g", duration: 25, start: 18 },
+    { name: "f", duration: 13, start: 17 },
+    { name: "g", duration: 2, start: 18 },
     { name: "h", duration: 5, start: 25 },
   ];
 
@@ -22,6 +22,36 @@ function init() {
 
   let timeoutId = null;
 
+  function showStatistics() {
+    const {processes} = algorithm;
+    processes.forEach(p => {
+      const cells = document.querySelectorAll(`#metrics-${p.name} td`);
+      const {T, E, P} = p.metrics;
+      cells[0].textContent = p.duration;
+      cells[1].textContent = p.start;
+      cells[2].textContent = p.end;
+      cells[3].textContent = T;
+      cells[4].textContent = E;
+      cells[5].textContent = Number.parseFloat(P).toFixed(2);
+    });
+    
+    // Se suman las métricas
+    const sum = processes
+      .reduce((prev, p) => {
+        const { T, E, P } = p.metrics;
+        return {
+          T: T + prev.T,
+          E: E + prev.E,
+          P: P + prev.P,
+        }
+      }, { T: 0, E: 0, P: 0 });
+      
+    const cells = document.querySelectorAll(`#metrics-avg td`);
+    cells[3].textContent = Number.parseFloat(sum.T / processes.length).toFixed(2);
+    cells[4].textContent = Number.parseFloat(sum.E / processes.length).toFixed(2);
+    cells[5].textContent = Number.parseFloat(sum.P / processes.length).toFixed(2);
+  }
+
   function animate(algorithm) {
     const currentStatus = algorithm.run();
     showQueues(algorithm);
@@ -30,7 +60,9 @@ function init() {
     if (!currentStatus.done && (currentStatus.value.type === "execution" || currentStatus.value.type === "idle")) {
       addProcessCell(currentStatus.value.payload);
     } else if (currentStatus.done) {
-      clearInterval(timeoutId);
+      if (timeoutId !== null)
+        clearInterval(timeoutId);
+      showStatistics();
       document.getElementById("run-button").textContent = ">>"
     }
   }
@@ -41,7 +73,7 @@ function init() {
   document.getElementById("run-button")
     .addEventListener("click", () => {
       if (timeoutId === null) {
-        timeoutId = setInterval(() => animate(algorithm), 100);
+        timeoutId = setInterval(() => animate(algorithm), 10);
         document.getElementById("run-button").textContent = "||"
       } else {
         clearInterval(timeoutId);
