@@ -12,6 +12,10 @@ const colors = {
   h: "#f4d03f",
 }
 
+const processesName = [
+  "a", "b", "c", "d", "e", "f", "g", "h"
+]
+
 /**
  * Clase que representa un proceso que se ejecutará a través
  * de un planificador de procesos.

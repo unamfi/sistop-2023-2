@@ -5,6 +5,8 @@
   --color-4: #ee23d6;
   --color-5: #ee2370;
   --color-6: #ee3c23;
+  --color-7: #1abc9c;
+  --color-8: #f4d03f;
 }
 
 * {
@@ -26,7 +28,8 @@ button:hover {
 }
 
 body {
-  background-color: darkslategray;
+  background-color: rgb(45, 42, 42);
+  margin: 5em;
 }
 
 h1 {
@@ -89,6 +92,10 @@ table, th, td {
   justify-content: flex-end;
 }
 
+#queues-panel, #tickets-panel {
+  min-height: 100px;
+}
+
 #content {
   margin: 5em 10% 0;
 }
@@ -103,7 +110,8 @@ table, th, td {
 .row>* {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  justify-content: start;
+  flex-grow: 0.2;
 }
 
 label {
@@ -130,7 +138,33 @@ label {
   color: var(--color-5);
 }
 
+.label_f {
+  color: var(--color-6);
+}
+
+.label_g {
+  color: var(--color-7);
+}
+
+.label_h {
+  color: var(--color-8);
+}
+
 input {
-  padding: 5px;
-  color: var(--color-1);
+  padding-left: 10px;
+  background-color: transparent;
+  outline: 1px solid var(--color-1);
+  border: 1px solid var(--color-1);
+  border-radius: 10px;
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  --webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }

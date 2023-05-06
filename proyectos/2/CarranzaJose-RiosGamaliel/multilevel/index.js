@@ -1,15 +1,16 @@
 function init() {
+  // Lista de objetos LotteryProcess
   const processes = [];
-  const processesData = [
-    { name: "a", duration: 4, start: 0 },
-    { name: "b", duration: 5, start: 1 },
-    { name: "c", duration: 2, start: 3 },
-    { name: "d", duration: 5, start: 9 },
-    { name: "e", duration: 5, start: 12 },
-    { name: "f", duration: 13, start: 12 },
-    { name: "g", duration: 2, start: 18 },
-    { name: "h", duration: 5, start: 25 },
-  ];
+  
+  // Lista de datos recolectados de los inputs
+  const processesData = [];
+
+  processesName.forEach(name => {
+      const start = parseInt(document.querySelector(`#${name}_start`).value);
+      const duration = parseInt(document.querySelector(`#${name}_duration`).value);
+
+      processesData.push({name, duration, start})
+  });
 
   for (var process of processesData) {
     const { name, duration, start } = process;
@@ -69,22 +70,9 @@ function init() {
 
   document.getElementById("next-button")
   .addEventListener("click", () => {
-    for (let i = 0; i < processes.length; i++) {
-      const name = processes[i].name;
-      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
-      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
-
-      processes[i] = new MultilevelProcess({ name, duration, start });
-    }
-
     animate(algorithm);
   });
 
-
-  
-  
-  
-  
   document.getElementById("reload-button")
     .addEventListener('click', () => {
       location.reload();
@@ -92,14 +80,6 @@ function init() {
 
   document.getElementById("run-button")
   .addEventListener("click", () => {
-    for (let i = 0; i < processes.length; i++) {
-      const name = processes[i].name;
-      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
-      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
-
-      processes[i] = new MultilevelProcess({ name, duration, start });
-    }
-
     if (timeoutId === null) {
       timeoutId = setInterval(() => animate(algorithm), 10);
       document.getElementById("run-button").textContent = "||"

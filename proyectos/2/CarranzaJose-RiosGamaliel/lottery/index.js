@@ -1,15 +1,18 @@
 const init = async () => {
+  
+  // Lista de objetos LotteryProcess
   const processes = [];
-  const processesData = [
-    { name: "a", duration: 4, start: 0, priority: 2 },
-    { name: "b", duration: 5, start: 3, priority: 4 },
-    { name: "c", duration: 8, start: 7, priority: 5 },
-    { name: "d", duration: 9, start: 11, priority: 6 },
-    { name: "e", duration: 5, start: 12, priority: 7 },
-    { name: "f", duration: 13, start: 17, priority: 2 },
-    { name: "g", duration: 2, start: 18, priority: 7 },
-    { name: "h", duration: 5, start: 25, priority: 5 },
-  ];
+  
+  // Lista de datos recolectados de los inputs
+  const processesData = [];
+
+  processesName.forEach(name => {
+      const start = parseInt(document.querySelector(`#${name}_start`).value);
+      const duration = parseInt(document.querySelector(`#${name}_duration`).value);
+      const priority  = parseInt(document.querySelector(`#${name}_tickets`).value);
+
+      processesData.push({name, duration, start, priority})
+  });
 
   const numTickets = processesData.map(pd => pd.priority).reduce((a, b) => a + b, 0);
   const tickets = Array(numTickets).fill(0).map((_, i) => i);
@@ -75,14 +78,6 @@ const init = async () => {
 
   document.getElementById("next-button")
   .addEventListener("click", () => {
-    for (let i = 0; i < processes.length; i++) {
-      const name = processes[i].name;
-      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
-      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
-
-      processes[i] = new LotteryProcess({ name, duration, start }, tickets.splice(0, processes.priority[i]));
-    }
-
     animate(algorithm);
   });
 
@@ -93,14 +88,6 @@ const init = async () => {
   
   document.getElementById("run-button")
   .addEventListener("click", () => {
-    for (let i = 0; i < processes.length; i++) {
-      const name = processes[i].name;
-      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
-      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
-
-      processes[i] = new LotteryProcess({ name, duration, start }, tickets.splice(0, processes.priority[i]));
-    }
-
     if (timeoutId === null) {
       timeoutId = setInterval(() => animate(algorithm), 10);
       document.getElementById("run-button").textContent = "||"
