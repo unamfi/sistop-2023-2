@@ -7,11 +7,11 @@ const init = async () => {
   const processesData = [];
 
   processesName.forEach(name => {
-      const start = parseInt(document.querySelector(`#${name}_start`).value);
-      const duration = parseInt(document.querySelector(`#${name}_duration`).value);
-      const priority  = parseInt(document.querySelector(`#${name}_tickets`).value);
+    const start = parseInt(document.querySelector(`#${name}_start`).value);
+    const duration = parseInt(document.querySelector(`#${name}_duration`).value);
+    const priority  = parseInt(document.querySelector(`#${name}_tickets`).value);
 
-      processesData.push({name, duration, start, priority})
+    processesData.push({name, duration, start, priority})
   });
 
   const numTickets = processesData.map(pd => pd.priority).reduce((a, b) => a + b, 0);
@@ -98,5 +98,9 @@ const init = async () => {
     }
   });
 
+  document.getElementById("processes-params")
+    .addEventListener("change", (e) => {
+      location.reload();
+    })
 };
 addEventListener("DOMContentLoaded", init)

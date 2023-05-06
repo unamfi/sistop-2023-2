@@ -6,10 +6,10 @@ function init() {
   const processesData = [];
 
   processesName.forEach(name => {
-      const start = parseInt(document.querySelector(`#${name}_start`).value);
-      const duration = parseInt(document.querySelector(`#${name}_duration`).value);
+    const start = parseInt(document.querySelector(`#${name}_start`).value);
+    const duration = parseInt(document.querySelector(`#${name}_duration`).value);
 
-      processesData.push({name, duration, start})
+    processesData.push({name, duration, start})
   });
 
   for (var process of processesData) {
@@ -89,7 +89,11 @@ function init() {
       document.getElementById("run-button").textContent = "►"
     }
   });
-   
+  
+  document.getElementById("processes-params")
+    .addEventListener("change", (e) => {
+      location.reload();
+    })
 };
 
 addEventListener("DOMContentLoaded", init)
