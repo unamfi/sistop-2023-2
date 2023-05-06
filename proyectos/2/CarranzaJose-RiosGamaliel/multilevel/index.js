@@ -1,12 +1,12 @@
 function init() {
   const processes = [];
   const processesData = [
-    { name: "a", duration: 3, start: 0 },
+    { name: "a", duration: 4, start: 0 },
     { name: "b", duration: 5, start: 1 },
     { name: "c", duration: 2, start: 3 },
     { name: "d", duration: 5, start: 9 },
     { name: "e", duration: 5, start: 12 },
-    { name: "f", duration: 13, start: 17 },
+    { name: "f", duration: 13, start: 12 },
     { name: "g", duration: 2, start: 18 },
     { name: "h", duration: 5, start: 25 },
   ];
@@ -63,24 +63,53 @@ function init() {
       if (timeoutId !== null)
         clearInterval(timeoutId);
       showStatistics();
-      document.getElementById("run-button").textContent = ">>"
+      document.getElementById("run-button").textContent = "►"
     }
   }
 
   document.getElementById("next-button")
-    .addEventListener("click", () => animate(algorithm));
+  .addEventListener("click", () => {
+    for (let i = 0; i < processes.length; i++) {
+      const name = processes[i].name;
+      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
+      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
+
+      processes[i] = new MultilevelProcess({ name, duration, start });
+    }
+
+    animate(algorithm);
+  });
+
+
+  
+  
+  
+  
+  document.getElementById("reload-button")
+    .addEventListener('click', () => {
+      location.reload();
+  });
 
   document.getElementById("run-button")
-    .addEventListener("click", () => {
-      if (timeoutId === null) {
-        timeoutId = setInterval(() => animate(algorithm), 10);
-        document.getElementById("run-button").textContent = "||"
-      } else {
-        clearInterval(timeoutId);
-        timeoutId = null;
-        document.getElementById("run-button").textContent = ">>"
-      }
-    });
+  .addEventListener("click", () => {
+    for (let i = 0; i < processes.length; i++) {
+      const name = processes[i].name;
+      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
+      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
+
+      processes[i] = new MultilevelProcess({ name, duration, start });
+    }
+
+    if (timeoutId === null) {
+      timeoutId = setInterval(() => animate(algorithm), 10);
+      document.getElementById("run-button").textContent = "||"
+    } else {
+      clearInterval(timeoutId);
+      timeoutId = null;
+      document.getElementById("run-button").textContent = "►"
+    }
+  });
+   
 };
 
 addEventListener("DOMContentLoaded", init)

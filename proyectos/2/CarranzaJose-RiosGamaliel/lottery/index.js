@@ -69,24 +69,47 @@ const init = async () => {
       if (timeoutId !== null)
         clearInterval(timeoutId);
       showStatistics();
-      document.getElementById("run-button").textContent = ">>"
+      document.getElementById("run-button").textContent = "►"
     }
   }
 
   document.getElementById("next-button")
-    .addEventListener("click", () => animate(algorithm));
+  .addEventListener("click", () => {
+    for (let i = 0; i < processes.length; i++) {
+      const name = processes[i].name;
+      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
+      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
 
+      processes[i] = new LotteryProcess({ name, duration, start }, tickets.splice(0, processes.priority[i]));
+    }
+
+    animate(algorithm);
+  });
+
+  document.getElementById("reload-button")
+    .addEventListener('click', () => {
+      location.reload();
+  });
+  
   document.getElementById("run-button")
-    .addEventListener("click", () => {
-      if (timeoutId === null) {
-        timeoutId = setInterval(() => animate(algorithm), 100);
-        document.getElementById("run-button").textContent = "||"
-      } else {
-        clearInterval(timeoutId);
-        timeoutId = null;
-        document.getElementById("run-button").textContent = ">>"
-      }
-    });
-};
+  .addEventListener("click", () => {
+    for (let i = 0; i < processes.length; i++) {
+      const name = processes[i].name;
+      const start = parseInt(document.querySelector(`#${name}_start`).value) || processes[i].start;
+      const duration = parseInt(document.querySelector(`#${name}_duration`).value) || processes[i].duration;
 
+      processes[i] = new LotteryProcess({ name, duration, start }, tickets.splice(0, processes.priority[i]));
+    }
+
+    if (timeoutId === null) {
+      timeoutId = setInterval(() => animate(algorithm), 10);
+      document.getElementById("run-button").textContent = "||"
+    } else {
+      clearInterval(timeoutId);
+      timeoutId = null;
+      document.getElementById("run-button").textContent = "►"
+    }
+  });
+
+};
 addEventListener("DOMContentLoaded", init)

@@ -233,6 +233,7 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
 
         this.#queues[prevPriority] = this.#queues[prevPriority].splice(1);
 
+        // Si no ha termina su ejecución, se agrega a nueva cola de prioridad
         if (p.end === null) {
           if (!this.#queues[newPriority])
             this.#queues[newPriority] = [];
