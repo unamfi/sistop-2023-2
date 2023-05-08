@@ -67,6 +67,14 @@
     2 meses)
 - Calificación :: 10
 
+** Luis Rojo
+- Archivos :: [[./RojoLuis/RojoLuis.pdf][RojoLuis.pdf]]
+- Comentarios ::
+  - Bonito diseño ☺
+  - Me parece muy bien cómo agrupas las diferencias por aspecto
+    principal. Buena estructura.
+- Calificación :: 10
+
 ** Dilan Toledo
 - Archivos :: [[./ToledoDilan/ToledoDilan.pdf][ToledoDilan.pdf]]
 - Comentarios ::
