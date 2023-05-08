@@ -138,3 +138,50 @@ una rama temática (`git branch proyecto2`).
 
 Las entregas pueden realizarse de forma individual o en equipos de 2
 integrantes.
+
+# A modo de ejemplo
+
+¡No se compliquen de más! No es necesario implementar hilos, comunicar
+sincronización con semáforos, ni nada por el estilo. Les regalo aquí
+la implementación del algoritmo más sencillo (FIFO); únicamente me
+salté la tabla de ejecución (que no debe ser nada difícil de
+desarrollar para ustedes 😉)
+
+    from random import randint
+    
+    procesos = []
+    primer_proc = 'A'
+    
+    for i in range(randint(4,8)):
+        # Genero los 4 a 8 procesos aleatorios
+        procesos.append({'nombre': chr( ord(primer_proc)+i ),
+                         'llegada': randint(0, 10*i),
+                         'duración': randint(4,10)
+                         })
+    
+    print('Lista de procesos:')
+    for proc in procesos:
+        print("%2s  %3d  %3d" % (proc['nombre'], proc['llegada'], proc['duración']))
+    
+    
+    t = 0
+    res = ''
+    # 'A' llega siempre en 0 ('llegada' es aleatorio entre 0 y 5*0)
+    print('* Inicia ejecución')
+    for p in sorted(procesos, key=lambda p: p['llegada']):
+        print("t=%d" % t)
+        # Manejamos el caso de que no haya ningún proceso listo para
+        # ejecutar
+        if t < p['llegada']:
+            demora = p['llegada'] - 5
+            res += '-' * demora
+            t += demora
+            print("    ... %d tick" % demora)
+            print("t=%d" % t)
+        # El proceso se ejecuta por toda la carga de trabajo que tiene
+        res += p['nombre'] * p['duración']
+        t += p['duración']
+        print("    ⌚ %s %d tick" % (p['nombre'], p['duración']))
+    
+    print("Planificación realizada: \n" + res)
+    print("\n\nDuración total: %d" % t)
