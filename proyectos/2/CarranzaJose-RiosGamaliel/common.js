@@ -12,6 +12,9 @@ const colors = {
   h: "#f4d03f",
 }
 
+/**
+ * Nombres de los procesos utilizados
+ */
 const processesName = [
   "a", "b", "c", "d", "e", "f", "g", "h"
 ]
@@ -94,7 +97,15 @@ class Process {
   }
 }
 
+/**
+ * Clase que describe un proceso para el algoritmo
+ * de Retroalimentación Multinivel
+ */
 class MultilevelProcess extends Process {
+  /**
+   * La prioridad del proceso especificada con un número entero.
+   * Entre más grande el número, menor prioridad.
+   */
   #priority;
 
   get priority() { return this.#priority };
@@ -104,6 +115,9 @@ class MultilevelProcess extends Process {
     this.#priority = -1;
   }
 
+  /**
+   * Degrada la prioridad en una unidad.
+   */
   updatePriority() {
     if (this.end === null)
       this.#priority++;
@@ -112,7 +126,15 @@ class MultilevelProcess extends Process {
   }
 }
 
+/**
+ * Clase que describe un proceso para el algoritmo
+ * de Lotería
+ */
 class LotteryProcess extends Process {
+
+  /**
+   * Los tickets asociados al proceso
+   */
   #tickets;
 
   get tickets() { return [...this.#tickets] };
@@ -122,14 +144,34 @@ class LotteryProcess extends Process {
     this.#tickets = tickets;
   }
 
+  /**
+   * Indica si el proceso tiene asignado o no un ticket.
+   * @param {Number} number el número de ticket.
+   * @returns valor lógico del resultado.
+   */
   containsTicket(number) {
     return this.#tickets.includes(number);
   }
 }
 
+/**
+ * Clase abstracta que representa un
+ * algoritmo de planificación
+ */
 class AbstractProcessPlanningAlgorithm {
+  /**
+   * Los procesos asociados al algoritmo
+   */
   #processes
+
+  /**
+   * El tick actual del algoritmo
+   */
   #currentTick
+
+  /**
+   * Objeto generador para iterar en el algoritmo
+   */
   #generator
 
   get processes() {return this.#processes}
@@ -140,25 +182,45 @@ class AbstractProcessPlanningAlgorithm {
     this.#processes = processes;
   }
 
+  /**
+   * Inicializa el algorimo
+   */
   init() {
     this.#currentTick = 0;
     this.#generator = this._exec();
   }
 
+  /**
+   * Incrementa el ticket
+   */
   setNextTick() {
     this.#currentTick++;
   }
 
+  /**
+   * Ejecuta el siguiente movimiento del algoritmo.
+   * @returns un objeto con el movimiento realizado en el algoritmo
+   */
   run() {
     return this.generator.next()
   }
 
+  /**
+   * Función generadora para el funcionamiento del algoritmo.
+   */
   *_exec() {
     throw new Error("Unimplemented method.")
   }
 }
 
+/**
+ * Clase que representa el algoritmo de planificación por Retroalimentación
+ * Multinivel.
+ */
 class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
+  /**
+   * Las colas con los procesos de prioridad
+   */
   #queues
 
   get queues() {return this.#queues}
@@ -172,6 +234,11 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
     this.#queues = {};
   }
 
+  /**
+   * Identifica los procesos que acaban de llegar a la ejecución en
+   * el tick actual.
+   * @returns una lista con los procesos que acaban de llegar.
+   */
   getArrivalProcesses() {
     const newProcesses = this.processes
       .filter(p => p.priority === -1)
@@ -188,17 +255,21 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
 
   *_exec() {
     while (this.processes.some(p => p.end === null)) {
+      // Se crea la cola [0]
       if (!this.#queues[0])
         this.#queues[0] = []
 
+      // Nuevos procesos
       let arrivalProcesses = this.getArrivalProcesses();
 
+      // Llegan nuevos procesos
       if (arrivalProcesses.length > 0)
         yield {
           type: "arrival",
           payload: arrivalProcesses
         };
 
+      // Se obtiee la cola de mayor prioridad
       const q = Object.keys(this.#queues)
         .filter(k => {
           return this.#queues[k].length > 0;
@@ -206,14 +277,18 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
         .sort()[0];
 
       if (q !== undefined) {
+        // Primer proceso
         const p = this.#queues[q][0];
 
         const prevPriority = p.priority;
 
+        // Se dan 2^n ticks de ejecución
         let i = 2 ** q;
         do {
           if (i < 2 ** q) {
             arrivalProcesses = this.getArrivalProcesses();
+            
+            // Llega un nuevo proceso durante la ejecución
             if (arrivalProcesses.length > 0)
               yield {
                 type: "arrival-but",
@@ -223,6 +298,8 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
 
           p.execute(this.currentTick);
           this.setNextTick();
+          
+          // Se notifica ejecución
           yield {
             type: "execution",
             payload: p
@@ -244,11 +321,13 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
 
           this.#queues[newPriority].push(p);
 
+          // Se notifica cambio de prioridad
           yield {
             type: "priority",
             payload: p
           }
         } else {
+          // Se notifica término de proceso
           yield {
             type: "remove",
             payload: p
@@ -257,6 +336,7 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
 
       } else {
         this.setNextTick();
+        // Se notifica "no hay nada que hacer"
         yield {
           type: "idle",
           payload: null
@@ -267,7 +347,14 @@ class MultilevelAlgorithm extends AbstractProcessPlanningAlgorithm {
   }
 }
 
+/**
+ * Clase que representa el algoritmo de planificación por
+ * Lotería.
+ */
 class LotteryAlgorithm extends AbstractProcessPlanningAlgorithm {
+  /**
+   * Procesos que se encuentran en ejcución actualmente
+   */
   #avaibleProcesses
 
   get avaibleProcesses() {return this.#avaibleProcesses}
@@ -283,10 +370,12 @@ class LotteryAlgorithm extends AbstractProcessPlanningAlgorithm {
 
   *_exec() {
     while (this.processes.some(p => p.end == null)) {
-
-      const newProcesses = this.processes.filter(p => p.start === this.currentTick);
+      // Se identifican nuevos proceso que acaba de llegar
+      const newProcesses = this.processes
+        .filter(p => p.start === this.currentTick);
       if (newProcesses.length > 0) {
         newProcesses.forEach(p => this.#avaibleProcesses.push(p));
+        // Se notifica nuevo proceso
         yield {
           type: "arrival",
           payload: newProcesses
@@ -305,6 +394,7 @@ class LotteryAlgorithm extends AbstractProcessPlanningAlgorithm {
 
       if (p) {
         p.execute(this.currentTick);
+        // Se notifica ejecución
         yield {
           type: "execution",
           payload: p,
@@ -312,13 +402,16 @@ class LotteryAlgorithm extends AbstractProcessPlanningAlgorithm {
         };
 
         if (p.end !== null) {
-          this.#avaibleProcesses = this.#avaibleProcesses.filter(p => p.end === null);
+          this.#avaibleProcesses = this.#avaibleProcesses
+            .filter(p => p.end === null);
+          // Se notifica finalización de proceso
           yield {
             type: "remove",
             payload: p
           }
         }
       } else {
+        // Se notifica "no hay nada que hacer"
         yield {
           type: "idle",
           payload: null
