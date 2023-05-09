@@ -1,0 +1,189 @@
+*   0689340 <Jorge Kareem Rosado Dominguez> Merge branch 'main' of https://github.com/unamfi/sistop-2023-2 [32m (HEAD -> main)
+[31m|[m[32m\[m  
+[31m|[m * 3220c50 <Gunnar Wolf> Videos que presentamos en clase [32m (prof/main)
+[31m|[m * dff8948 <Gunnar Wolf> Registro exposiciones que se presentarán en marzo [32m
+[31m|[m * 395fe3e <Gunnar Wolf> Planteamiento de la práctica #2 [32m
+[31m|[m * 03b771f <Gunnar Wolf> Corrijo URL para el "remote" prof [32m
+[31m|[m * 9683789 <Gunnar Wolf> Corrijo entrega fuera del directorio de usuario [32m
+[31m|[m * 09943a2 <Gunnar Wolf> Corrección menor de caso [32m
+[31m|[m *   e1f312f <Gunnar Wolf> Merge pull request #40 from gustavo-bernal/main [32m
+[31m|[m [33m|[m[34m\[m  
+[31m|[m [33m|[m * 6b8baba <Luis Gustavo Bernal Téllez> Add files via upload [32m
+[31m|[m * [34m|[m   aa8a133 <Gunnar Wolf> Merge pull request #39 from ghero56/main [32m
+[31m|[m [35m|[m[36m\[m [34m\[m  
+[31m|[m [35m|[m * [34m|[m 43471a3 <Fernando Arciga> Feat: Agrego el nombre de Fernando Arciga [32m
+[31m|[m [35m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   f681bfe <Gunnar Wolf> Merge pull request #38 from refugiorangel/main [32m
+[31m|[m [1;31m|[m[1;32m\[m [34m\[m  
+[31m|[m [1;31m|[m * [34m|[m 2c45e84 <refugiorangel> Agrego el nombre de Jose Rangel [32m
+[31m|[m [1;31m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   7ed4278 <Gunnar Wolf> Merge pull request #37 from YahirUriarte/main [32m
+[31m|[m [1;33m|[m[1;34m\[m [34m\[m  
+[31m|[m [1;33m|[m * [34m|[m 8029033 <Enrique Yahir Uriarte Ortiz> Agrego el nombre de Enrique Yahir Uriarte Ortiz [32m
+[31m|[m [1;33m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   8e95edc <Gunnar Wolf> Merge pull request #36 from AyElAldo/main [32m
+[31m|[m [1;35m|[m[1;36m\[m [34m\[m  
+[31m|[m [1;35m|[m * [34m|[m dfeab55 <Aldo Santiago Alejandro> Agrego nombre de Aldo Santiago [32m
+[31m|[m [1;35m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   8525b8a <Gunnar Wolf> Merge pull request #35 from cliceaaa/main [32m
+[31m|[m [31m|[m[32m\[m [34m\[m  
+[31m|[m [31m|[m * [34m|[m 648334d <Christian Martinez> Agrego el nombre de Christian Martinez [32m
+[31m|[m [31m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   e18e9c8 <Gunnar Wolf> Merge pull request #34 from Abogeniero/main [32m
+[31m|[m [33m|[m[34m\[m [34m\[m  
+[31m|[m [33m|[m * [34m|[m ba27c9d <Tavo> Abogeniero entrando al curso de Gunnar [32m
+[31m|[m [33m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   21e1595 <Gunnar Wolf> Merge pull request #33 from juanmanuel2002/main [32m
+[31m|[m [35m|[m[36m\[m [34m\[m  
+[31m|[m [35m|[m * [34m|[m 947f5b4 <juanmanuel2002> Delete MirandaRayonJuanManuel directory [32m
+[31m|[m [35m|[m * [34m|[m 5ed7132 <juanmanuel2002> Agrego del nombre Juan Manuel [32m
+[31m|[m [35m|[m * [34m|[m 1505118 <juanmanuel2002> Agrego del nombre Juan Manuel [32m
+[31m|[m [35m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   fda2cac <Gunnar Wolf> Merge pull request #32 from LaloPaniagua/main [32m
+[31m|[m [1;31m|[m[1;32m\[m [34m\[m  
+[31m|[m [1;31m|[m * [34m|[m d4cbf1d <Lalo Paniagua> Agrego el nombre de Eduardo Paniagua [32m
+[31m|[m [1;31m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   a1f025d <Gunnar Wolf> Merge pull request #31 from LuisM0ral3s/main [32m
+[31m|[m [1;33m|[m[1;34m\[m [34m\[m  
+[31m|[m [1;33m|[m * [34m|[m 98726ea <LuisM0ral3s> Agrego el nombre de Luis Fernando Morales [32m
+[31m|[m [1;33m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   3aecd59 <Gunnar Wolf> Merge pull request #30 from arodrigosote/main [32m
+[31m|[m [1;35m|[m[1;36m\[m [34m\[m  
+[31m|[m [1;35m|[m * [34m|[m 9c78b17 <arodrigosote> Create Axel.txt [32m
+[31m|[m [1;35m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   590c415 <Gunnar Wolf> Merge pull request #29 from NayeSieruiz/main [32m
+[31m|[m [31m|[m[32m\[m [34m\[m  
+[31m|[m [31m|[m * [34m|[m 2648e38 <Sierra Nayeli> Agrego el nombre de Sierra Nayeli [32m
+[31m|[m [31m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   4f4cc0e <Gunnar Wolf> Merge pull request #28 from DannyRmz/main [32m
+[31m|[m [33m|[m[34m\[m [34m\[m  
+[31m|[m [33m|[m * [34m|[m 37f282a <Daniel Ramirez> Agrego el nombre de Daniel Ramirez [32m
+[31m|[m [33m|[m [34m|[m[34m/[m  
+[31m|[m * [34m|[m   24840e3 <Gunnar Wolf> Merge pull request #27 from carlos-morales-ortega/main [32m
+[31m|[m [35m|[m[36m\[m [34m\[m  
+[31m|[m [35m|[m * [34m|[m 7479896 <CarlosBruce> Merge branch 'unamfi:main' into main [32m
+[31m|[m [35m|[m [1;31m|[m[34m\[m[34m|[m 
+[31m|[m [35m|[m * [34m|[m 47cac2a <carlos-morales-ortega> Agrego el nombre de Carlos Morales Ortega, Práctica 1 [32m
+[31m|[m * [1;32m|[m [34m|[m   c0cadff <Gunnar Wolf> Merge pull request #26 from AlbertoMartinez-17/main [32m
+[31m|[m [1;33m|[m[1;34m\[m [1;32m\[m [34m\[m  
+[31m|[m [1;33m|[m * [1;32m|[m [34m|[m a6c0c56 <AlbertoMartinez-17> Agrego el nombre de Julio Martinez [32m
+[31m|[m [1;33m|[m * [1;32m|[m [34m|[m 02f0037 <AlbertoMartinez-17> Create Julio.txt [32m
+[31m|[m [1;33m|[m [34m|[m [1;32m|[m[34m/[m  
+[31m|[m [1;33m|[m [34m|[m[34m/[m[1;32m|[m   
+[31m|[m * [34m|[m [1;32m|[m   979441d <Gunnar Wolf> Merge pull request #25 from Mikexy21/main [32m
+[31m|[m [1;35m|[m[1;36m\[m [34m\[m [1;32m\[m  
+[31m|[m [1;35m|[m * [34m|[m [1;32m|[m 9d6af15 <Mikexy21> Agrego el nombre de Miguel Ruiz [32m
+[31m|[m [1;35m|[m [1;32m|[m [34m|[m[1;32m/[m  
+[31m|[m [1;35m|[m [1;32m|[m[1;32m/[m[34m|[m   
+[31m|[m * [1;32m|[m [34m|[m   9b5cf89 <Gunnar Wolf> Merge pull request #24 from LayRT/main [32m
+[31m|[m [34m|[m[32m\[m [1;32m\[m [34m\[m  
+[31m|[m [34m|[m [32m|[m[34m_[m[1;32m|[m[34m/[m  
+[31m|[m [34m|[m[34m/[m[32m|[m [1;32m|[m   
+[31m|[m [34m|[m * [1;32m|[m bc09060 <Laylet Rojas> Agrego el nombre de Laylet Rojas [32m
+[31m|[m [34m|[m[34m/[m [1;32m/[m  
+[31m|[m * [1;32m|[m 0541ecf <Gunnar Wolf> Corrijo dos nombres de directorio [32m
+[31m|[m * [1;32m|[m   179ed39 <Gunnar Wolf> Merge pull request #23 from LauraR-3/main [32m
+[31m|[m [33m|[m[34m\[m [1;32m\[m  
+[31m|[m [33m|[m * [1;32m|[m 086348e <Laura Ruiz> Agrego el nombre de Laura Ruiz [32m
+[31m|[m [33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   50e1d22 <Gunnar Wolf> Merge pull request #22 from Fabian-Armenta/main [32m
+[31m|[m [35m|[m[36m\[m [1;32m\[m  
+[31m|[m [35m|[m * [1;32m|[m 67b1b1b <Fabian-Armenta> Agrego el nombre de Fabian Armenta [32m
+[31m|[m [35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   231b1fc <Gunnar Wolf> Merge pull request #21 from mauriciorivera18/main [32m
+[31m|[m [1;31m|[m[1;32m\[m [1;32m\[m  
+[31m|[m [1;31m|[m * [1;32m|[m 60cb8b8 <Mauricio Rivera> Agrego mi nombre al repositorio [32m
+[31m|[m [1;31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   48817e5 <Gunnar Wolf> Merge pull request #20 from pablogio16/main [32m
+[31m|[m [1;33m|[m[1;34m\[m [1;32m\[m  
+[31m|[m [1;33m|[m * [1;32m|[m b1b6de6 <Pablo Constantino> Agrego mi nombre: Pablo Giovanni Constantino Cruz [32m
+[31m|[m [1;33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   b8e2fbb <Gunnar Wolf> Merge pull request #19 from AlanDSol/main [32m
+[31m|[m [1;35m|[m[1;36m\[m [1;32m\[m  
+[31m|[m [1;35m|[m * [1;32m|[m 9fdd456 <Alan Solis> Agrego el nombre de Alan Solis [32m
+[31m|[m [1;35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   acbddf1 <Gunnar Wolf> Merge pull request #18 from LuisRojoo/main [32m
+[31m|[m [31m|[m[32m\[m [1;32m\[m  
+[31m|[m [31m|[m * [1;32m|[m 7ae6535 <Luis Rojo> Agrego el nombre de Luis Rojo [32m
+[31m|[m [31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   b57f596 <Gunnar Wolf> Merge pull request #17 from IsraelArellano/main [32m
+[31m|[m [33m|[m[34m\[m [1;32m\[m  
+[31m|[m [33m|[m * [1;32m|[m edb2bf0 <IsraelArellano> Agrego el nombre de Israel Arellano [32m
+[31m|[m [33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   18dd28d <Gunnar Wolf> Merge pull request #16 from Magno08/main [32m
+[31m|[m [35m|[m[36m\[m [1;32m\[m  
+[31m|[m [35m|[m * [1;32m|[m d14e5b7 <Omar Magno> Agrego el nombre Omar Magno [32m
+[31m|[m [35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   aebe52b <Gunnar Wolf> Merge pull request #15 from FredinVazquez/main [32m
+[31m|[m [1;31m|[m[1;32m\[m [1;32m\[m  
+[31m|[m [1;31m|[m * [1;32m|[m d787fb5 <FredinVazquez> Agrego el nombre de Fredin Alberto Vázquez Martínez [32m
+[31m|[m [1;31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   579af35 <Gunnar Wolf> Merge pull request #14 from aerinmus16/main [32m
+[31m|[m [1;33m|[m[1;34m\[m [1;32m\[m  
+[31m|[m [1;33m|[m * [1;32m|[m 6d5601f <Aerin Musette Mex Lozano> Agrego el nombre de Aerin Musette Mex Lozano [32m
+[31m|[m [1;33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   a8a611d <Gunnar Wolf> Merge pull request #13 from ErikGarciaLopez/main [32m
+[31m|[m [1;35m|[m[1;36m\[m [1;32m\[m  
+[31m|[m [1;35m|[m * [1;32m|[m 8c2114a <Erik Garcia Lopez> Agrego el nombre de Erik Garcia [32m
+[31m|[m [1;35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   ec2647b <Gunnar Wolf> Merge pull request #12 from Erwick20021/main [32m
+[31m|[m [31m|[m[32m\[m [1;32m\[m  
+[31m|[m [31m|[m * [1;32m|[m 3c0e7e0 <Erwick20021> agrego el nombre de Erick Sebastian Meneses Navarro [32m
+[31m|[m [31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   6713f9d <Gunnar Wolf> Merge pull request #11 from ricardoOA02/main [32m
+[31m|[m [33m|[m[34m\[m [1;32m\[m  
+[31m|[m [33m|[m * [1;32m|[m 976fc83 <RicardoOA02> Agrego el nombre de Ricardo Organista [32m
+[31m|[m [33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   9b11115 <Gunnar Wolf> Merge pull request #10 from Bael22/main [32m
+[31m|[m [35m|[m[36m\[m [1;32m\[m  
+[31m|[m [35m|[m * [1;32m|[m eaa146c <ToledoDilan> Agrego el nombre de Dilan Toledo [32m
+[31m|[m [35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   bce608c <Gunnar Wolf> Merge pull request #9 from Cristopher117/main [32m
+[31m|[m [1;31m|[m[1;32m\[m [1;32m\[m  
+[31m|[m [1;31m|[m * [1;32m|[m b96fa3a <Cristopher117> Update JuarezCristopher.txt [32m
+[31m|[m [1;31m|[m * [1;32m|[m df7f001 <Cristopher117> Add files via upload [32m
+[31m|[m [1;31m|[m * [1;32m|[m f3563a8 <Cristopher117> Delete tareas1JuarezCristopher.txt [32m
+[31m|[m [1;31m|[m * [1;32m|[m 5788dfd <Cristopher117> Add files via upload [32m
+[31m|[m [1;31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   80b2753 <Gunnar Wolf> Merge pull request #8 from DeibydCarranza/main [32m
+[31m|[m [1;33m|[m[1;34m\[m [1;32m\[m  
+[31m|[m [1;33m|[m * [1;32m|[m c8a6e57 <David Carranza> Agrego el nombre de David Carranza [32m
+[31m|[m [1;33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   3de3af7 <Gunnar Wolf> Merge pull request #7 from FriasCamille/main [32m
+[31m|[m [1;35m|[m[1;36m\[m [1;32m\[m  
+[31m|[m [1;35m|[m * [1;32m|[m 6120511 <FriasCamille> 'Camille' [32m
+[31m|[m [1;35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   8f012e2 <Gunnar Wolf> Merge pull request #6 from RowXV/main [32m
+[31m|[m [31m|[m[32m\[m [1;32m\[m  
+[31m|[m [31m|[m * [1;32m|[m 6e8d5ac <RowXV> Agrego el nombre Axel Marquez [32m
+[31m|[m [31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   537a11b <Gunnar Wolf> Merge pull request #5 from markosh333/main [32m
+[31m|[m [33m|[m[34m\[m [1;32m\[m  
+[31m|[m [33m|[m * [1;32m|[m 802ae64 <Marco Sanchez> Agrego el nombre de Marco Antonio Sanchez Hernandez [32m
+[31m|[m [33m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   836b5bf <Gunnar Wolf> Merge pull request #3 from Razitzs/main [32m
+[31m|[m [35m|[m[36m\[m [1;32m\[m  
+[31m|[m [35m|[m * [1;32m|[m 2640ce4 <Fernando Razo> Agrego el nombre de Fernando Razo [32m
+[31m|[m [35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   4b18882 <Gunnar Wolf> Merge pull request #2 from Carloscamacho-glitch/main [32m
+[31m|[m [1;31m|[m[1;32m\[m [1;32m\[m  
+[31m|[m [1;31m|[m * [1;32m|[m 5b14d21 <Carloscamacho.glitch> Agrego el nombre de Camacho Martinez Juan Carlos [32m
+[31m|[m [1;31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   0fe9200 <Gunnar Wolf> Merge pull request #1 from GamaRL/main [32m
+[31m|[m [1;32m|[m[1;34m\[m [1;32m\[m  
+[31m|[m [1;32m|[m [1;34m|[m[1;32m/[m  
+[31m|[m [1;32m|[m[1;32m/[m[1;34m|[m   
+[31m|[m [1;32m|[m * eaf5d83 <GamaRL> Agrego el nombre de Gamaliel Ríos [32m
+[31m|[m [1;32m|[m[1;32m/[m  
+* [1;32m|[m ad465df <Jorge Kareem Rosado Dominguez> Agrego el nombre de Jorge Kareem Rosado Dominguez [32m (origin/main, origin/HEAD)
+* [1;32m|[m 98f9608 <jorgeKareemRosadoDominguez> Agrego el nombre de Jorge Kareem Rosado Dominguez [32m
+* [1;32m|[m 38cf2b5 <jorgeKareemRosadoDominguez> Agrego el nombre de Jorge Kareem Rosado Dominguez [32m
+* [1;32m|[m cba794c <jorgeKareemRosadoDominguez> Agrego el nombre de Jorge Kareem Rosado Dominguez [32m
+* [1;32m|[m fb000e4 <jorgeKareemRosadoDominguez> Agrego el nombre de Jorge Kareem Rosado Dominguez [32m
+* [1;32m|[m fbd0ee2 <jorge170> Agrego el nombre de RosadoDominguezJorgeKareem [32m
+[1;32m|[m[1;32m/[m  
+* 8d755da <Gunnar Wolf> Otra corrección más de fecha... :-Þ [32m
+* 52fcaac <Gunnar Wolf> Actualizo ligas para el semestre 2023-2 [32m
+* 70e175c <Gunnar Wolf> Actualizo algunas ligas y menciones para el semestre actual [32m
+* 244b4cc <Gunnar Wolf> Agrego información de licenciamiento CC BY 4.0 [32m
+* d9a923e <Gunnar Wolf> Inicializo el repositorio para el semestre 2022-1 [32m

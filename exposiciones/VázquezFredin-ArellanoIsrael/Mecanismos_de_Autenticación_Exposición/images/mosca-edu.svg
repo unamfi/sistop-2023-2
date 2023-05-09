@@ -1,0 +1,115 @@
+
+<svg id="isotipo-edu" viewBox="0 0 292.65 299.73" xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+
+    .gradiente-edu {
+      fill:url(#Degradado-edu);
+    }
+
+    .circulo-edu {
+      fill:#000f33;
+    }
+
+    .g-edu {
+      fill:#FFF;
+      animation: guino-edu 10s cubic-bezier(.2,1.06,.61,.97) infinite;
+    }
+
+    @keyframes guino-edu {
+      0% {clip-path: ellipse(100% 100% at 50% 50%);}
+      23.3% {clip-path: ellipse(100% 100% at 50% 50%);}
+      24.6% {clip-path: ellipse(100% 0% at 50% 50%);}
+      25.6% {clip-path: ellipse(100% 100% at 50% 50%);}
+      26% {clip-path: ellipse(100% 100% at 50% 50%);}
+      27.3% {clip-path: ellipse(100% 0% at 50% 50%);}
+      28.3% {clip-path: ellipse(100% 100% at 50% 50%);}
+      70.3% {clip-path: ellipse(100% 100% at 50% 50%);}
+      71.6% {clip-path: ellipse(100% 0% at 50% 50%);}
+      72.6% {clip-path: ellipse(100% 100% at 50% 50%);}
+      73% {clip-path: ellipse(100% 100% at 50% 50%);}
+      74.3% {clip-path: ellipse(100% 0% at 50% 50%);}
+      75.3% {clip-path: ellipse(100% 100% at 50% 50%);}
+      100% {clip-path: ellipse(100% 100% at 50% 50%);}
+    }
+
+    .anillo-edu {
+      fill:#fff;
+      animation: anillo-edu 10s cubic-bezier(.2,1.06,.61,.97) infinite;
+    }
+
+    @keyframes anillo-edu {
+      1% {transform: translate(0px, 0px);}
+      4.33% {transform: translate(-9px, -9px);}
+      6% {transform: translate(-9px, -9px);}
+      9.3% {transform: translate(-9px, 9px);}
+      11% {transform: translate(-9px, 9px);}
+      14.6% {transform: translate(0px, 0px);}
+      100% {transform: translate(0px, 0px);}
+    }
+
+    .punto-edu {
+      fill:#fff;
+      animation: punto-edu 10s cubic-bezier(.2,1.06,.61,.97) infinite;
+    }
+
+    @keyframes punto-edu {
+      1% {transform: translate(0px, 0px);}
+      4.33% {transform: translate(-39px, -39px);}
+      6% {transform: translate(-39px, -39px);}
+      9.33% {transform: translate(-39px, 19px);}
+      11% {transform: translate(-39px, 19px);}
+      14.66% {transform: translate(0px, 0px);}
+      100% {transform: translate(0px, 0px);}
+    }
+
+    .gradiente-edu {
+      transform-origin: 50% 50%;
+      animation: rotationgradient-edu 10s cubic-bezier(.2,1.06,.61,.97) infinite;
+    }
+
+    @keyframes rotationgradient-edu {
+      0% {transform: rotate(0deg);}
+      6% {transform: rotate(90deg);}
+      11% {transform: rotate(-90deg);}
+      18.33% {transform: rotate(0deg);}
+      100% {transform: rotate(0deg);}
+    }
+
+  </style>
+
+<defs>
+  <linearGradient id="Degradado-edu" x1="43.69" y1="209.17" x2="249.92" y2="90.01" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#f9e856"/>
+    <stop offset="1" stop-color="#5af25b"/>
+  </linearGradient>
+
+  <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-edu">
+      <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+      <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+      <feMerge>
+          <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+  </filter>
+</defs>
+
+  <g filter="url(#filter-edu)" class="sombra-edu" style="fill:#000f33; opacity: .8;">
+    <circle cx="146.33" cy="149.87" r="118"/>
+  </g>
+
+  <g class="gradiente-edu">
+    <circle cx="146.33" cy="149.87" r="119.07"/>
+  </g>
+
+  <g class="circulo-edu">
+    <circle class="" cx="146.33" cy="149.87" r="97.51"/>
+  </g>
+
+  <g class="g-edu">
+    <path class="anillo-edu" d="M206.38,149.87h0A11.63,11.63,0,0,0,195,159.19a47.37,47.37,0,1,1-30.85-54.06,11.31,11.31,0,0,0,13.57-4.78l.5-.85a11.21,11.21,0,0,0-6-16.24,70.68,70.68,0,1,0,45.67,80.37A11.62,11.62,0,0,0,206.38,149.87Z"/>
+    <path class="punto-edu" d="M150.4,158a15.21,15.21,0,1,0,15.2-15.21A15.2,15.2,0,0,0,150.4,158Z"/>
+  </g>
+
+</svg>

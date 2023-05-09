@@ -1,0 +1,13 @@
+Device name	DOI
+Processor	Intel(R) Xeon(R) CPU E5-1620 v3 @ 3.50GHz   3.50 GHz
+Installed RAM	32.0 GB
+Device ID	96942DD1-85EC-4CC0-A193-6A5A334B391E
+Product ID	00330-80000-00000-AA342
+System type	64-bit operating system, x64-based processor
+Pen and touch	No pen or touch input is available for this display
+Edition	Windows 10 Pro
+Version	21H2
+Installed on	‎11/‎8/‎2021
+OS build	19044.2604
+Experience	Windows Feature Experience Pack 120.2212.4190.0
+
