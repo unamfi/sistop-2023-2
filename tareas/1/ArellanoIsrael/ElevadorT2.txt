@@ -1,0 +1,50 @@
+Problema escogido: El elevador
+•	El elevador de la Facultad se descompone demasiado, porque sus usuarios no respetan los límites. 
+•	Te toca evitar este desgaste (y el peligro que conlleva). 
+•	Implementa el elevador como un hilo, y a cada persona que quiere usarlo como otro hilo.
+•	El elevador de la Facultad de Ingeniería da servicio a cinco pisos. 
+•	Un usuario puede llamarlo en cualquiera de ellos 
+•	Puede querer ir a cualquiera otro de ellos.
+•	El elevador tiene capacidad para cinco pasajeros 
+•	Recuerden que el peso canónico de todo ingeniero (estudiante o docente) es constante. 
+•	Para ir del piso x a y, el elevador tiene que cruzar todos los pisos intermedios 
+•	Los usuarios prefieren esperar dentro del elevador que fuera de él 
+•	Si el elevador va subiendo y pasa por el piso x, donde está A esperando para bajar, A aborda al elevador (no espera a que vaya en la dirección correcta).
+
+
+Lenguaje y entorno: 
+Para la realización de este código se utilizo el lenguaje de pytohn3 en VISUAL STUDIO CODE además de la comprobación de resultados en VS y en www.onlinegdb.com
+No es necesario saber mucho de este código para su ejecución, ya que en el código vienen inicializados cuantos hilos vamos a querer para las personas y cuantos pisos hay en total, 
+pero si seria bueno decir que el numero de pisos es estático ya que lo coloque así, si se quisiera hacer “dinámico” se tendría que realizar una variable para cambiar los piso dependiendo 
+de lo que desee el programador, pero este código solo funciona con 5 pisos almenos que se cambien las elecciones de pisos aleatorios.
+Además, si se quieren ver los emojis puestos personalmente no me funciono correrlo en visual studio por lo que utiliza la pagina ya antes mencionada para correr mi programa. 
+Si se desea ejecutar de una manera sencilla solamente sería correr el programa, así como esta en un compilador que acepte el uso de emojis o de otro caso en la página antes mencionada.
+Tambien hay que tener en cuenta que hay un caso donde el programa tiene un fallo, y es el caso donde por ejemplo el piso actual es = 1, y una persona que esta en otro piso quiere ir al piso 1
+el programa detecta como si la persona ya estuviera en su piso destino, por lo que la persona sale del elevador.
+
+
+Estrategias utilizadas:
+Primitivas de sincronización:
+•	Condition
+•	Notify
+•	Release
+•	Acquire
+ 
+Patrones
+•	Señalizar
+Este patrón lo podemos observar,en el hilo del elevador donde se mantiene un bucle infinito en su método run(), en el que adquiere el bloqueo del objeto Condition y entra en un bucle while que espera a que haya paradas en la lista de paradas. Mientras no haya paradas, 
+el hilo del elevador llama al método wait() del objeto Condition, lo que hace que el hilo se bloquee y libere el bloqueo del objeto Condition hasta que otro hilo lo notifique.
+
+
+
+Explicación del programa:
+El código implementa un elevador que tiene 5 pisos el cual es capaz de recoger personas en diferentes pisos y cada parada es registrada en una lista para tener en cuenta el orden en el que fueron registrados, además de colocar una restricción del máximo de personas que puede tener el elevador el cual es 5.
+Cuando hay paradas en la lista de paradas, el hilo del elevador llama al método mueve_elevador(), que se encarga de mover el elevador y de observar las paradas. Después de mover el elevador, el hilo del elevador llama al método observa_paradas() para ver si el elevador tiene que hacer una parada en el piso actual. 
+Si hay una parada en el piso actual, el hilo del elevador llama al método puertas_abiertas() para abrir las puertas.
+El hilo de la persona llama al método llama_elevador() para agregar el piso actual a la lista de paradas del elevador. A continuación, el hilo de la persona espera a que el elevador llegue al piso actual y lo recoja. Cuando el elevador llega al piso actual, el hilo de la persona llama al método paseo_elevador() para 
+abordar el elevador.
+El método paseo_elevador() espera a que el elevador llegue al piso actual de la persona y luego adquiere el bloqueo del objeto Condition. Mientras el elevador esté lleno o no esté yendo en la dirección correcta, el hilo de la persona llama al método wait() del objeto Condition, lo que hace que el hilo se bloquee y 
+libere el bloqueo del objeto Condition hasta que otro hilo lo notifique. 
+Cuando el elevador tiene capacidad disponible y está yendo en la dirección correcta, la persona sube al elevador y agrega su destino a la lista de paradas del elevador. 
+A continuación, la persona notifica al hilo del elevador que ha subido al elevador y libera el bloqueo del objeto Condition.
+

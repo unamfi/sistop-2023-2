@@ -1,0 +1,12 @@
+El problema que se decidio fue el de "El cruce del rio"
+
+El codigo fue programado en Python version 3.8.8
+      Ya esta configurado para que corra tanto en un Windows como en Linux
+      
+Se ocupo dos semaforos para las funciones serf y hakers, ademas de un mutex
+
+No se aplico refinamientos que no fueran especificados
+
+Tengo una duda con respecto a la ejecucion, al tratarse de un bucle siempre sera necesario interrumpir 
+los porcesos para salir de la ejecucion? o hay una alternativa para que no sea necesario tener que 
+interrumpir la ejecucion?

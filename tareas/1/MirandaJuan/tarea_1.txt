@@ -1,0 +1,14 @@
+*Problema que decidieron resolver
+ Intersección de caminos
+
+*El lenguaje y entorno en que lo desarrollaron
+ Lenguaje python entorno el IDE de spyder. Le agrege la linea que siempre le agrega entonces  no deberia de tener algun problema al ejecutarlo
+
+
+*La estrategia de sincronización (mecanismo / patron) que les funciono
+ Se usaron dos mutex y una barrera
+En este caso utilize una barrera para que espere a que haya cierta cantidad de coches para  poder pasar por la avenida y una vez pasan se cierra la barrera y se espera a que lleguen   otros 5 coches para pasar. Mientras que los mutex son para que los coches que esperan y para reiniciar la barrera.
+Lo que si, esque al momento de indicar que los coches pasan, pasan 'en desorden'. Me refiero a que pasa primero el ultimo en llegar y luego an ante penultimo, y luego el primero y luego al segundo y asi se van variando
+
+*Si están implementando alguno de los refinamientos
+ Me parece que la opcion que ocupo entra en el refinamiento 1. Porque si bloqueas la  interseccion completa cuando llega un auto vamos a estar constantemente  abriendo y cerrando  la interseccion y eso no pasa en la vida real. Por eso, se ocupa la barrera para simular el  semaforo de la vida real, que los conductores  esperen a que tengan luz verde, en este   caso es esperar a que se junte cierta cantidad de gente para pasar. Garantizando no-choques

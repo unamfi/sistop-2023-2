@@ -1,0 +1,17 @@
+Se decidio resolver el problema de Santa Claus
+
+Para resolverlo se utilizo python en Visual Studio Code, por lo que no debe haber ningun problema para ejecutar el programa en otra computadora. Unicamente se
+debe escribir en la terminal el comando "python nombre_archivo.py"
+
+Se utilizaron unicamente cuatro semáforos: SemSanta, SemRenos, SemElfosA y SemElfos. 
+SemSanta se utiliza para permitir que el hilo de Santa se bloquee hasta que se despierte. 
+SemRenos se utiliza para permitir que Santa despierte cuando llegan nueve renos.
+SemElfosA se utiliza para permitir que solo tres elfos a la vez hagan preguntas a Santa 
+SemElfos se utiliza para permitir que los elfos sean atendidos por Santa.
+
+No se aplicó ningun refinamiento
+
+Se decidió que Santa iba a ayudar 2 veces a cada elfo, este valor se puede cambiar con la variable "Ayudar". 
+Algo que se podria mejorar es que en ocasiones el mensaje de que un elfo esta siendo ayudado se imprime después de que ya lo acabó de ayudar e incluso esta ayudando ya a otro elfo.
+
+
