@@ -121,7 +121,7 @@ for p_Wait in sorted(procesos, key=lambda p_Wait:p_Wait['llegada']):
                 
 
                 print(" \U0001F7E2 Proceso seleccionado: " + i['id']+"\n")
-                planificacion_realizada = planificacion_realizada + i['id'] + " "
+                
 
                 # Se hace la ejecución del quantum
                 tmp_c = 0
@@ -129,6 +129,9 @@ for p_Wait in sorted(procesos, key=lambda p_Wait:p_Wait['llegada']):
                 (isOver,tmp_c) = ejecucion_trabajo(i)
 
                 ticks_global = ticks_global + tmp_c
+
+                for i_ in range(tmp_c):
+                    planificacion_realizada = planificacion_realizada + i['id'] + " "
 
                 if(isOver):
                     # Colocando el tick del final:
@@ -170,7 +173,7 @@ while(contador_procesos_terminados < len(procesos)):
             if((buscando_ganador >= winner)):
                 # Se encontró al proceso ganador
                 print(" \U0001F7E2 Proceso seleccionado: " + p_Wait['id']+"\n")
-                planificacion_realizada = planificacion_realizada + p_Wait['id'] + " "
+                
                 
                 # Se hace la ejecución del quantum
                 tmp_c = 0
@@ -178,6 +181,10 @@ while(contador_procesos_terminados < len(procesos)):
                 (isOver,tmp_c) = ejecucion_trabajo(p_Wait)
 
                 ticks_global = ticks_global + tmp_c
+
+                for i_ in range(tmp_c):
+                    planificacion_realizada = planificacion_realizada + p_Wait['id'] + " "
+                    
 
                 if(isOver):
                     # Colocando el tick del final:
@@ -200,7 +207,7 @@ while(contador_procesos_terminados < len(procesos)):
 # #################
 
 print("\nTabla de ejecución: ")
-print("Planificación realizada: " + planificacion_realizada)
+print("Planificación realizada: " + planificacion_realizada + " longitud " + str(len(planificacion_realizada)))
 print("\n --------------------------------------------------\n| Proceso | Inicio |  Fin  |   T   |   E   |   P   |\n --------------------------------------------------\n")
 
 for i in procesos_listos:
