@@ -1,0 +1,42 @@
+Preguntas respecto a los algoritmos de planificación de procesos
+
+Retroalimentación multinivel
+¿Cómo se compararía este método con los otros abordados?
+El uso de múltiples colas permite un mayor nivel de control al momento de asignar prioridad a los procesos, aunque hay que ser cuidadosos al momento de determinar cómo es que va a ir cambiando la prioridad de las colas.
+
+¿Para qué tipo de carga es más apto y menos apto?
+Se beneficia al trabajar con procesos cortos, y un aspecto que no fue contemplado en esta implementación pero que es importante es pasar un proceso de una cola a otra para cambiar su prioridad sin afectar al resto,
+al hacer estos cambios es importante que las colas de mayor prioridad no sean significativamente más largas que las demás, pues esto va a provocar inanición.
+
+¿Qué tan susceptible resulta a producir inanición?
+Más que otros algoritmos, pero esto se puede solucionar detectando qué procesos llevan tiempo sin ejecutarse y promoviéndolos a una cola de mayor prioridad.
+
+¿Qué tan justa sería su ejecución?
+Resulta algo injusta, pues la mayor parte del tiempo los recursos se concentran en las colas de mayor prioridad y la única forma de ser atendido es entrando en alguna de dichas colas.
+
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? (aunque sea tiempo real suave)
+Se tendría que considerar una cola de tiempo real que tenga prioridad por encima de todas las demás y que no se degrade su prioridad a lo largo del tiempo.
+
+¿Alguna otra reflexión o inquietud que les provoque?
+Considero que mi implementación deja mucho que desear en cuanto a mostrar cómo es que este algoritmo se puede adaptar al ingresar más procesos.
+
+
+
+Lotería
+¿Cómo se compararía este método con los otros abordados?
+Este método tiene la peculiaridad de que incorpora una parte aleatoria que, si bien puede ser manipulada hasta cierto punto, genera incertidumbre en los resultados obtenidos.
+
+¿Para qué tipo de carga es más apto y menos apto?
+En general es conveniente cuando la discrepancia entre la duración de procesos no es mucha, sin embargo, este algoritmo es bastante flexible y puede ofrecer un buen rendimiento en distintos contextos.
+
+¿Qué tan susceptible resulta a producir inanición?
+Es de los algoritmos que mejor manejan el problema de la inanición, ya que todos los procesos tienen una posibilidad mayor a cero de ser seleccionados.
+
+¿Qué tan justa sería su ejecución?
+Es bastante justa, pues su diseño evita que un solo proceso acapare los recursos del sistema.
+
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? (aunque sea tiempo real suave)
+Solamente se tendría que considerar la frecuencia con la que se selecciona un nuevo proceso para ser ejecutado, ya que por todo lo demás es un algoritmo bastante adecuado para implementarse en tiempo real.
+
+¿Alguna otra reflexión o inquietud que les provoque?
+Me llama la atención las distintas maneras de modificar las probabilidades, ya sea transfiriendo tickets o añadiendo nuevos de tal manera que favorezca a algunos procesos sobre otros.
