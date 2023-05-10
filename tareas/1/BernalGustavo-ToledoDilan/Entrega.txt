@@ -1,0 +1,7 @@
+Bernal Téllez Luis Gustavo
+Toledo Bedia Dilan Gerson
+El problema que decidieron resolver: Elevador/ascensor
+El lenguaje y entorno en que lo desarrollaron: python usando Visua Studio Code
+La estrategia de sincronización (mecanismo / patrón) que les funcionó: el uso de semáforos(multiplex, colas) binarios y pausas temporales
+Si están implementando alguno de los refinamientos: no
+Cualquier duda que tengan. Si notan que algún pedazo de la implementación podría mejorar, si algo no les terminó de quedar bien: Hicimos nuestro mejor intento, con los conceptos aprendidos.

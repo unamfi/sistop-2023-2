@@ -1,0 +1,17 @@
+Problema elegido: Los alumnos y el asesor.
+
+Entorno: Desarrolle la solucion usando python 3.9.6 64-bit, en Visual Studio Code; 
+con las librerias comunes para un problema de este tipo: threading, time y random.
+
+Estrategia de sincronizacion: En este caso hice uso de dos estructuras, el multiplex y un mutex.
+El multiplex cumple la funcion de las sillas, permitiendo entrar solamente un numero X de alumnos, 
+despues de que los alumnos estan dentro del cubiculo, se implementa un ciclo for para que los alumnos hagan Y numero de preguntas,
+dentro de este for se encuentra el mutex para que el alumno que pregunta se mantenga ahi hasta que su duda sea resuelta,
+el mutex se encuentra dentro del ciclo for para que un solo alumno no acapare la atencion del profesor, asi cuando hace una pregunta,
+los demas tienen la oportunidad de presentar su duda al profesor mientras el ultimo que pregunto escribe su respuesta.
+Mientras tanto, despues de que los alumnos entran al mutex, hay una variable que sirve para contar cuantas sillas disponibles hay en el cubiculo,
+asi, cuando el profesor observe que el numero de sillas disponibles es igual al numero de sillas totales pueda ponerse a dormir.
+
+Refinamiento: Este problema no cuenta con refinamientos.
+
+Dudas: Quisiera saber si hay alguna forma de saber el valor del mutex sin necesidad de recurrir a una variable externa.

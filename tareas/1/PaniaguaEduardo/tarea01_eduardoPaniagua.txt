@@ -1,0 +1,24 @@
+Alumno: Eduardo Miguel Paniagua Broca
+
+Tarea 1:Ejercicios de sincronización
+
+Ejercicio elegido: cruce del río
+
+Lenguaje empleado: Python 3
+
+Bibliotecas empleadas:
+-threading
+-time
+
+Descripción de la solución:
+Para resolver este ejercicio se ocuparon 2 hilos, uno que corresponde a los serfs y otro que corresponde a los hackers. Se ocupa un mutex para evitar interferencias entre los hilos y dos semáforos que actúan como colas que registran cuántos serfs y hackers están esperando.
+
+En este caso se creó un desfase entre ambos hilos para que se puedan observar los 3 casos posibles en los que la balsa puede partir:
+-Se subieron 4 serfs
+-Se subieron 4 hackers
+-Sa subieron 2 hackers y 2 serfs
+
+ 
+
+
+

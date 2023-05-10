@@ -1,0 +1,2 @@
+#Ignoramos los archivos txt generados por el script
+*.txt

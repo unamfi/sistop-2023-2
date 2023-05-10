@@ -1,0 +1,19 @@
+El problema que decidieron resolver:
+R=El problema que escogí fue el de la balsa con los hacker y los serfs
+
+El lenguaje y entorno en que lo desarrollaron.
+¿Qué tengo que saber / tener / hacer para ejecutar su programa en mi computadora?
+R=El lenguaje que utilicé fue python 3.11 y lo único que se tiene que hacer es ejecutar el código
+
+La estrategia de sincronización (mecanismo / patrón) que les funcionó:
+R=La forma en la que se implemnto la solución fue creando 2 mutex y 1 multiplex, el multiplex es utilizado para poder llevar
+el control del número de desarrolladores que suben a la balsa, de esta manera, solo 4 desarrolladores pueden subir y los demás
+tendrán que esperar. El multiplex es de 5 , lo cual me pone a pensar un poco ya que mi intención era crearlo de 4, pero al momento 
+de correr el código solo me permitía que 3 desarrolladores subieran a la balsa, así que lo puse en 5... este multiplex se ocupa
+en la función de serf y hacker, y después se manda a traer la función "subeBalsa" en la cual se utiliza el mutex antes mencionado,
+este se utiliza para que cada los desarrolladores suban de 1 a la vez... 
+
+Si están implementando alguno de los refinamientos
+R=
+
+Cualquier duda que tengan. Si notan que algún pedazo de la implementación podría mejorar, si algo no les terminó de quedar bien...

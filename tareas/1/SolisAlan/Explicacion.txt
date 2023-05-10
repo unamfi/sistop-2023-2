@@ -1,0 +1,21 @@
+Se decidio resolver el problema de "Santa Claus", ya que al momento de leer el ejercicio se me ocurrió una posible solución. Sin embargo,
+yo quería resolver el problema "De gatos y ratones", esto debido a que me gustan los gatos, pero ese problema se resolvió en clase.
+
+El lenguaje que utilice para la resolución del problema fue Python, ya que se utilizó bastante en la clase, y también conozco bastante bien
+su funcionamiento y me resulta bastante cómodo. No use ningún entorno de desarollo, sino que utilizé un editor de código (Visual Studio),
+pero al inicio probe con un cuaderno ipynb, pero no me terminó de convencer, por lo que use el editor de código. Por estas razones, no es necesario
+utilizar ninguna herramienta especial para ejecutar el programa, solo hay que "compilar" el programa y ejecutarlo. Cabe mencionar que mi sistema 
+operativo es Windows, por lo que hay que agregar la ubicación del interprete si es que se esta ejecutando en una distribución de Linux, es decir,
+la primera linea debe tener algo como esto: "!/usr/bin/python3".
+
+Para resolver el problema lo primero que se me ocurrio fue usar barreras, ya que el problema pide que al llegar 3 elfos a un problema, estos pueden
+pedir ayuda a santa, y debido a que siguen un patron de cumplir una condición especifica y después seguir su camino, creo que la barrera es la mejor
+opción para resolver el problema. Lo mismo pasa con los renos, solo que la condición de estos es llegar a 9 renos, pero siguen la misma idea. Mientras
+no lleguen los renos, o no se tengan 3 problemas con los elfos, santa seguira durmiendo, esto lo consideré como un posible Rendezvous, pero no encontre
+la manera de hacer que en lugar de 2 hilos fueran 4, 3 de los elfos y 1 de santa, que coincidieran en un punto para resolver el problema de los elfos,
+por ello implemente un condicional, que esta entre un mutex, puede que no sea la solución más optima o incluso que sea incorrecta, pero es la unica
+manera en la que logre que los elfos pararan de trabajar cuando tienen un problema y cuando lleguen a 3 problemas, llamen a santa. También se pudo
+realizar con 3 torniquetes, pero creo que no sería lo ideal. Lo mismo sucede con los renos, cuando uno regresa, se queda en el polo norte, no regresa,
+y cuando llegan los 9, se realiza un evento que es el de repartir los regalos. También agregue aleatoreidad a cada elfo, para que tenga un 20% de
+probabilidad de tener un problema, y un 10% de probabilidad que el reno vuelva al polo norte. Por último cree 2 mutex, uno para los elfos y otro para
+los renos, con el fin de tener un programa más rápido. También agregue un torniquete para hacer que los prints se vieran de mejor manera.

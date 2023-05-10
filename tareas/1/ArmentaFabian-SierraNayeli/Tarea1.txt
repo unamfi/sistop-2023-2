@@ -1,0 +1,58 @@
+ARMENTA CHORA LUIS FABIAN 
+SIERRA RUIZ NAYELI SELENE 
+
+El problema a resolver:
+
+Un profesor de la facultad asesora a varios estudiantes, y estamos
+en su horario de atención.
+Modelar la interacción durante este horario de modo que la espera
+(para todos) sea tan corta como sea posible.
+
+
+
+El lenguaje y entorno en que lo desarrollaron:
+
+El lenguaje en el que fue desarrollado el código es python 3.10.4, y fue desarrollado en Visual Studio Code
+
+
+
+¿Qué tengo que saber / tener / hacer para ejecutar su programa en mi computadora?
+
+Si es que lo ejecuta en su computadora que ya tiene python instalado, lo unico que se debe hacer es ejecutar el código 
+
+
+
+
+La estrategia de sincronización (mecanismo / patrón) que les funcionó:
+
+La solución implica coordinar la espera lo que nos implicó hacer uso e inicializar semáforos siguiendo patrones como el multiplex y
+el de apagadores, por ejemplo. Se toman las consideraciones escritas por el en el programa, esto es:
+
+Se manejo un numero "X" que corresponde al número de sillas que hay, así como también se asigno el tamaño de los alumnos
+que pueden ir a la asesoria, para que el profesor pueda tomar una siesta solo es necesario una validacion de que el aula
+se encuentra vacía. En general se plantea el uso de varios semáforos los cuales son:
+
+Uno que representa al estudiante
+Otro para dudas y avisar la entrada (tocar puerta) que actuan como apagadores
+El cubiculo el cual actua como multiplex 
+El de pregunta, el cual actua como mutex simulando la accion de la misma.
+
+Estos son los semaforos que se requiere para que el proceso se ejecute. Si el profesor no esta dispobible el semáforo de espera se "activa". 
+Los alumnos deberán esperar antes de poder interactuar con el profesor.Cuando el profesor termina con un alumno tiene que saber si aun hay alumnos esperando, 
+si es el caso, comienza a interactuar con el siguiente estudiante recordando que el problema nos pide modelar la interaccion para que la espera entre cada uno
+fuera lo más corta posible, esto es permitir que el profesor una vez respondido una duda del alumno, permita que otro alumno diferente le pregunte.
+
+
+
+*No se emplea ningún refinamiento.
+
+
+Cualquier duda que tengan. Si notan que algún pedazo de la implementación podría mejorar, si algo no les terminó de quedar bien:
+ 
+
+En general pensamos que la implementacion podría mejorar bastante, sobre todo siguiendo un camino en el cual no nos dio resultados positivos en el cual,
+esperabamos manejar al profesor (pensando un poco abstracto y a grandes rasgos) como una cola de alumnos, 
+en la cual por el orden de llegada del alumno fuera atendido primero y si en dado caso de que
+tuviera más dudas, fuera dirigido al final de la cola previamente realizada, permitiendo que otros alumnos no tuvieran un tiempo largo de espera.
+
+Consideramos que el código puede mejorar pero por ahora, nos quedamos con la solución planteada.
