@@ -1,0 +1,44 @@
+Para este tipo de planificación decidí crear una cola con procesos del 5 al 8 (eligiendo la cantidad de manera aleatoria)
+
+	tamaño=random.randint(5, 8)
+
+Luego de manera aleatoria se eligieron prioridades guardando los datos en una lista para porteriormente juntar los nombres de los procesos y las prioridades en un diccionario.
+
+for i in range(0,tamaño):
+        a=random.randint(0,4)
+        prio.append(a)
+        print(str(cola[i])+"\t\t\t\t"+str(a)) 
+        
+    procprio=dict(zip(nomprocess,prio)) 
+
+Luego se organizó el diccionario por el número de prioridad dejando una lista de tuplas
+
+
+    listaprio = sorted(procprio.items(), key=operator.itemgetter(1)) 
+
+Luego se realizaron procesos for para realizar el conteo de el tiempo y los ticks, en donde la duración de cada proceso se ekegía de manera aleatoria. Al final de los ciclos for se guardan los tiempos en los que termina cada proceso.
+
+	for i in range(0,tamaño):
+        duracion=random.randint(2, 3) 
+        tick=0
+        semaforo.acquire()
+        for j in range(0,duracion):
+            print("t= "+str(tiempo)+"\n") 
+            print(""+str(listaprio[i])+": "+str(tick)+" tick(s)\n") 
+            tick+=1
+            tiempo+=1
+        tiempos.append(tiempo)
+
+Finalmente se utiliza esta ultima lista para obtener los datos de la tabla e imprimirlos.
+
+   for k in range(0,tamaño):
+        print("\n")
+        c=random.uniform(0, 1)
+        inicio=tiempos[k] #se asigna el valor de inicio de proceso
+        fin=tiempos[k+1]-1 #se asigna el valor de fin de proceso
+        T=fin-inicio #se asigna el valor del tiempo que dura el proceso
+        e=T-c #se asigna el valor de tiempo de espera
+        E=round(e,3)
+        p=T/c #se asigna el valor de tiempo de respuesta
+        P=round(p,3)
+        print(" "+str(listaprio[k])+"   \t"+str(inicio)+"\t"+str(fin)+" \t "+str(T)+"\t"+str(E)+"\t"+str(P))
