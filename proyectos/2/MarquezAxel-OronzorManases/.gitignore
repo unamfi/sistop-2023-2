@@ -1,0 +1,9 @@
+# Archivos generados por Python
+__pycache__/
+*.pyc
+*.pyo
+*~
+*.bak
+*.swp
+*.pyc
+.DS_Store
