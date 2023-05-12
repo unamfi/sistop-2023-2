@@ -1,0 +1,1 @@
+/home/markosh/Documents/facultad/sistop-2023-2/proyectos/2/SanchezMarco-TeranMario/planificacion/target/debug/planificacion: /home/markosh/Documents/facultad/sistop-2023-2/proyectos/2/SanchezMarco-TeranMario/planificacion/src/main.rs
