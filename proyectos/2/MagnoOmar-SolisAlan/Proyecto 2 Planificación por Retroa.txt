@@ -1,0 +1,52 @@
+Proyecto 2: Planificación por Retroalimentación Multinivel y por Lotería
+
+Documentación por Magno García Omar y Solis González Alan David
+
+Código 1: Planificación Por Lotería.
+
+Es una planificación basada por aleatoriedad, los procesos "Participan" en un sorteo para ver quién consigue
+control del CPU por un tiempo determinado.
+El código mostrado da una simulación sobre esto, genreamos aleatoriamente procesos con cargas y duraciones distintas, y mediante la función radint() se elije al ganador.
+
+Conforme la infromación que investigamos sobre esta planificación que teníamos poco conopcimiento sobre ella, se nos muestra
+que este proceso se basa totalmente al azar, por lo que, de alguna manera termina siendo "Justo" para el uso del CPU, mientras más boletos consiga un proceso, más oportunidad de ganar tiene.
+
+Nuestro algoritmo funciona de la siguiente manera (Para no llenar de texto de código, ya que le mandamos precisamente archivo .py, me guiaré por líneas de código):
+
+loteria.py
+
+[Lineas 20-33]: Un primer for crea nuestros procesos los ordena en orden alfabetico, y les asigna caraterísticas, como su Nombre, el tiempo que tarda en llegar, la duración de su ejecución y los tickets disponibles que tiene.
+Cada proceso podrá tener como máximo 30 tickets, no queremos que sea algo tan desbalanceado, llegando a suceder que un proceso pueda tener 100 tickets, mientras que otro solo 10.
+
+[Lineas 35-43] Esta sección de código solamente es visual, ya que nos muestra en consola y de forma agradable, cuántos procesos hay, su duración y los tickets que tiene cada uno.
+
+Ahora viene la parte dónde surge toda la magia:
+
+[Lineas 51-72]: Esta sección de código es la parte que podemos denomunar "Tómbola", con ayuda de un "While", esta tómbola sacará una rifa de boletos mientras haya procesos esperando a ser ejecutados. 
+Al sacar un ticket con la función radint(), buscamos el proceso que tenga ese numero de ticket asignado, y cuando se encuentra, este comenzará a ejecutarse en el CPU.
+Sin embargo, esto no es hasta que termine, para que haya aún más "Equidad" entre los procesos, estos solo tendrán un tick de uso de CPU para ejecutarse, cuando se le acabe su tick, este vuelve a estar en pausa, y se comienza a sacar otro ticket.
+Este proceso es cíclico, se espera que el proceso que tenga más boletos deba ser el primero en terminar, sin embargo se debe considerar su duración, por lo que un proceso de 15 ticks de duración, pero con 30 boletos, podría salir después de otro proceso de 4 ticks de duración, pero con solo 10 boletos.
+Pero no solo este "While sirve de tómbola", también hay que registrar el progreso.
+Cuando se escoge un ganador, este se anuncia en pantalla, el "While" también guarda los ticks totales de todos los procesos, no solo eso, se crea un registro para poder observar al final cómo fue el orden de llegada de los procesos.
+Finalemte, después de tantas rifas, el ultimo proceso termina, dejandonos con las ultimas lineas de código, que solo muestran resultados.
+
+
+
+Código 2: Planificación Por Retroalimentación Multinivel.
+
+Esta planificación se mostro en clase y consiste en cambiar los procesos de cola de prioridad según vayan avanzando en el proceso de ejecución.
+Al inicio de cada proceso se le asigna la cola con la mayor prioridad posible y, de acuerdo a ciertos parámetros, se va moviendo a una cola de prioridad menor cada ciertas ejecuciones.
+Para este programa se utilizo la función random() para inicializar ciertos procesos en determinados tiempos y teniendo una duración aleatoria.
+También se utilizarón colas para simular las colas de prioridad, y para cambiar de cola se tiene que cumplir la condición de haber pasado por 2 quantums de proceso, y cada quantum tiene una duración de 3 ticks cada uno, es decir,
+cada proceso puede estar por 6 ticks de reloj antes que sea transferido a otra cola de prioridad.
+
+El código funciona de la siguiente manera:
+
+[Lineas 14-21]: Los procesos son crados aleatoriamente, se les asigna una llegada y una dirección aleatoria. La variable de avance es usada para calcular los ticks que el proceso ha sido ejecutado, mientras que la variable ejecuciones,
+muestra los quantum que ha sido ejecutado.
+
+[Lineas 28-48]: Se dan los parametros al algoritmo, tanto las colas necesarias, como el total de ticks necesarios para la ejecución.
+
+[Lineas 57-137]: Aqui comienza la ejecución. Primero se crea un ciclo que itera hasta que la cantidad de ticks del programa coincida con los calculados. Después, comprueba si en ese tick existe un proceso que tiene ese tiempo como llegada, si es así, el proceso se añade a la cola 0, la de mayor prioridad. Ahora al pasar 1 tick del sistema, se resta en 1 la duración del proceso, ya que el procesador se hizo cargo del el por un tick, después comprueba si el proceso
+ya termino, si es así, el proceso se elimina de la cola en la que este y se agrega a la lista de planificación. Si no ha acabado el proceso, se añade a la lista de planificación y comprueba si el proceso ha ocupado un quantum, si es así, aumenta en 1 el número de ejecuciones del proceso, si llega a 2, este proceso será movido a una cola de prioridad más baja. En el caso en que el proceso no haya ocupado un quantum, el proceso sigue su funcionamiento normal.
+Por último el programa imprime en pantalla la simulación del programa e imprime la lista de procesos.

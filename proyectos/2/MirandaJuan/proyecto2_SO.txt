@@ -1,0 +1,6 @@
+
+Se toma el código que nos proporcionó como ejemplo como punto de partida. Se agregaron algunas líneas de código para saber cuál es el proceso que más se repite, cuál es el proceso que menos se repite, así como el tiempo que toma cada proceso (tiempo de inicio-tiempo fin) más los ticks que llega a haber intermedios, la porción de penalización y la porción de respuesta. Esto para poder comprender y ver de alguna manera, el funcionamiento del algoritmo de planificación por lotería. 
+Pero de igual manera, se investigó sobre el algoritmo para comprenderlo mejor. Y no solo quedarnos con la ayuda que nos dio para implementar el algoritmo. 
+
+No entendí muy bien cuales dos mecanismos se tenían que implementar, por lotería y no supe cual otro. Por lo que también se implementó por SPN 
+
