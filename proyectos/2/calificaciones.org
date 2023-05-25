@@ -720,18 +720,93 @@ rubro, o si es binario (todo o nada).
     la posición. ¡No olviden al sabio /principio DRY/ (Don't Repeat
     Yourself) Si ves que se repite tu lógica, busca cómo xpresar lo
     mismo de forma que quede parametrizado.
+  - Respecto  las respuestas que entregan: Recuerden que en
+    /Retroalimentación Multinivel/ el administrador no /asigna/
+    prioridades, sino que las prioridades /se van determinando
+    automáticamente/ por la duración de un proceso en la cola. Todos
+    los procesos llegan siendo de máxima prioridad (y, contrario a lo
+    que indican, sólo son /degradados/, nunca promovidos).
+  - Ya viendo las implementaciones: Las decisiones de planificación se
+    toman /a cada momento, basados en la situación existente/. Eso
+    significa que en la lotería, a cada quantum, sólo participan en el
+    sorteo aquellos procesos /que ya llegaron y no han
+    finalizado/. Esto es, ante una ejecución como esta:
+    #+begin_src text
+      $ python3 RojoLuis-UriarteYahir/PlanificadorLoteria.py
+      Lista de procesos:
+
+      Proceso   Tickets   Duracion
+
+	 A          0        116
+	 B          9         93
+	 C          7         89
+	 D         16        114
+	 E          5         82
+
+       - Comenzemos 😎 -
+
+      t=7
+      t=44  ⌚ C 37 tick
+
+       - Orden de los resultados por loteria 🤓 : -
+      -------CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+       - Duración total ⏱️ : 44 -
+    #+end_src
+    Para cualquier ~t < 5~, sólo se sortea entre los boletos de =A=
+    (porque es el único proceso que ha llegado). Para ~5 <= t < 7~ se
+    consideran los boletos de =A, B, E=. Para partir de ~7 <= t < 16~,
+    se sortea entre =A, B, C, E=. Y a partir de ~t = 16~ y hasta que
+    comiencen a terminar, ya se consideran todos.
+  - Para /Retroalimentación Multinivel/, me parece que la
+    implementación está mayomente correcta, pero se detiene en el
+    momento en que no hay ningún proceso pendiente. Esto es:
+    #+begin_src text
+
+      Lista de procesos:
+      Proceso         Duración        Llegada
+	 A               7               0
+	 B               5               8
+	 C               9              19
+	 D               6               8
+      t=0 soy el proceso A y tengo una prioridad de 0
+      El proceso A se ejecuta por 1 ticks
+      t=1 soy el proceso A y tengo una prioridad de 1
+      El proceso A se ejecuta por 2 ticks
+      t=3 soy el proceso A y tengo una prioridad de 2
+      El proceso A se ejecuta por 3 ticks
+      t=6 soy el proceso A y tengo una prioridad de 0
+      A terminó en el tiempo 7
+    #+end_src
+    Como los procesos =B= y =D= llegan en =t=8=, y el algoritmo no
+    contempla que puede haber /tiempos muertos/ legítimamente, termina
+    antes de tiempo, habiendo ejecutado únicamente a uno de los
+    procesos.
+  - Veo que agregaron la cláusula que sugieren en el texto:
+    #+begin_src python
+	      elif not baja_prio_queue.empty():
+		  # (...)
+		  if proceso['duración'] > 0:
+		      # Si el proceso aún no ha terminado, lo sube de nivel para evitar que el proceso pase más tiempo sin ejecutarse
+		      proceso['prioridad'] = alta_prio
+		      alta_prio_queue.put(proceso)
+    #+end_src
+    Esto no forma parte del algoritmo descrito, pero lo acepto dado
+    que lo documentaron 😉
+  - ¡Una disculpa por no haber terminado de calificar esta
+    implementación junto con las otras!
 
 |----------------------+-------+------+--------|
 | *Calificación*       | Valor | Peso | Puntos |
 |----------------------+-------+------+--------|
 | Proyecto entregado   |     1 |    5 |      5 |
-| Implementa /Lotería/ |       |    1 |        |
-| /Lotería/ funciona   |       |    1 |        |
-| Implementa /FB/      |       |    1 |        |
-| /FB/ funciona        |       |    1 |        |
-| Responde preguntas   |       |    1 |        |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |   0.7 |    1 |    0.7 |
+| Responde preguntas   |     1 |    1 |      1 |
 |----------------------+-------+------+--------|
-| *Total*              |       |      |        |
+| *Total*              |       |      |    8.7 |
 |----------------------+-------+------+--------|
 #+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
 
