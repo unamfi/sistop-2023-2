@@ -1,0 +1,12 @@
+// Tarea 1 - Morales Zilli Luis Fernando
+
+- El problema que decidí resolver fue el del cruce del rio entre programadores de Linux y Windows
+- El lenguaje en el cual lo desarolle fue python, no considero que se necesite algo mas para poder ejecutarlo 
+- Para resolver este problema utilicé dos patrones. El primero fue el mutex el cual me ayudó a cuidar las regiones críticas
+  de memoria compartida entre los hilos, el segundo fue la implementación de colas.
+  En este caso las colas me ayudaron a adminstrar las dos categorias que tenía "serfs" y "hackers".
+  De esta forma al tener los componentes necesarios de serfs y hackers en espera podía liberar el proceso y de esta forma
+  'embarcar' a los programadores para que el programa siga su curso.
+- Notas: Utilicé una tercera entidad 'checadora' (similar a lo visto en clase) para que llevase el control de quienes se embarcaban 
+  en la balsa, de esta forma logré cumplir la condición de embarque de los programadores. Sin embargo, creo que no es la forma mas
+  optima y que no logra despachar los procesos de la forma mas eficaz. Me encantaría escuchar feedback de esta entidad!
