@@ -1,0 +1,27 @@
+----Loteria-------
+El algoritmo se realizo con hilos porque me gusta sufrir y porque en un arranque a las 3 de la mañana me llegó la iluminación de como hacerlo "fácilmente", se tiene un hilo llamado proceso, dentro del cual está el manejador como tal, el cual tendrá su arreglo de boletos y su tiempo total de procesador, este accederá por medio de un mutex a un arreglo con todos los números de los boletos seleccionando de manera aleatoria uno de estos, se comprueba si está dentro del arreglo del proceso y se ejecuta disminuyendo su tiempo restante de ejecución de ser así, de otra manera continuará el siguiente hilo para ver si tuvo más suerte hasta encontrar al ganador.
+El proceso lanza hilos a su vez va lanzando los procesos en un tiempo aleatorio de manera que pueden llegar en cualquier momento de la ejecución como lo pidio dentro de las especificaciones del git.
+La prioridad de los procesos decidí hacerla decendente por practicidad de forma que el primer proceso creado tenga mayor prioridad el siguiente una probabilidad menos de prioridad y así hasta llegar al último proceso que dependiendo de los hilos solo tendrá 1 o 2 boletos.
+
+
+¿Cómo se compararía este método con los otros abordados?
+
+Es algo curioso compararlo porque si bien se puede tomar el arreglo de boletos que tiene cada procesos como una cola realmente no tienen prioridad, salvo la prioridad que le da la probabilidad.
+
+¿Para qué tipo de carga es más apto y menos apto?
+Este método no favorece ninguna carga de trabajo en realidad teniendo una prioridad "similar" para todos los procesos, claro que el programador puede arreglar esto dándoles más o menos boletos a cada proceso pero no asegura que un proceso termine antes o despues que otro 
+¿Qué tan susceptible resulta a producir inanición?
+
+Es poco o casi nulamente probable que se produzca inanición para un conjunto de procesos pequeño, suponiendo el peor caso donde un proceso solo cuente con un boleto mientras sus compañeros lo sobrepasan de sobremanera ciertamente el proceso es suceptible a la inanición pero al no haber una regla de repartición de boletos mientras lo implementemos bien o trabajemos con conjuntos pequeños no debería de haber problema con la inanición
+
+¿Qué tan justa sería su ejecución?
+
+Es bastante justa ya que siempre hay probabilidad de que todos los procesos se ejecuten incluso si son de las menos prioritarias finalmente por pocas que sean sus chances nuca son cero 
+
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? (aunque sea tiempo real suave)
+
+Al ser muy aleatorio tengo mis dudas de que pueda ser implementado para los tiempos precisos que requiere el tiempo real, pero podríamos forzandolo haciendo que todos los procesos se repartieran la totalidad de sus boletos según lo requiera el resultado en tiempo real para que sí o sí le toque al proceso, pero yo no me arriesgaría en un sistema así de preciso a jugar con las probabilidades ni con los tiempos que esto podría llevar
+
+¿Alguna otra reflexión o inquietud que les provoque?
+
+Ya que no lo simulamos con recursos me intriga saber cómo se reparten los boletos entre procesos para que se liberen los recursos, sobre todo porque si un proceso tiene mayor prioridad significa que accedería primero a esos recursos, entonces porqué cedería su probabilidad de pasar y utilizar esos recursos a un proceso con menor prioridad, e incluso si dijera que es porque ambos procesos son secuenciales si se necesita del resultado de uno para que continue el otro ya sería de mayor prioridad desde el principio y si bien los boletos del proceso contiguo podrían ayudar no representarían una probabilidad muy fuerte en un conjunto de procesos grandes, así mismo en un conjunto chico de procesos la prioridad que tiene debería bastar para ser seleccionado pronto, por lo que lo veo poco práctico si no es para situaciones muy desesperadas o precisas como el ejemplo del tiempo real.

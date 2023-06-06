@@ -1,0 +1,30 @@
+Multinivel
+
+En primer lugar, se generan aleatoriamente entre 5 y 8 procesos, con nombres de letras consecutivas a partir de la letra 'A'. Para cada proceso se asigna una llegada aleatoria entre 0 y 10 veces el índice del proceso, una duración aleatoria entre 4 y 10, y una prioridad aleatoria entre 0 y 4. Los procesos se almacenan en una lista de diccionarios.
+
+El simulador comienza la ejecución de los procesos a tiempo 0. Se utiliza una variable "tiempo_actual" para mantener el tiempo actual de la simulación, y una lista "tabla_ejecucion" para almacenar información de cada proceso que se va ejecutando.
+
+En cada iteración del bucle principal se selecciona el proceso con la mayor prioridad que esté disponible en ese momento, teniendo en cuenta su tiempo de llegada. Si hay procesos con prioridad 0, se ejecutan en primer lugar. Si no hay procesos con prioridad 0, se ejecutan los procesos con prioridad 1, luego los de prioridad 2, y así sucesivamente hasta la prioridad 4.
+
+Cuando se encuentra un proceso disponible para ejecutarse, se calculan varios tiempos relacionados con su ejecución, como su tiempo de inicio, su tiempo de finalización, su tiempo de espera, su tiempo de respuesta y su proporción de penalización. Estos valores se almacenan en la lista "tabla_ejecucion".
+
+Cuando no hay más procesos disponibles para ejecutarse, el bucle termina. Se muestra por pantalla la tabla de ejecución con los tiempos de cada proceso, así como la duración total de la ejecución.
+
+¿Cómo se compararía este método con los otros?
+El multinivel es más flexible y puede adaptarse mejor a diferentes cargas de trabajo y requisitos de rendimiento. Por ejemplo, puede manejar tanto procesos de alta prioridad como procesos de baja prioridad. Sin embargo, otros enfoques de planificación pueden ser más eficientes en ciertos escenarios específicos.
+
+¿Para qué tipo de carga es más apto y menos apto?
+El enfoque multinivel es más adecuado para cargas de trabajo heterogéneas y dinámicas, donde hay procesos con diferentes prioridades y requisitos de recursos. Es menos adecuado para cargas de trabajo homogéneas y estáticas, donde todos los procesos tienen requisitos similares.
+
+¿Qué tan susceptible resulta a producir inanición?
+Es susceptible a la inanición si hay procesos de alta prioridad que compiten constantemente por los recursos.
+
+¿Qué tan justa sería su ejecución?
+Puede ser más justo que otros enfoques de planificación, ya que prioriza los procesos según su nivel de prioridad. Como se mencionó anteriormente, los procesos de baja prioridad pueden verse afectados por la inanición en ciertos casos.
+
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? (aunque sea tiempo real suave)
+Para planificar procesos con necesidades de tiempo real, el algoritmo de planificación por multinivel requeriría modificaciones para garantizar que los procesos de alta prioridad reciban recursos adecuados y en tiempo real. Se podrían asignar niveles de prioridad especiales para procesos de tiempo real y establecer políticas de planificación que garanticen que se atiendan adecuadamente.
+
+¿Alguna otra reflexión o inquietud que les provoque?
+No 
+

@@ -1,0 +1,170 @@
+:root {
+  --color-1: #2370ee;
+  --color-2: #3b23ee;
+  --color-3: #a123ee;
+  --color-4: #ee23d6;
+  --color-5: #ee2370;
+  --color-6: #ee3c23;
+  --color-7: #1abc9c;
+  --color-8: #f4d03f;
+}
+
+* {
+  margin: 0;
+  font-family: arial;
+  color: white;
+}
+
+button {
+  background-color: limegreen;
+  outline: none;
+  border: none;
+  padding: 1em;
+}
+
+button:hover {
+  background-color: lime;
+  cursor: pointer;
+}
+
+body {
+  background-color: rgb(45, 42, 42);
+  margin: 5em;
+}
+
+h1 {
+  color: var(--color-1);
+}
+
+section {
+  margin-bottom: 1em;
+}
+
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: right;
+  padding: 0.5em;
+}
+
+#metrics-panel table {
+  width: 100%;
+}
+
+#metrics-panel th,
+#metrics-panel td {
+  width: calc(100% / 7);
+}
+
+#metrics-panel th {
+  background: var(--color-1);
+}
+
+#process-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  counter-set: ticks -1;
+}
+
+#process-panel>span {
+  padding: 10px 0 10px;
+  display: block;
+  text-align: center;
+  color: white;
+  width: 5%;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+#process-panel>span::before {
+  counter-increment: ticks;
+  content: counter(ticks);
+  position: absolute;
+  font-size: 10px;
+  left: 10%;
+  top: 10%;
+}
+
+#control-panel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#queues-panel, #tickets-panel {
+  min-height: 100px;
+}
+
+#content {
+  margin: 5em 10% 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.row>* {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  flex-grow: 0.2;
+}
+
+label {
+  font-weight: bolder;
+}
+
+.label_a {
+  color: var(--color-1);
+}
+
+.label_b {
+  color: var(--color-2);
+}
+
+.label_c {
+  color: var(--color-3);
+}
+
+.label_d {
+  color: var(--color-4);
+}
+
+.label_e {
+  color: var(--color-5);
+}
+
+.label_f {
+  color: var(--color-6);
+}
+
+.label_g {
+  color: var(--color-7);
+}
+
+.label_h {
+  color: var(--color-8);
+}
+
+input {
+  padding-left: 10px;
+  background-color: transparent;
+  outline: 1px solid var(--color-1);
+  border: 1px solid var(--color-1);
+  border-radius: 10px;
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  --webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

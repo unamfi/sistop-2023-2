@@ -1,0 +1,824 @@
+* Los alumnos y el asesor
+- ¡Muy bien por especificar los valores de forma fácilmente
+  parametrizable!
+
+** Aranzua Chavez, Carranza Ochoa
+- Documentación :: [[./AranzuaChavez-CarranzaOchoa/README.md][README.md]]
+- Archivos :: [[./AranzuaChavez-CarranzaOchoa/tarea1.py][tarea1.py]]
+- Comentarios ::
+  - Los =alumno()= no despiertan al profe sólo si está dormido: Cada
+    pregunta lleva un =despertar.release()=
+    - ¿O sera que tal vez el nombre es incorrecto? Porque el =profesor()=
+      está despierto en todo momento (no se duerme; sólo comienza
+      diciendo que está dormido, e incrementa =aux=, con lo que su
+      sueño sólo le dura un ciclo de un =while= vacío 🙁. ¡Pobrecito!
+      😫
+    - Tendría que ser el =profesor()=, no el =alumno()=, el que
+      anunciara =PROFE DORMIDO SALIENDO=, ¿no? O en todo caso, el
+      =alumno()= debería anunciar =SALIENDO= y el profe, viendo que no
+      queda nadie, decir =Hora de dormir un rato=.
+  - La idea de salir cuando =NUM_ALUMNOS == id+1= no es mala, pero
+    puedes estar cortando algunas preguntas: Si el =alumno()= 4 tiene
+    sólo una pregunta y el 3 tiene 4, ¡probablemente el =alumno()= 4
+    salga antes de que el 3 haya tenido tiempo de plantear todas sus
+    preguntas!
+    - Salir mediante un =os._exit(0)= es una idea original e
+      interesante. No te voy a decir que me encanta, sobre todo porque
+      no considera a todos los demás hilos, pero es efectiva 😉
+  - La interacción de plantear y responder preguntas es correcta
+  - Respecto a sus preguntas:
+    - Si omites el =os._exit()=, el =profesor()= se queda esperando en
+      =despertar.acquire()=.
+    - ¿De qué otra manera modelarlo? ¡Acompáñenme a revisar las
+      entregas de sus compañeros! 😉 Seguro encunentran mucho más si
+      buscan en Internet el /problema del barbero durmiente/
+      (/sleeping barber/).
+    - En Python, hace falta declarar como =global= todas las variables
+      que uses dentro de una función y que pueda caber duda de dónde
+      vienen, esto es, cuando su primer uso dentro de una función es
+      una asignación. Esto se hace porque en Python, al igual que en
+      muchos lenguajes, se intenta que las variables pertenezcan al
+      /ámbito más acotado posible/: Que se mantengan como /locales/ a
+      cada función.
+
+      En varios lenguajes, de hecho, se pueden declarar variables
+      locales a cualquier bloque, por muy anidado que esté, y no son
+      visibles fuera de éste.
+
+      En el caso de ustedes, =aux= sólo se usa dentro de =profesor()=,
+      así que no hace falta declararla en =alumno()=. Podrían no
+      declarar a =aux= en la parte externa, sino que únicamente dentro
+      de la función.
+- Calificación :: 8
+
+** Armenta Fabian, Sierra Nayeli
+- Documentación :: [[./ArmentaFabian-SierraNayeli/Tarea1.txt][Tarea1.txt]]
+- Archivos :: [[./ArmentaFabian-SierraNayeli/Alumno_Asesor.py][Alumno_Asesor.py]]
+- Comentarios ::
+  - A veces, lo que decimos los profesores no es muy útil... Pero en
+    esta implementación no hay ni siquiera comunicación entre el
+    =alumno()= y el =profesor()=: El alumno solito entra, pregunta,
+    espera, se responde solito y decide que es hora de irse
+    - El mutex =pregunta= sólo evita que más de un alumno esté
+      preguntando a la vez, pero no hay ninguna señalización que haga
+      que el =profesor()= haga algo
+    - El profesor sólo hace una espera activa (aunque sea con un
+      =time.sleep(0.3)=) y anuncia que se va a dormir si no ve a
+      nadie, pero no emplea ningún mecanismo de sincronización
+    - Los semáforos =tocar_Puerta=, =dudas= y =alum= son declarados,
+      pero no utilizados
+  - Los únicos usos de sincronización que veo son el multiplex
+    =cubiculo= y el mutex =pregunta=.
+- Calificación :: 6
+
+** Morales Ortega
+- Documentación :: [[./MoralesOrtega/MoralesOrtega.txt][MoralesOrtega.txt]]
+- Archivos :: [[./MoralesOrtega/alumno_asesor_MOC.py][alumno_asesor_MOC.py]]
+- Comentarios ::
+  - Tu solución me parece un flujo interesante. Hay un par de asuntos
+    a revisar, pero me parece que va bastante de cerca de lo esperado.
+    - El alumno =alu()= notifica al profesor =profe()= que tiene
+      alguna. Como bien dice tu comentario, /el alumno se agarra al
+      profesor para que le resuelva su duda/ usando señalización con
+      el semáforo =profesor=. Sin embargo, parecería que plantea su
+      duda y se va — ¡tal vez sin esperar a una respuesta! Yo
+      sugeriría meter una señalización más, digamos =dudaResuelta=,
+      que sea adquirida por =alu()= antes de =duda.release()= y
+      liberada por =profe()= después de =resuelveDuda()=.
+    - Cuando no hay sillas (=flag==0=), el alumno =alu()= se queda
+      sentado /afuera de la oficina/. Sin embargo, ¡sí decrementa
+      =numDudas=! ¿no debería dejar a =numDudas= para que tenga sus
+      dudas completas cuando entre a hablar con el =profe()=?
+- Calificación :: 8
+
+** Organista Ricardo
+- Documentación :: [[./OrganistaRicardo/informacion.txt][informacion.txt]]
+- Archivos :: [[./OrganistaRicardo/alumnos_y_asesor.py][alumnos_y_asesor.py]]
+- Comentarios ::
+  - Si bien manejas correctamente algunos de los puntos de
+    sincronización (el /Multiplex/ de =sillas= y el /Mutex/ de
+    =preguntando=), te faltan algunos importantes
+    - Los alumnos y el profesor no /interactúan/: Los dos semáforos
+      que manejas regulan la comunicación /entre alumnos/, pero
+      no hay nada que notifique al =profesor()= de que es momento de
+      hacer una u otra cosa
+    - Los alumnos /se responden solitos/ — =preguntar()= es una
+      función donde el alumno entra, imprime, espera, y se va. ¡Sería
+      bueno nunca tener que resolver dudas, que a veces nos ponen en
+      aprietos! Pero la realidad es bastante distinta...
+    - Respecto a tu duda: No, en el planteamiento tradicional de
+      semáforos no hay manera de conocer el contenido de una variable
+      de semáforo.
+
+      Algunas implementaciones sí te permitirán ver si es /esperable/
+      que puedas obtener o no un candado. Los candados en Python
+      (=candado = threading.Lock()=) presentan la misma interfaz
+      =acquire()/release()= que la que vimos, pero además ofrece el
+      método =candado.locked()=, que regresa =True= o
+      =False=. Pero... yo los invito a evitar esos métodos si no es
+      indispensable a la de sí o sí emplearlos.
+- Calificación :: 6
+
+** Rangel Jose
+- Documentación :: [[./RangelJose/README.md][README.md]]
+- Archivos :: [[./RangelJose/asesor.py][asesor.py]]
+- Comentarios ::
+  - ¡10 a 20 sillas! El día que me quepan tantas sillas en mi
+    cubículo... ¡tal vez si me hacen director de algo! 😉
+  - Identificaste una solución basada en semáforos para que el
+    profesor pueda dormir la siesta, y el primer alumno que llegue lo
+    despierte. Es, sí, una viariación sobre lo que hacíamos con el
+    /Apagador/. ¡Muy bien!
+  - Veo únicamente como faltante un par de /Mutexes/ sibre estructuras
+    comunes, que se leen o modifican en diferentes lugares del código
+    sin ser protegidas (p.ej. =orden_preguntas=, =lista_alumnos=)
+  - ¡Muy bueno que encuentres cómo resolver las preguntas en orden!
+    Ingenioso sin duda, y muy buen razonamiento que presentas. Lo
+    mismo respecto a un "desordenamiento a propósito" de los alumnos.
+- Calificación :: 9
+
+* El elevador
+
+** Arellano Israel
+- Documentación :: [[./ArellanoIsrael/ElevadorT2.txt][ElevadorT2.txt]]
+- Archivos :: [[./ArellanoIsrael/elevador.py][elevador.py]]
+- Comentarios ::
+  - En el problema anterior felicité a los cinco alumnos que lo
+    resolvieron porque los cinco pusieron los valores /duros/
+    claramente anclados a valores parametrizados fuera del flujo
+    central. Te sugiero adoptar esas prácticas, te permiten realizar
+    código más flexible (y te ahorran el tener que poner advertencias
+    por el estilo de /¡todo se va a romper si no son cinco los que se
+    suben!/ por todos lados.
+    - Este es meramente un comentario, no te resto puntos ni
+      nada. Pero es una fuerte recomendación.
+  - ¡Interesante solución usando variables de condición! ¡Muy bien!
+    - Me parece que esto lleva a fragmentos con lógica más bien
+      complicada, como las verificaciones en las líneas 79--82 — pero
+      es absolutamente correcto.
+  - Muy bueno que hagas las verificaciones en =mueve_elevador()=; casi
+    siempre he visto implementaciones en que el elevador baja hasta el
+    0 y sube hasta el 4 independientemente de alguien lo haya llamado
+    😉
+- Calificación :: 10
+
+** Bernal Gustavo, Toledo Dilan
+- Documentación :: [[./BernalGustavo-ToledoDilan/Entrega.txt][Entrega.txt]]
+- Archivos :: [[./BernalGustavo-ToledoDilan/Elevador.py][Elevador.py]]
+- Comentarios ::
+  - La idea de un /Multiplex/ para limitar el máximo de alumnos en el
+    elevador es buena, pero... ¡no llaman a =subir_elevador()= ni
+    =bajar_elevador()=! (ni esas funciones hacen nada más que
+    adquirir/liberar el /Multiplex/)
+  - También, la idea de formarse en la cola de cada piso. ¡pero nunca
+    se salen de la fila para abordar al elevador! 🙁
+- Calificación :: 6
+
+** Rojas Laylet, Ruiz Miguel
+- Documentación :: [[./RojasLaylet-RuizMiguel/Read.txt][Read.txt]]
+- Archivos :: [[./RojasLaylet-RuizMiguel/Elevator.py][Elevator.py]]
+- Comentarios ::
+  - ¡Muy bonita implementación! (incluyendo una buena visualización
+    para explicar la situación)
+  - Como correctamente indican, =Alumno.run()= incurre en /dos/
+    esperas activas. Eso no es bueno... Claro, no es trivial evitarlo:
+    el elevador =System= tendría que notificar a cada uno de los
+    alumnos de las colas relevantes (y de dentro del elevador) para
+    evitarlo, lo cual pondría de cabeza la lógica que supongo ya
+    llevaban desarrollada para el momento en que decidieron sí dejar
+    la espera activa.
+- Calificación :: 9
+
+** Rosado Jorge
+- Documentación :: ---
+- Archivos :: [[./RosadoKareem/Elevador.py][Elevador.py]]
+- Comentarios ::
+  - ¡Una disculpa por la calificación tardía! Entregaste fuera de
+    lugar, y cuando corregiste la entrega... no califiqué sino hasta
+    apenas ahora
+  - =Elevador#capacity= es constante (5); lo usas para reportar
+    cuántas personas bajan en algún piso. Me parece que querías decir
+    =Elevador#passengers=, ¿no?
+  - Me parece que los pasajeros bajan todos siempre al llegar al piso
+    5, a pesar que que cada uno de ellos prefiere un piso diferente
+    Como sea, si bien tiene sus problemas, la implementación es buena
+    y limpia. ¡Felicidades!
+- Calificación :: 8
+
+* Intersección de caminos
+
+** Camacho Juan
+- Documentación :: [[./CamachoJuan/Tarea1.txt][Tarea1.txt]]
+- Archivos :: [[./CamachoJuan/interseccion_de_caminos.py][interseccion_de_caminos.py]]
+- Comentarios ::
+  - ¡Conciso y corto! ¡Muy bien!
+    - Me gustó cómo abstraes desde temprano, y cómo esto ayuda a que
+      el código sea más corto y sencillo.
+  - Como lo indicas, tu =Mutex= alrededor de toda la intersección
+    evita que compartan los carriles no-rivales (p.ej. que 0 y 1 pase
+    a la vez que 2 y 3)
+    - Sin embargo, quitando al =Mutex= (y agregándole un =sleep(0.01)=
+      después del =print= de cada cuadrante), me da una interacción
+      mucho más interesante:
+      #+begin_src text
+	Nuevo carro 🚗 numero: 0 Voy del norte hacia el sur ⬇️
+	carro: 0 🛑 pasando por el cuadrante  0
+	Nuevo carro 🚗 numero: 1 Voy del sur hacia el norte ⬆️
+	carro: 1 🛑 pasando por el cuadrante  2
+	Nuevo carro 🚗 numero: 2 Voy del sur hacia el norte ⬆️
+	Nuevo carro 🚗 numero: 3 Voy del sur hacia el norte ⬆️
+	Nuevo carro 🚗 numero: 4 Voy del este hacia el oeste ⬅️
+	carro: 4 🛑 pasando por el cuadrante  1
+	Nuevo carro 🚗 numero: 5 Voy del oeste hacia el este ➡️
+	carro: 5 🛑 pasando por el cuadrante  3
+	Nuevo carro 🚗 numero: 6 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 7 Voy del norte hacia el sur ⬇️
+	Nuevo carro 🚗 numero: 8 Voy del norte hacia el sur ⬇️
+	Nuevo carro 🚗 numero: 9 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 10 Voy del sur hacia el norte ⬆️
+	Nuevo carro 🚗 numero: 11 Voy del norte hacia el sur ⬇️
+	Nuevo carro 🚗 numero: 12 Voy del norte hacia el sur ⬇️
+	Nuevo carro 🚗 numero: 13 Voy del oeste hacia el este ➡️
+      #+end_src
+      Los cuatro cuadrantes son ocupados al mismo tiempo. Los demás
+      autos que llegan al cruce (como es tristemente habitual 😛)
+      tienen que esperar a su turno. Un rato después, por alguna razón
+      los autos están acomodados para pasar sin chocarse. Ojo, bajé
+      el total de autos a 99, por practicidad:
+      #+begin_src text
+	Nuevo carro 🚗 numero: 94 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 95 Voy del norte hacia el sur ⬇️
+	Nuevo carro 🚗 numero: 96 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 97 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 98 Voy del sur hacia el norte ⬆️
+	carro: 7 🛑 pasando por el cuadrante  0
+	carro: 2 🛑 pasando por el cuadrante  2
+	carro: 15 🛑 pasando por el cuadrante  1
+	carro: 6 🛑 pasando por el cuadrante  3
+	carro: 8 🛑 pasando por el cuadrante  0
+	carro: 3 🛑 pasando por el cuadrante  2
+	carro: 21 🛑 pasando por el cuadrante  1
+      #+end_src
+      Y por último, van saliendo; cada vez que uno deja el último
+      cuadrante que ocupaba, notifica:
+      #+begin_src text
+	carro: 63 🛑 pasando por el cuadrante  3
+	carro 🚗 numero: 27 Sali del cruce!!! 🎉🎉🎉
+	carro: 30 🛑 pasando por el cuadrante  2
+	carro 🚗 numero: 53 Sali del cruce!!! 🎉🎉🎉
+	carro: 55 🛑 pasando por el cuadrante  0
+	carro 🚗 numero: 48 Sali del cruce!!! 🎉🎉🎉
+	carro: 51 🛑 pasando por el cuadrante  1
+	carro 🚗 numero: 63 Sali del cruce!!! 🎉🎉🎉
+	carro: 64 🛑 pasando por el cuadrante  3
+	carro 🚗 numero: 30 Sali del cruce!!! 🎉🎉🎉
+	carro: 37 🛑 pasando por el cuadrante  2
+      #+end_src
+    - El único problema con esto es que una gran cantidad de autos se
+      estaría quedando en la rayita del camellón... Pero... ¿Y si
+      limitamos el total de autos en el cruce a un número
+      decente... Digamos, 6? Revivamos tu =Mutex= y convirtámoslo en
+      un /Multiplex/ inicializándolo a =Semaphore(6)=, y la
+      interacción se ve, desde el principio, mucho más interesante:
+      #+begin_src text
+	Nuevo carro 🚗 numero: 0 Voy del norte hacia el sur ⬇️
+	carro: 0 🛑 pasando por el cuadrante  0
+	carro: 0 🛑 pasando por el cuadrante  3
+	carro 🚗 numero: 0 Sali del cruce!!! 🎉🎉🎉
+	Nuevo carro 🚗 numero: 1 Voy del oeste hacia el este ➡️
+	carro: 1 🛑 pasando por el cuadrante  3
+	carro: 1 🛑 pasando por el cuadrante  2
+	carro 🚗 numero: 1 Sali del cruce!!! 🎉🎉🎉
+	Nuevo carro 🚗 numero: 2 Voy del norte hacia el sur ⬇️
+	carro: 2 🛑 pasando por el cuadrante  0
+	carro: 2 🛑 pasando por el cuadrante  3
+	Nuevo carro 🚗 numero: 3 Voy del norte hacia el sur ⬇️
+	carro: 3 🛑 pasando por el cuadrante  0
+	carro 🚗 numero: 2 Sali del cruce!!! 🎉🎉🎉
+	carro: 3 🛑 pasando por el cuadrante  3
+	Nuevo carro 🚗 numero: 4 Voy del oeste hacia el este ➡️
+	carro 🚗 numero: 3 Sali del cruce!!! 🎉🎉🎉
+	Nuevo carro 🚗 numero: 5 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 7 Voy del oeste hacia el este ➡️
+	Nuevo carro 🚗 numero: 8 Voy del sur hacia el norte ⬆️
+	Nuevo carro 🚗 numero: 9 Voy del este hacia el oeste ⬅️
+	carro: 4 🛑 pasando por el cuadrante  3
+	Nuevo carro 🚗 numero: 6 Voy del norte hacia el sur ⬇️
+	carro: 9 🛑 pasando por el cuadrante  1
+	carro: 6 🛑 pasando por el cuadrante  0
+	carro: 5 🛑 pasando por el cuadrante  3
+	carro: 8 🛑 pasando por el cuadrante  2
+      #+end_src
+- Calificación :: 9
+
+** Miranda Juan
+- Documentación :: [[./MirandaJuan/tarea_1.txt][tarea_1.txt]]
+- Archivos :: [[./MirandaJuan/tarea1_interseccion_de_caminos.py][tarea1_interseccion_de_caminos.py]]
+- Comentarios ::
+  - La lógica que implementas no resuelve al problema planteado
+    - La barrera para que sólo pasen los autos de 5 en 5 no tiene nada
+      que ver con el planteamiento
+    - No está modelada la intersección
+    - Por más que confundiste escribiendo =Choches= en vez de
+      =Coches=, no hay posibilidad alguna de =choques= 😉
+- Calificación :: 6
+
+** Rios Gamaliel
+- Documentación :: [[./RiosGamaliel/README.md][README.md]]
+- Archivos :: [[./RiosGamaliel/1/Carril.java][Carril.java]], [[./RiosGamaliel/1/InterseccionCaminos.java][InterseccionCaminos.java]], [[./RiosGamaliel/1/TipoAuto.java][TipoAuto.java]], [[./RiosGamaliel/2/Carril.java][Carril.java]], [[./RiosGamaliel/2/InterseccionCaminos.java][InterseccionCaminos.java]], [[./RiosGamaliel/2/TipoAuto.java][TipoAuto.java]], [[./RiosGamaliel/2/TipoCarril.java][TipoCarril.java]]
+- Comentarios ::
+  - Es bueno que me saquen de la monotonía 😉 ¡Gracias por escribir en
+    un lenguaje distinto de Python!
+    - Lástima que fuera Java... Tengo alguna especie de bloqueo
+      mental, ¡y nomás no puede caerme bien ese lenguaje!
+    - (... pero esa es bronca mía. ¡Muy bien por hacerlo!)
+  - ¡Muy bien por encontrar la situación de bloqueo mutuo, y hacer que
+    sea imposible que se presente
+    - Ojo, lo que describes es /bloqueo mutuo/, no /inanición/.
+  - También buena: tu idea de adquirir =frente2= antes de liberar
+    =frente1= (y, por tanto, imposibilitar el que nos quedemos
+    atrapados en el camellón esperando un mutex, como describo que le
+    pasó a mi modificación del programa de Juan Camacho).
+  - Y muy bueno cómo aprovechaste los mecanismos específicos de
+    sincronización de la VM de Java (como =synchronized=). ¡Yo creía
+    que sólo se podía anotar como =synchronized= a un método completo!
+- Calificación :: 10
+
+** Uriarte Yahir
+- Documentación :: [[./UriarteYahir/Tarea1_Uriarte_Yahir.txt][Tarea1_Uriarte_Yahir.txt]]
+- Archivos :: [[./UriarteYahir/IntersecciondeCaminos.py][IntersecciondeCaminos.py]], [[./UriarteYahir/IntersecciondeCaminosF.py][IntersecciondeCaminosF.py]]
+- Comentarios ::
+  - ¡Ojo con la ortografía! No se escribe «z» antes de «e», por lo que
+    la palabra correcta es «cruce», no «cruze». La leí ya tantas veces
+    que... no puedo seguir leyendo sin hacerlo explícito 😉
+  - Revisando el error a que haces referencia, la respuesta casi
+    siempre la tienes en el punto en que indica el tipo de excepción
+    que ocurrió, =RuntimeError=. Reproduzco de tu documentación, para
+    que quede más a mano para tus compañeros:
+    #+begin_src text
+      Traceback (most recent call last):
+
+	File C:\Program Files\Spyder\pkgs\spyder_kernels\py3compat.py:356 in compat_exec
+	  exec(code, globals, locals)
+
+	File c:\users\yahir\documents\fi unam\semestre_2023-2\sistemas operativos\untitled6.py:165
+	  thread.join()
+
+	File threading.py:1008 in join
+
+      RuntimeError: cannot join current thread
+    #+end_src
+    Esto es causado por el siguiente código:
+    #+begin_src python
+      for thread in threading.enumerate():#Enumerar hilos.
+	  if thread.daemon:
+	      continue
+	  try:
+	      thread.join()
+	  except RuntimeError as err:
+	      if 'Error' in err.args[0]:
+		  continue
+	      else:
+		  raise
+    #+end_src
+    La última línea de tu mensaje de error (no entiendo qué busca el
+    bloque =except= que le agregaste) se presenta porque =cannot join
+    current thread=: No puedes pedir que el hilo actual espere para
+    unirse consigo mismo. Si quieres evitar ese mensaje, usa el
+    siguiente contenido para el bloque =expect=:
+    #+begin_src python
+      if thread != threading.current_thread():
+	  thread.join()
+    #+end_src
+  - Me entregas dos implementaciones, pero... ¿Cuál se supone que
+    revise? Viendo rápidamente tu descripción, me parece que la
+    "mejor" es =IntersecciondeCaminos.py= comprenderás que no revise
+    ambas (¡requieren su tiempo!)
+  - Tu código no evita (sólo detecta) las colisiones: Es frecuente que
+    veamos que =ya cochocaron 🚑🚑🚑🚑🚑=.
+  - Me parece que caes en un bloqueo mutuo: Si bien a veces el
+    programa ejecuta correctamente, casi siemprese presenta un bloqueo
+    mutuo. Al interrumpirlo me indica que:
+    #+begin_src text
+      ^CTraceback (most recent call last):
+	File "/home/gwolf/vcs/sistop-2023-2/tareas/1/UriarteYahir/IntersecciondeCaminos.py", line 85, in <module>
+	  thread.join()
+	File "/usr/lib/python3.11/threading.py", line 1112, in join
+	  self._wait_for_tstate_lock()
+	File "/usr/lib/python3.11/threading.py", line 1132, in _wait_for_tstate_lock
+	  if lock.acquire(block, timeout):
+	     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      KeyboardInterrupt
+    #+end_src
+    - Pero esto sólo me indica que el hilo principal se quedó
+      esperando en el =join()=, no me dice dónde se quedaron los otros hojis.
+
+    - Puedes depurarlo más, me gustaría que nos cuentes en qué te
+      atoraste 😉
+    
+- Calificación :: 7
+
+* El cruce del río
+
+** Frias Camille
+- Documentación :: [[./FriasCamille/Explicacion.txt][Explicacion.txt]]
+- Archivos :: [[./FriasCamille/convención.py][convención.py]]
+- Comentarios ::
+  - ¡Deja de lado el /pensamiento mágico/! Si tienes un error que no
+    siempe se presenta, no es /por misterios de la vida/... Casi
+    seguramente es una condición de carrera, y tienes todo lo
+    necesario para corregirla 😉
+    - "Desafortunadamente"... Ejecuté varias veces el programa, y
+      nunca lo vi fallar...
+    - Siempre que puedas, recuerda el principio "DRY": /Don't Repeat
+      Yourself/. *No te repitas*.
+
+      Si tienes dos funciones no-triviales tan similares como
+      =hacker()= y =serf()=, convendría plantear un parámetro que
+      definiera su comportamiento, posiblemente las cadenas que
+      imprime... y escribir únicamente una vez la lógica. Así como lo
+      hiciste, cualquier cambio o corrección que tengas que hacer,
+      debes hacerla en dos lugares. Es más trabajo mantenerlo, al
+      igual que verificar que ambas copias funcionen bien.
+  - La lógica del programa me parece correcta y simple. ¡Muy bien!
+- Calificación :: 10
+
+** Juárez Cristopher, Constantino Pablo
+- Documentación :: [[./ConstantinoPablo-JuarezCristopher/README.md][README.md]]
+- Archivos :: [[./ConstantinoPablo-JuarezCristopher/CruceRio.py][CruceRio.py]]
+- Comentarios ::
+  - Su lógica general es buena, y (¡bien!) utilizan mecanismos de
+    sincronización para detener / señalizar a los hilos.
+
+    Sin embargo, hacen muchas verificaciones y modificaciones a
+    variables globales (=num_Hackers=, =num_Serfs=) sin emplear un
+    /Mutex/ para protegerlas de accesos simultáneos.
+- Calificación :: 8
+
+** Marquez Axel
+- Documentación :: [[./MarquezAxel/Especificacion.txt][Especificacion.txt]]
+- Archivos :: [[./MarquezAxel/CruceRio.py][CruceRio.py]]
+- Comentarios ::
+  - Conciso, cortito, y fácil de leer. ¡Bien! 😃
+  - Sin embargo... Caes en bloqueo mutuo siempre, después de lanzar la
+    primera balsa 😢
+    - Todos tus hilos hacen un =balsa.acquire()=, pero el último (el
+      que ve que ya son 4 y le "da la patada" a la balsa) no lo
+      hace. Esto es fácil de corregir: Tanto en =lanza_serf()= como en
+      =lanza_hacker()= reemplaza el último caso del =if=, de:
+      #+begin_src python
+      else:
+        balsa.release()
+      #+end_src
+      para que quede:
+      #+begin_src python
+      else:
+        balsa.release()
+      #+end_src
+    - Pero todavía no sirve bien 🙁 Ahora se llenan 3 balsas, pero
+      siguen llegando hilos... y no sale ningun más ☹
+
+      Esto es, me parece, porque usas =serf_cont= como un contador,
+      pero nunca lo decrementas — y haces las comparaciones =if
+      serf_cont == Max=, =if serf_cont == 2 and hacker_cont == 2= y
+      =if hacker_cont == 4=
+  - El código /muy en general/ funciona, la lógica es correcta,
+    pero... le faltan /varias/ pequeñas precisiones.
+- Calificación :: 7
+
+** Martinez Licea, Santiago Alejandro
+- Documentación :: [[./MartinezLicea-SantiagoAlejandro/README.md][README.md]]
+- Archivos :: [[./MartinezLicea-SantiagoAlejandro/balsa.py][balsa.py]]
+- Comentarios ::
+  - El código como lo mandaron no sirve : Si todos hacen un
+    =semaforoH.acquire()= o =semaforoS.acquire()= al iniciar, y éstos
+    están inicializados a 0, todos los hilos se quedan dormidos para
+    siempre
+  - Los mensaje =La balsa ha cruzado= y =La balsa ha regresado= son
+    impresos de forma no condicional, por cualquier hilo que pase por
+    ahí
+  - La lógica para maneajar el conteo de navegantes... no existe 🙁
+- Calificación :: 6
+
+** Oronzor Manases
+- Documentación :: [[./OronzorManases/Informe.txt][Informe.txt]]
+- Archivos :: [[./OronzorManases/El_cruce_del_rio.py][El_cruce_del_rio.py]]
+- Comentarios ::
+  - Respecto a tu duda: hay muchas maneras en que podrías interrumpir
+    la condición dependiendo de varias condiciones. En vez de lanzar
+    los hilos dentro de un =while True=, podrías generar un número
+    predefinido de hilos:
+    #+begin_src python
+      desarrolladores = 0
+      while desarrolladores < 40:
+	  if random.randint(0, 1) == 0:
+	      threading.Thread(target=hacker,).start()
+	  else:
+	      threading.Thread(target=serf,).start()
+    #+end_src
+    Podrías contar el número de balsas que han cruzado. Podrías
+    hacerlo basado en tiempo, o en entrada de teclado... ¡lo que quieras!
+    - Siempre que puedas, recuerda el principio "DRY": /Don't Repeat
+      Yourself/. *No te repitas*.
+
+      Si tienes dos funciones no-triviales tan similares como
+      =hacker()= y =serf()=, convendría plantear un parámetro que
+      definiera su comportamiento, posiblemente las cadenas que
+      imprime... y escribir únicamente una vez la lógica. Así como lo
+      hiciste, cualquier cambio o corrección que tengas que hacer,
+      debes hacerla en dos lugares. Es más trabajo mantenerlo, al
+      igual que verificar que ambas copias funcionen bien.
+- Calificación :: 10
+
+** Paniagua Eduardo
+- Documentación :: [[./PaniaguaEduardo/tarea01_eduardoPaniagua.txt][tarea01_eduardoPaniagua.txt]]
+- Archivos :: [[./PaniaguaEduardo/tarea01_eduardoPaniagua.py][tarea01_eduardoPaniagua.py]]
+- Comentarios ::
+  - Buena implementación
+  - ¡Ojo! En tu documentación dices que /Para resolver este ejercicio
+    se ocuparon 2 hilos, uno que corresponde a los serfs y otro que
+    corresponde a los hackers/. ¿Estás seguro? 😉
+
+    Aquí, en efecto, lanzas dos hilos:
+    #+begin_src python
+      Thread(target=lanzarSerf).start()
+      Thread(target=lanzarHacker).start()
+    #+end_src
+    - Sin embargo, tanto en =lanzarSerf()= como en =lanzarHacker()=
+      tienes:
+      #+begin_src python
+	for i in range(12):
+	    Thread(target=serf, args=[i].start()
+      #+end_src
+    - Así que trabajas con 1 (hilo principal) + 2 (lanzarHacker y
+      lanzarSelf), + 12 hackers + 12 serfs.
+- Calificación :: 10
+
+** Ramirez Daniel
+- Documentación :: [[./RamirezDaniel/ProblemaCruceDelRío.txt][ProblemaCruceDelRío.txt]]
+- Archivos :: [[./RamirezDaniel/cruceDelRio.py][cruceDelRio.py]]
+- Comentarios ::
+  - Tu código está hecho para resopnder a un número exacto de /serfs/
+    y /hackers/, y sólo responde a sus respectivas llegadas de la
+    misma proporción.
+  - Lanzas un hilo para hackers, un hilo para threads, y un hilo para
+    cruzar juntos
+    - Sería como poner tres balsas en el río, cada una de ellas
+      "reservada" para una composición específica de usuarios
+- Calificación :: 7
+
+** Rivera Mauricio, Ruiz Laura
+- Documentación :: [[./RiveraMauricio-RuizLaura/README.md][README.md]]
+- Archivos :: [[./RiveraMauricio-RuizLaura/balsas.py][balsas.py]]
+- Comentarios ::
+  - ¡Muy bien por parametrizar todo! De hecho, esta solución me da pie
+    a pensar en un /refinamiento/: ¿Y cómo lo haces si el número de
+    asientos es parametrizable? ¿Funciona si =soporte_barca=6= ? ¡sí,
+    sí funciona! Tienen que entrar de 2 en 2, pero pueden entrar hasta
+    6 😉
+  - ¡Felicidades, muy buen trabajo!
+- Calificación :: 10
+
+** Rojo Luis
+- Documentación :: [[./RojoLuis/cruce_del_rio_doc.txt][cruce_del_rio_doc.txt]]
+- Archivos :: [[./RojoLuis/cruce_del_rio.py][cruce_del_rio.py]]
+- Comentarios ::
+  - ¡Muy bueno, que encuentres inspiración en otros problemas vistos
+    en clase! 😉 Muy bonita idea el uso de intermediarios. ¡Y muy
+    orignal!
+- Calificación :: 10
+
+** Sotelo Axel
+- Documentación :: [[./SoteloAxel/reporte.txt][reporte.txt]]
+- Archivos :: [[./SoteloAxel/tarea1.py][tarea1.py]]
+- Comentarios ::
+  - Siempre que puedas, recuerda el principio "DRY": /Don't Repeat
+    Yourself/. *No te repitas*.
+
+    Si tienes dos funciones no-triviales tan similares como
+    =hacker()= y =serf()=, convendría plantear un parámetro que
+    definiera su comportamiento, posiblemente las cadenas que
+    imprime... y escribir únicamente una vez la lógica. Así como lo
+    hiciste, cualquier cambio o corrección que tengas que hacer,
+    debes hacerla en dos lugares. Es más trabajo mantenerlo, al
+    igual que verificar que ambas copias funcionen bien.
+  - ¡Encontré el problema en tu lógica que hace que tengas que
+    inicializar =lugaresBalas= a 5:
+    - Recuerda que les expliqué que indentar un bloque bajo =with
+      lugaresBalas:= es equivalente a rodearlo con un
+      =lugaresBalas.acquire()= / =lugaresBalas.release()=.
+    - Entonces, para fines prácticos, para hacer cualquier cosa en
+      =hacker()= o en =serf()= necesitas tener /dos veces/ el mismo
+      =Multiplex=.
+    - ¿Qué hacer? Quita uno o el otro. Puede quedar así:
+      #+begin_src python
+	def hacker():
+	    global numHackers
+	    print("hacker llega ⚫")
+
+	    while True:
+		time.sleep(random.random())
+		with lugaresBalas:
+		    persona = 'hacker'
+		    print(f"{persona} {numHackers} se pone en fila para subir")
+		    numHackers = numHackers+1
+
+		lugaresBalas.release()
+#+end_src
+- Calificación :: 9
+
+* Santa Claus
+
+** Garcia Lopez, Martinez Julio
+- Documentación :: [[./GarciaLopez-MartinezJulio/ExplicacionTarea1SO.txt][ExplicacionTarea1SO.txt]]
+- Archivos :: [[./GarciaLopez-MartinezJulio/Tarea1SO.py][Tarea1SO.py]]
+- Comentarios ::
+  - ¡Muy bien! Me gusta cómo usan a =SemSanta= como un análogo a /dos/
+    barreras distintas (el mismo semáforo se abre con 9 renos o con 3
+    elfos).
+  - ¡Ojo! Falta un par de mutexes para proteger el acceso concurrente
+    a variables globales (p.ej. para =numRenos= en =reno()=, para
+    =numElfos= en =elfo()=
+  - Y ya que estamos criticando todo lo criticable 😉 ¡Todos los años
+    debe haber navidad! *¡TODOS!* ¿Qué es eso de terminar después de
+    sólo un recorrido? Si hay un ejemplo de =while True=, ese debería
+    ser Santa Claus 😉
+- Calificación :: 8
+
+** Meneses Erick, Mex Aerin
+- Documentación :: [[./MenesesErick-MexAerin/README.txt][README.txt]]
+- Archivos :: [[./MenesesErick-MexAerin/Tarea1-Santa.py][Tarea1-Santa.py]]
+- Comentarios ::
+  - Muy buena implementación y *muy* buena documentación. Clara y
+    detallada. ¡Felicidades! 😃
+- Calificación :: 10
+
+** Sanchez Marco, Teran Mario
+- Documentación :: [[./SanchezMarco-TeranMario/README.md][README.md]]
+- Archivos :: [[./SanchezMarco-TeranMario/main.c][main.c]]
+- Comentarios ::
+  - ¡Muy bien! ¡Todavía hay gente que se anima a resolver mis
+    problemas en lenguajes que no sean Python! 😉 ¡Bienvenido C!
+  - No se disculpen por la acentuación (que no /asentuasion/):
+    Corríjanla. En serio, es un punto importante. Yo uso teclado
+    en_US; hay muchas manteras de configurarle teclas para
+    acentuar. Yo uso un teclado definido a medida en =xkb=.
+  - Curioso el orden de eventos que manejan para despertar a Santa
+    - En la bitácora aparece:
+      #+begin_quote
+      Santa esta durmiendo.
+      Elfo 2 le da lata a Santa Claus.
+      Elfo 1 le da lata a Santa Claus.
+      Santa se despierta y ayuda a los elfos.
+      Elfo 3 le da lata a Santa Claus.
+      Santa se despierta e inicia su recorrido.
+      Reno 2 regresa de sus vacaciones y esta listo.
+      Reno 4 regresa de sus vacaciones y esta listo.
+      Reno 3 regresa de sus vacaciones y esta listo.
+      Reno 8 regresa de sus vacaciones y esta listo.
+      Reno 6 regresa de sus vacaciones y esta listo.
+      Reno 9 regresa de sus vacaciones y esta listo.
+      Reno 1 regresa de sus vacaciones y esta listo.
+      Reno 5 regresa de sus vacaciones y esta listo.
+      Reno 7 regresa de sus vacaciones y esta listo.
+      #+end_quote
+    - Revisé la lógica, y es correcta... Pero... ¿Cómo está eso de que
+      Santa se despierta e inicia su recorrido... /Justo antes/ de que
+      lleguen los renos? ¿Será que los está queriendo reemplazar por
+      una máquina fría y sin corazón?
+    - Como dije, la lógica es /casi/ correcta. Yo sugeriría cambiar
+      sólo el punto del =printf=. En su versión:
+      #+begin_src c
+	if(no_renos == NO_TOTAL_RENOS) {
+		printf("Santa se despierta e inicia su recorrido.\n");
+		for(int i=0; i<NO_TOTAL_RENOS; i++)
+			sem_post(&sem_reno);
+		no_renos = 0;
+	} else if(no_elfos == NO_PERMITIDO_ELFOS)
+		printf("Santa se despierta y ayuda a los elfos.\n");
+      #+end_src
+      Yo haría:
+      #+begin_src c
+	if(no_renos == NO_TOTAL_RENOS) {
+		for(int i=0; i<NO_TOTAL_RENOS; i++)
+			sem_post(&sem_reno);
+		no_renos = 0;
+		printf("Santa se despierta e inicia su recorrido.\n");
+	} else if(no_elfos == NO_PERMITIDO_ELFOS)
+		printf("Santa se despierta y ayuda a los elfos.\n");
+      #+end_src
+    - Algo parecido con los elfos: Imprimir =Elfo %d le da lata a Santa
+      Claus= ocurre /casi/ siempre dos veces, luego se despierta
+      Santa, y luego vuelve a imprimirse.
+- Calificación :: 10
+
+** Solis Alan
+- Documentación :: [[./SolisAlan/Explicacion.txt][Explicacion.txt]]
+- Archivos :: [[./SolisAlan/santa.py][santa.py]]
+- Comentarios ::
+  - Bueno... Como verás que le respondí a tu compañero Fernando, hubo
+    al menos un caso de otro compañero que sí resolvió (de una forma
+    distinta a la que hicimos en clase) el problema de gatos y
+    ratones.
+    - ¡pero qué bueno que tú sí seguiste las indicaciones! 😉
+  - OK, veo varias partes de la solución muy bien implementadas en tu
+    problema. Muy bien por identificar e implementar a las barreras.
+  - Me parece interesante que sea =Santa()= quien realice las
+    verificaciones (si ya son suficientes =elfos()= o =renos()=) y suelte las
+    llamadas para que estos despierten / continúen.
+- Calificación :: 10
+
+** Vázquez Fredin
+- Documentación :: [[./VázquezFredin/Images/1.jpg][1.jpg]], [[./VázquezFredin/Images/2.jpg][2.jpg]], [[./VázquezFredin/Images/demo.gif][demo.gif]], [[./VázquezFredin/README.md][README.md]]
+- Archivos :: [[./VázquezFredin/Santa_problem.py][Santa_problem.py]]
+- Comentarios ::
+  - ¡Guau! Tu documentación me dejó francamente
+    sorprendido. ¡Buenísima, super completa y bastante clara! 😃
+  - Recomendación pra el código: Me parece muy buena tu idea de
+    mantener la legibilidad separando el código de los mensajes que se
+    imprimen. Sin embargo, es más claro (e incluso, típicamente más
+    rápido, aunque en el nivel de lo ínfimo) usar un hash
+    ("diccionario" en Python) que una cantidad de funciones. Esto,
+    además, te permite separar los mensajes temáticamente. Por
+    ejemplo, en vez de:
+    #+begin_src python
+      def inicio_viaje():
+	  print(Fore.LIGHTGREEN_EX +"\t\t\t\t * Santa inicia el viaje *  \U0001F30E \n\t      \U0001F384      \U0001F381 F e l i z  N a v i d a d !   H o !   H o !   H o !  \U0001F381"+ Style.RESET_ALL)
+
+      def ayudar_elfos():
+	  print(Fore.GREEN+"\t\t¿En qué les puedo ayudar?         * Empieza asesorar *"+ Style.RESET_ALL)
+
+      def santa_regresa():
+	  print(Fore.LIGHTBLUE_EX+" > * Santa Claus regresa del viaje muy cansado y se va a dormir \U0001F6CC *"+ Style.RESET_ALL)
+
+      def santa_duerme():
+	  print(Fore.LIGHTBLUE_EX+"* Santa Claus vuelve a dormir \U0001F6CC *"+ Style.RESET_ALL)
+
+      def reno_llega(num):
+	  print(f"\t * El reno {num} \U0001F98C regresó de sus vacaciones *")
+
+      def renos_descansan():
+	  print("* El reno procede a descansar en el establo \U0001F4A4 *")
+
+      def reno_aviso(id):
+	  print(Fore.LIGHTYELLOW_EX + f"\t\t### Ha llegado el último reno ###          ~~ Ahora el reno {id} se dirige con Santa Claus ~~" + Style.RESET_ALL)
+
+      def renos_preparados(num):
+	  print(f"\t\t~~~~~~      El reno {num} ya está listo para el viaje!      ~~~~~~")
+
+      def renos_vacacionar():
+	  print(Fore.LIGHTRED_EX+" > * Los renos vuelven a ir de vacaciones \U0001F3D6 *"+ Style.RESET_ALL)
+
+      def grupo_formado_aviso(num):
+	  print(Fore.LIGHTYELLOW_EX+f"\t> Elfo número {num}: El grupo ya está formado ¡Ya podemos preguntar!  \U0001F512\U0001F5DD"+ Style.RESET_ALL)
+
+      def elfo_recibe_ayuda(id):
+	  print(f"* Elfo número {id} recibe ayuda por parte de Santa Claus *")
+    #+end_src
+    yo te sugeriría usar:
+    #+begin_src python
+      cadenas = {
+	  'santa': {
+	      # (...)
+	      'inicio_viaje': Fore.LIGHTGREEN_EX +"\t\t\t\t * Santa inicia el viaje *  \U0001F30E \n\t      \U0001F384      \U0001F381 F e l i z  N a v i d a d !   H o !   H o !   H o !  \U0001F381"+ Style.RESET_ALL,
+	      'ayudar_elfos': Fore.GREEN+"\t\t¿En qué les puedo ayudar?         * Empieza asesorar *"+ Style.RESET_ALL,
+	      'regresa': Fore.LIGHTBLUE_EX+" > * Santa Claus regresa del viaje muy cansado y se va a dormir \U0001F6CC *"+ Style.RESET_ALL,
+	      'duerme': Fore.LIGHTBLUE_EX+"* Santa Claus vuelve a dormir \U0001F6CC *"+ Style.RESET_ALL,
+	      },
+	  'reno': {
+	      'llega': f"\t * El reno {num} \U0001F98C regresó de sus vacaciones *",
+	      'descansa': "* El reno procede a descansar en el establo \U0001F4A4 *",
+	      'aviso': Fore.LIGHTYELLOW_EX + f"\t\t### Ha llegado el último reno ###          ~~ Ahora el reno {id} se dirige con Santa Claus ~~" + Style.RESET_ALL,
+	      'preparados': f"\t\t~~~~~~      El reno {num} ya está listo para el viaje!      ~~~~~~"
+	      'vacaciona': Fore.LIGHTRED_EX+" > * Los renos vuelven a ir de vacaciones \U0001F3D6 *"+ Style.RESET_ALL,
+	      'grupo_formado_aviso': Fore.LIGHTYELLOW_EX+f"\t> Elfo número {num}: El grupo ya está formado ¡Ya podemos preguntar!  \U0001F512\U0001F5DD"+ Style.RESET_ALL
+	  },
+	  'elfo': {
+	      'recibe_ayuda': f"* Elfo número {id} recibe ayuda por parte de Santa Claus *"
+	      # (...)
+	      }
+	  }`
+    #+end_src
+
+    Claro, manejas alguns cadenas de formato, que habría que cambiar
+    por los formatos tipo C ('%d' y similares) y substituirlos en la
+    llamada. Otra idea sería cambiar las constantes de =colorama= por
+    valores de más fácil lectura que un =Fore.LIGHTYELLOW_EX= o
+    similares.
+- Calificación :: 10
+
+* Gatos y ratones
+
+** Razo Fernando
+- Documentación :: [[./RazoFernando/TAREA 1 Ejercicios de sincronización.pdf][TAREA 1 Ejercicios de sincronización.pdf]]
+- Archivos :: [[./RazoFernando/gatosYRatones.py][gatosYRatones.py]]
+- Comentarios ::
+  - Pero, pero... ¡Este problema lo resolvimos en clase!
+    ¡Supuestamente este ya no estaba "abierto" para solucionar!
+    - Lo doy por bueno, tu respuesta es suficientemente distinta y
+      original a la que hicimos. Pero igual me sacó de onda 😉
+  - Me parece interesante que el "control poblacional" recae por
+    completo en los ratones — es dentro de =RatonCome()= que se
+    detecta si hay algún gato y si éste se comió al ratón
+- Calificación :: 10
+

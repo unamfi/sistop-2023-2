@@ -1,0 +1,49 @@
+Para este tipo de planificación primero seleccioné de manera aleatoria el número de procesos que pueden participar (entre 5 y 8)
+
+	tamaño=random.randint(5, 8)
+
+Y posteriormente se llena una lista de ese tamaño con los procesos participantes
+
+	for i in range (0,tamaño):
+        cola.append(nomprocess[i])
+
+Luego asigné el número de tickets de cada proceso de manera aleatoria (entre 80 y 120), se agregan a una lista
+y se imprime el proceso con el número de tickets que posee
+
+	for i in range(0,tamaño):
+        a=random.randint(80,120)
+        prio.append(a)
+        print(str(cola[i])+"\t\t\t\t"+str(a))
+
+Luego se realiza un ciclo for en donde se genera un número aleatorio entre 80 y 120 y este número se compara con el número de cada proceso
+
+	for i in range(0,tamaño):
+        duracion=random.randint(2, 3) 
+        tick=random.randint(80,120) 
+        semaforo.acquire()
+        bandera=0
+        for j in range(0,duracion):
+            print("t= "+str(tiempo)+"\n") 
+            if(tick==prio[i]):  
+                if(j==0):
+                    tiemposi.append(tiempo) 
+                bandera=1
+                print(""+str(cola[i])+": "+str(tick)+" tick(s)\n") 
+                if(col[i-1] != cola[i]): 
+                    col.append(cola[i])
+En dicho ciclo también se gregan en una cola los tiempos en los que los procesos inician, en otra los tiempos en los que finalizan y en otra los procesos que van entrando.
+
+Y finalmente se realiza un ciclo en donde se imprime la tabla de ejecución
+
+	for k in range(0,v):
+        print("\n")
+        c=random.uniform(0, 1)
+        inicio=tiemposi[k] 
+        fin=tiemposf[k]-1 
+        T=fin-inicio 
+        e=T-c 
+        E=round(e,3)
+        p=T/c 
+        P=round(p,3)
+        print(" "+str(lf[k])+"\t\t"+str(inicio)+"  \t"+str(fin)+" \t "+str(T)+"\t"+str(E)+"\t"+str(P))
+

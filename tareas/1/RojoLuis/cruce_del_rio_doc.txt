@@ -1,0 +1,19 @@
+Rojo López Luis Felipe.      13/abril/2023
+
+Tarea 1
+
+El problema que decidí resolver fue el de "El cruce del río"
+
+La solución a este problema fue implementada en el lenguaje Python, para su ejecución debería bastar con tener instalado python3 en nuestras computadoras.
+
+Como estrategia para resolver el problema lo que hice fue plantear la solución como en el problema visto en clase de los "fumadores compulsivos", para ello se utilizó
+un intermediario el cual observaba quiénes eran los desarrolladores que ya estaban en la balsa y decidía cuál hacía falta en ella para completar el grupo de cuatro, teniendo cuidado 
+de no romper la regla de que en la balsa solo podían haber cuatro hackers o serfs, o dos hackers y dos serfs.
+
+Para este problema no se plantearon refinamientos.
+
+En el código que propuse como solución existieron algunos (varios) inconvenientes. Al observar las primeras ejecuciones estas se realizan de una buena manera, sin ningún aparente problema,
+pero al seguir la ejecución se comienzan a imprimir varios de los 'prints' que coloqué en las funciones y las variables que utilicé para llevar el conteo de los hackers y serfs en las
+balsas eran sobreescritas varias veces.
+Con lo anterior observado, puedo intuir que no están bien protegidas mis variables y por ello son accedidas varias veces por varios hilos, intenté corregir esta situación con unos mutex,
+pero no fueron suficientes.

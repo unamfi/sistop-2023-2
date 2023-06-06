@@ -1,0 +1,21 @@
+a.out
+*.d
+*.aout
+*.exe
+
+# Object files
+*.0
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
