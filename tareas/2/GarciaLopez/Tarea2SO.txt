@@ -1,0 +1,6 @@
+Se obtiene la informacion de un directorio(Nombre, modificacion, modo y tamaño)
+
+Se trata de un programa no interactivo por lo que al compilar desde la terminal hay que
+pasar de argumentos el archivo de python, la ruta y el numero de dias; por ejemplo:
+
+python Tarea2SO.py C:\Users\Erik\Downloads 4
