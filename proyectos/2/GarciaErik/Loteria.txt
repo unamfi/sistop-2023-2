@@ -1,0 +1,22 @@
+Loteria
+
+Cada proceso se le asigna un número de boleto, que se utiliza para determinar la probabilidad de que ese proceso sea seleccionado para su ejecución. El número de boletos asignado a cada proceso se basa en la prioridad que se le ha dado. Cuanto mayor sea la prioridad, mayor será el número de boletos asignados al proceso. Por lo tanto, los procesos de alta prioridad tendrán una mayor probabilidad de ser seleccionados para su ejecución.
+
+Primero, se calcula el número total de boletos que se asignarán a todos los procesos. Luego, para cada proceso, se calcula el número de boletos que se le asignará en función de su prioridad. Finalmente, se normaliza el número de boletos asignados a cada proceso para que la suma de todos los boletos sea igual a 100.
+
+Primero, se genera un número aleatorio entre 1 y 100, que representa el número de boleto ganador. Luego, se recorren los procesos en orden y se verifica si el número de boleto ganador está dentro del rango de boletos asignados al proceso actual. Si es así, ese proceso se selecciona para su ejecución. Si no, se resta el número de boletos asignados al proceso actual del número de boletos ganador y se continúa con el siguiente proceso.
+
+
+
+¿Cómo se compararía este método con los otros?
+Es más justo porque cada proceso tiene una probabilidad justa de obtener los recursos del sistema. Sin embargo, puede no ser tan eficiente como otros enfoques, ya que los procesos pueden tener que esperar hasta que se les asigne un número ganador de lotería antes de obtener recursos
+
+¿Qué tan susceptible resulta a producir inanición?
+Es menos susceptible a la inanición que otros enfoques de planificación, ya que cada proceso tiene una probabilidad justa de obtener recursos, incluso los procesos de baja prioridad. Sin embargo, siempre hay una pequeña posibilidad de que un proceso nunca obtenga recursos si su número de lotería nunca se selecciona.
+
+¿Qué tan justa sería su ejecución?
+Es altamente justo, ya que todos los procesos tienen la misma probabilidad de ganar recursos. Sin embargo, esto también significa que los procesos de baja prioridad pueden tener que esperar más tiempo antes de obtener recursos si son superados constantemente por procesos de alta prioridad.
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? (aunque sea tiempo real suave)
+
+¿Alguna otra reflexión o inquietud que les provoque?
+No

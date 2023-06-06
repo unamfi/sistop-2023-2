@@ -1,0 +1,56 @@
+Cristopher Juarez y Constantino Pablo
+Loteria
+
+En el esquema de loteria, cada uno de los procesos tiene un numero de boletos, cada uno de estos boletos representa una oportunidad de jugar a la loteria (que en este caso seria el poner en ejecucion a ese proceso), cada que el planificador tiene que elegir a un siguiente proceso este elige un numero al azar para continuar con la siguiente ejecucion del proceso que tenga el boleto ganador. 
+
+Un proceso de mayor prioridad tendra mas boletos, la probabilidad de que un x proceso sea puesto en ejecucion no variara, debido a que el boleto ganador no es retirado.
+
+Un ejemplo de esto es el siguiente: un proceso A tiene 20 boletos y uno B tiene 60 boletos, por lo tanto es 300% mas probable que se ejecute el proceso B respecto al proceso A.
+
+
+¿Cómo se compararía este método con los otros abordados?
+
+Me parece un buen metodo si  ya que podriamos determinar que procesos queremos que se ejecuten 
+
+primero por medio de la cantidad de boletos que se le asigna a dicho proceso. El problema es que 
+hay procesos que quedarian relegados debido a que tiene menos boletos y por lo tanto menor probabilidad de ser ejecutado. Pero para corregir esto un proceso podria cederle boletos a otro proceso, para que aumente su probabilidad de ser ejecutado.
+
+Respecto a otros metodos me parece que este es el mas dificil de comparar con otros debido a que depende enteramente de la aleatoriedad.
+
+
+¿Para qué tipo de carga es más apto y menos apto?
+
+Es mas apto para cargas con requerimientos
+equitativos y con cargas que no sean criticas ya
+que debido al azar del metodo cualquiera de los procesos tiene posibilidades de ser ejecutado.
+
+Es menos apto para cargas con plazos o que 
+necesiten la priorizacion de cietos procesos, ya
+que en este caso el azar del metodo podria hacer 
+que no se cumplan los plazos y que ciertos 
+procesos que sean mas relevantes nos sean 
+ejecutados con la frecuencia deseada.
+
+¿Qué tan susceptible resulta a producir inanición?
+
+Considero que se podria presentar la inancion si no se distribuyen de una manera adecuada los boletos. Podria pasar  que un proceso no obtuviera la oportunidad de ser ejecutado debido a que alguno de sus boletos nunca es seleccionado debido al azar del metodo.
+
+¿Qué tan justa sería su ejecución?
+
+La planificacion por loteria es justa ya que todos los procesos tienen la posibilidad de ser puestos en ejecucion. Pero por otro lado existe la posibilidad de que algun proceso no sea ejecutado.
+
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? (aunque sea tiempo real suave)
+
+Se necesitaria distribuir los boletos a manera de 
+que los procesos mas relevantes tengan mas 
+boletos y que estos coperaran con los proceso que 
+aun no han sido ejecutados. Ademas de que se 
+deberian establecer limites de tiempo para que se 
+ejecuten todos los procesos y que en caso de que 
+algun proceso no se haya podido ejecutar debido 
+al azar del metodo este sea apoyado por otros 
+procesos o que haya alguna reserva de recursos para estos casos especiales.
+
+
+¿Alguna otra reflexión o inquietud que les provoque?
+No de momento.

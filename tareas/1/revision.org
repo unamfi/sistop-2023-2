@@ -189,6 +189,22 @@
     la espera activa.
 - Calificación :: 9
 
+** Rosado Jorge
+- Documentación :: ---
+- Archivos :: [[./RosadoKareem/Elevador.py][Elevador.py]]
+- Comentarios ::
+  - ¡Una disculpa por la calificación tardía! Entregaste fuera de
+    lugar, y cuando corregiste la entrega... no califiqué sino hasta
+    apenas ahora
+  - =Elevador#capacity= es constante (5); lo usas para reportar
+    cuántas personas bajan en algún piso. Me parece que querías decir
+    =Elevador#passengers=, ¿no?
+  - Me parece que los pasajeros bajan todos siempre al llegar al piso
+    5, a pesar que que cada uno de ellos prefiere un piso diferente
+    Como sea, si bien tiene sus problemas, la implementación es buena
+    y limpia. ¡Felicidades!
+- Calificación :: 8
+
 * Intersección de caminos
 
 ** Camacho Juan

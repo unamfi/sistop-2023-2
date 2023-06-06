@@ -1,0 +1,67 @@
+==Multilevel Feedback==
+Para la solucion de este problema primeramente se crearon las colas
+para cada una de las prioridades, en este caso solo se usaron tres
+pero el codigo se puede escalar facilmente para usar mas, al crear
+los procesos se les da un id, un tiempo de ejecucion y un tiempo de
+llegada, y son agregados a la cola de mas alta prioridad, despues de
+que los procesos son creados comienza la ejecucion del scheduler, este
+tiene una variable llamada 'tiempo_actual' la cual seria algo como los
+ciclos de ejecucion, en cada ciclo se puede ejecutar un proceso (reducir
+su tiempo de ejecucion), en caso de que este tiempo sea menor al tiempo
+de llegada del proceso, este lo omite y va por el siguiente en la cola,
+una vez que el proceso se ejecuta se transfiere a la siguiente cola, y
+este proceso continua para las demas colas, una vez que el tiempo de
+ejecucion del proceso llega a cero este termina y una vez que los tiempos
+de ejecucion de todos los procesos lleguen a cero el programa ha terminado.
+Adicionalmente, para no hacer tan lento el proceso, el Quantum aumenta en
+cada cola, en q0 es Quantum*1, q1->Quantum*2 y q3->Quantum*3, aunque no es
+exponencial como se vio en clase, es suficiente para acelerar un poco el
+proceso, ademas que tomando en cuanta la duracion de estos 'procesos' es
+mas que adecuado.
+
+¿Cómo se compararía este método con los otros abordados?
+Bueno, este metodo parece algo mas ordenado, pero de igual forma podria tener
+problemas con los procesos largos, aunque este problema se puede reducir un
+poco aumentando el quantum exponencialmente por cada cola. Por otro lado, para
+procesos cortos me parece un metodo muy optimo, ya que no es necesario hacer
+demasiados movimientos en las colas y evitaria mantener procesos vivos por mas
+tiempo del que deberian.
+
+¿Para qué tipo de carga es más apto y menos apto?
+Esta implementacion funciona mejor con procesos cortos, ya que al no tener que
+al no tener que transferirlos demasiadas veces a otras colas pueden tener tiempos
+de ejecucion relativamente similares o justos entre procesos, evitando la inanicion
+de algunos procesos como pasaria con procesos largos los cuales considero que son
+los menos aptos para esta implementacion, aunque claro, hay formas de solventar esto
+parcialmente.
+
+¿Qué tan susceptible resulta a producir inanición?
+No es tan susceptible a generar inanicion total, ya que mientras haya algun proceso
+se mantendra en ejecucion constante, sin embargo, como ya se menciono, los procesos
+largos podrian mantenerse activos por mucho tiempo, y tal vez con una entreda muy
+repetida de procesos nuevos podria extender excesivamente la vida de los procesos
+en las colas de menor prioridad.
+
+¿Qué tan justa sería su ejecución?
+Algo repetitivo, pero nuevamente, para procesos largos, no lo seria demasiado, al dar
+mayor atencion a procesos a las colas de mayor prioridad, es facil que algunos procesos
+caigan la inanicion, incluso usando implementaciones como el aumento exponencial del
+tiempo de ejecucion conforme las colas bajan de prioridad.
+
+¿Qué modificaciones requeriría para planificar procesos con necesidades de tiempo real? 
+(aunque sea tiempo real suave)
+Para esto creo que seria necesario hacer un gran cambio, tal vez en lugar de que le proceso
+se degrade gradualmente, se podria hacer que todo el proceso permaneciera en la misma cola,
+y en lugar de asignar todos a la cola de mayor prioridad, asignarlos directamente a la cola
+correspondiente a su nivel de importancia, esto ya que en un sistema de tiempo real, es
+necesario que cuando una tarea de alta importancia llegue sea atendida lo mas rapido posible,
+por lo que degradar la tarea gradualmente podria hacer que esta tarde demasiado en completarse.
+
+¿Alguna otra reflexión o inquietud que les provoque?
+En un sistema real en el que se implementara solo este tipo de scheduler, que pasa con aquellos procesos
+que estan en constante ejecucion? Hay un limite para la degradacion en las colas? y si es asi, que
+tan grande sera. O existira una forma de mantener los procesos en una cola por un tiempo indefinido?
+Esas preguntas no me dejan dormir por las noches...
+
+
+

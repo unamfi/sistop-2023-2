@@ -11,6 +11,12 @@ Hay un esquema adicional a los que presentamos en clase. Su
 planteamiento es, pienso yo, muy interesante. Para este proyecto, les
 pido que implementen una _simulación_ del planificador por lotería.
 
+# ¡Calificaciones listas!
+
+¡Disculpen la demora! Pero bueno, por lo menos ya puedo compartirles
+que /ya quedó/. ¡Ya pueden [consultar sus
+calificaciones](./calificaciones.org) para este proyecto.
+
 # ¿Cómo es la planificación por Lotería?
 
 Abordamos en clase la _planificación por Retroalimentación
