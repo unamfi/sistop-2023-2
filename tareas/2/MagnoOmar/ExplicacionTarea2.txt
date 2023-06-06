@@ -1,0 +1,24 @@
+Entrega de Tarea 2
+Magno García Omar
+
+Este documento solo es para explicar en pocas palabras el funcionamiento del programa.
+El código viene bastane comentado, vamos a resaltar pedazos importantes:
+
+Solamente se usa la biblioteca os para leer archivos,
+además, se usa Time para obtener y calcular la fecha de modificación del archivo.
+
+ de las lineas [16 - 32] es donde se empieza a leeer todo el directorio para obtener los datos que nos interesan,
+posteriormente de las lineas [34-38] se puede modificar el directorio para poner el que usted desee, dejo el
+que usé como verificación de que se ha probado
+Finalmente las lineas siguientes no son más que código para que la salida tenga una vista linda.
+En el código muestro cómo debería ser la salida, pero de igual manera lo pongo en este texto:
+
+                 Nombre                          Longitud                 Ult. Fecha Mod              Permisos
+
+               838756.png                |       1332627        |    Mon Jun  5 22:15:30 2023    |       666
+       DocumentacionProyecto.pdf         |        28713         |    Mon Jun  5 22:16:12 2023    |       666
+           ProyectoFinal.dia             |        11907         |    Sun Jun  4 13:45:08 2023    |       666
+           ProyectoFinal.dia~            |        11687         |    Sun Jun  4 13:40:33 2023    |       666
+           ProyectoFinal.png             |        282087        |    Sun Jun  4 13:48:49 2023    |       666
+             Update5Jun.sql              |         3736         |    Mon Jun  5 20:21:39 2023    |       666
+             Windows10.iso               |      4810539008      |    Sun Jun  4 19:12:08 2023    |       666
