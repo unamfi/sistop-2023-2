@@ -14,7 +14,7 @@ def informacion_archivo(archivo): #FUNCION PARA OBTENER LA INFORMACION DEL ARCHI
 
 def imprecion_datos(nombre, longitud, ultima_modificacion, modo): #FUNCION PARA LA IMPRESION DEL ARCHIVO
     fecha_modificacion = time.ctime(ultima_modificacion)
-    permisos = oct(modo)[2:] #[-3:]
+    permisos = oct(modo)[2:]
     print(f"Nombre: {nombre}")
     print("*************************************************")
     print(f"Longitud: {longitud} bytes")
@@ -22,11 +22,18 @@ def imprecion_datos(nombre, longitud, ultima_modificacion, modo): #FUNCION PARA 
     print(f"Modo (permisos): {permisos}")
 
 def main():
-    print("Invocacion: C:\\Users\\israe\\OneDrive\\Documentos\\CLUB PROBLEMS : <directorio> <número de días>")
-    print(" ")
-    directorio = "C:\\Users\\israe\\OneDrive\\Documentos\\CLUB PROBLEMS"  #DIRECTORIO FIJO
-    dias = 20 #DIAS
+    if len(sys.argv) != 3:
+        print("formato no reconocido, inserte el formato adecuado")
+        sys.exit(1)
+    else:
+         direc = sys.argv[1]
+         days = sys.argv[2]  
 
+    print(" ")
+    print(direc+": <directorio> <número de días>")
+    print(" ")
+    directorio = str(direc)
+    dias = int(days)
     if not os.path.isdir(directorio): #SI EL ARCHIVO NO EXISTE SE IMPRIME EL ERROR
         print("El directorio especificado no existe.")
         return
