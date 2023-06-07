@@ -1,3 +1,9 @@
+/*  siiiiiiiiiiiiiiiiiiiiiiiiiiiii
+*   por fin logre hacer que funcione
+*   código hecho por Fernando Arciga, para la clase de sistemas operativos 2023-2
+*   para ejecutarlo se debe usar: informameD </carpeta/subcarpeta> <días_en_entero>
+*/
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <dirent.h>
@@ -6,7 +12,12 @@
 typedef struct stat _stat;
 typedef struct dirent _dirent;
 
-void read(_stat);
+void read(_stat file_info) {
+    printf("\nTamaño del archivo: %ld bytes", file_info.st_size);
+    printf("Último acceso: %s", ctime(&file_info.st_atime));
+    printf("Última modificación: %s", ctime(&file_info.st_mtime));
+    printf("Último cambio de estado: %s\n", ctime(&file_info.st_ctime));
+}
 
 int main(int argc, char *argv[]) {
     if (argc != 3) return 1;
@@ -32,7 +43,7 @@ int main(int argc, char *argv[]) {
             time_t edad = eloy - file_info.st_mtime;
             if((file_info.st_mode != S_IFDIR)){
                 if (edad <= segundos){
-                    printf("\nArchivo: %s\t%d\t", archivo->d_name, edad/24/60/60);
+                    printf("\nArchivo: %s", archivo->d_name);
                     read(file_info);
                 }
             }
@@ -40,11 +51,4 @@ int main(int argc, char *argv[]) {
     }
 
     closedir(dir);
-}
-
-void read(_stat file_info) {
-    printf("\nTamaño del archivo: %ld bytes", file_info.st_size);
-    printf("\nÚltimo acceso: %d", ctime(&file_info.st_atime));
-    printf("\nÚltima modificación: %d", ctime(&file_info.st_mtime));
-    printf("\nÚltimo cambio de estado: %d\n", ctime(&file_info.st_ctime));
 }
