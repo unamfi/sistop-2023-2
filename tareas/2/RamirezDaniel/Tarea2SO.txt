@@ -1,0 +1,7 @@
+Se obtiene la informacion de un directorio(Name File, Last Modified, Mode y Size)
+
+Es un programa no interactivo, entonces tenemos que poner la ruta y el número de días al compilar desde la terminal, por ejemplo:
+python directorioDanny.py /Users/danny/Downloads/pruebaT2SO 20
+
+Tal vez el formato de la ruta sea distinta en Windows, en mi caso utilicé una Mac.
+
