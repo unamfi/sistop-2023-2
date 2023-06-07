@@ -1,0 +1,967 @@
+#+title: Proyecto 2 • Calificaciones y comentarios
+#+options: toc:nil
+
+* ¿Cómo se califica este proyecto?
+
+El esquema de calificación es como sigue:
+
+|--------+--------------------------------------------------------------------------------+--------------|
+| Puntos | Descripción                                                                    | Fraccionable |
+|--------+--------------------------------------------------------------------------------+--------------|
+|      5 | Proyecto entregado                                                             | No           |
+|      1 | Implementa (o intenta implementar) algoritmo de /Lotería/                      | No           |
+|      1 | El algoritmo de /Lotería/ funciona correctamente                               | Sí           |
+|      1 | Implementa (o intenta implementar) algoritmo de /Retroalimentación Multinivel/ | No           |
+|      1 | El algoritmo de /Retroalimentación Multinivel/ funciona correctamente          | Sí           |
+|      1 | Responde a las preguntas planteadas                                            | Sí           |
+|--------+--------------------------------------------------------------------------------+--------------|
+
+La última columna indica si puedo otorgar crédito parcial en este
+rubro, o si es binario (todo o nada).
+
+* Las entregas
+
+** Aranzua Chavez
+- Documentación :: [[./AranzuaChavez/readme.md][readme.md]]
+- Archivos :: [[./AranzuaChavez/pro2_1.py][pro2_1.py]]
+- Comentarios ::
+  - Tu calificación total es multiplicada por 0.75, por entrega
+    extemporánea ☹
+  - El algoritmo que propones /no es el de lotería/
+    - De acuerdo, no mencioné explícitamente (¡debí haberlo hecho!)
+      que Lotería es una planificación /apropiativa/, no
+      /cooperativa/, pero sí mencioné que el proceso se ejecuta por el
+      /quantum/ que le toca (no por la carga completa de proceso que
+      le queda)
+    - No implementaste el mecanismo de /boletos/ descrito.
+  - Entiendo que estuvieras apurado por entregar, pero tu archivo de
+    texto tiene una cantidad de /dedazos/ apabullante ☹
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |  0.25 |    1 |   0.25 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| Subtotal             |       |      |   7.25 |
+| Entrega extemporánea |       | 0.75 |        |
+| *Total*              |       |      | 5.4375 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)::@10$4=@8$4 * @9$3
+
+** Arciga Fernando
+- Documentación :: [[./ArcigaFernando/proyecto2.pdf][proyecto2.pdf]]
+- Archivos :: [[./ArcigaFernando/loteria.py][loteria.py]], [[./ArcigaFernando/multinivel.py][multinivel.py]]
+- Comentarios ::
+  - ¡Muy bien por trabajarle a la parte estética de tu ejecución! 😃
+  - Revisé /por encimita/ tus implementaciones, y se ven en general
+    correctas. La salida de tus procesos, sin embargo, es muy distinta
+    — me parece que en Retroalimentación imprimes una única letra por
+    cada /quantum/... La siguiente modificación hacia la línea 45,
+    agregando la variable =quant= y multiplicando al proceso de forma
+    acorde, ayuda a entender mejor visualmente cómo funciona (y que
+    efectivamente implementa /Retroalimenación/)
+    #+begin_src python
+      while len(q0) >= 1 or len(q1) >= 1 or len(q2) >= 1:
+	  if len(q0) >= 1:
+	      cola_en_exe = q0
+	      quant = Quantums[0]
+	  elif len(q1) >= 1:
+	      cola_en_exe = q1
+	      quant = Quantums[1]
+	  else:
+	      cola_en_exe = q2
+	      quant = Quantums[2]
+
+	  proceso_actual = cola_en_exe.pop(0)
+	  plan += proceso_actual['color'] + proceso_actual['nombre'] * quant + '\033[0m'
+    #+end_src
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |     10 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Armenta Fabian, Morales Carlos
+- Documentación :: [[./ArmentaFabian-MoralesCarlos/Proyecto 2.pdf][Proyecto 2.pdf]]
+- Archivos :: [[./ArmentaFabian-MoralesCarlos/Loteria_Proyecto2.py][Loteria_Proyecto2.py]], [[./ArmentaFabian-MoralesCarlos/MultiNivel_Proyecto2.py][MultiNivel_Proyecto2.py]]
+- Comentarios ::
+  - ¡Ojo! Cuando el SO le otorga un /quantum/ de /n/ ticks a un proceso,
+    pero a éste le restan menos de /n/ ticks para terminar, el
+    planificador /no se queda esperando/ a que termine el
+    /quantum/. De la ejecución de su programa:
+    #+begin_export text
+    La prioridad más alta es 84 del proceso G 
+    Se realiza Proceso G
+    Proceso G ha terminado
+    GGGGGGGGGGGG---
+
+    La prioridad más alta es 108 del proceso D 
+    Se realiza Proceso D
+    Proceso D ha terminado
+    DDDDDDDDDDDD----------
+    #+end_export
+    - Tan pronto como el proceso sale de un estado en que pueda ser
+      ejectuado, el SO lleva a cabo la siguiente decisión
+    - El CPU no se queda /vacío/ y esperando por «la nada».
+  - No podríamos comparar /Lotería/ con el /Banquero/, porque no
+    pertenecen al mismo dominio :-Þ
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |     10 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Bernal Gustavo, Toledo Dilan
+- Documentación :: [[./BernalGustavo-ToledoDilan/Documentación Proyecto 2.pdf][Documentación Proyecto 2.pdf]]
+- Archivos :: [[./BernalGustavo-ToledoDilan/Proyecto2_Planificacion.py][Proyecto2_Planificacion.py]]
+- Comentarios ::
+  - El código que presentan es casi idéntico al que les dí como
+    ejemplo para otro algoritmo; no lo modificaron de forma que
+    implemente ninguno de los algoritmos que solicité
+  - No responden a las preguntas que les solicité.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     0 |    1 |      0 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      5 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Camacho Juan, Razo Fernando
+- Documentación :: [[./CamachoJuan-RazoFernando/Proyecto2.pdf][Proyecto2.pdf]]
+- Archivos :: [[./CamachoJuan-RazoFernando/loteria.py][loteria.py]], [[./CamachoJuan-RazoFernando/multi.py][multi.py]]
+- Comentarios ::
+  - Implementación bonita, limpia y detallada. ¡Bien!
+  - /Retroalimentación multinivel/ no asigna una cola de prioridad
+    estática a cada proceso dependiendo de su duración (lo que
+    presentan en las líneas 23–29), sino que siempre entran en la más
+    alta, y van siendo /degradados/ a colas inferiores conforme más
+    tiempo duran.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |  0.75 |    1 |   0.75 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |   9.75 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Carranza Jose, Rios Gamaliel
+- Documentación :: [[./CarranzaJose-RiosGamaliel/README.md][README.md]]
+- Archivos :: [[./CarranzaJose-RiosGamaliel/common.css][common.css]], [[./CarranzaJose-RiosGamaliel/common.js][common.js]], [[./CarranzaJose-RiosGamaliel/lottery/index.html][lottery/index.html]], [[./CarranzaJose-RiosGamaliel/lottery/index.js][lottery/index.js]], [[./CarranzaJose-RiosGamaliel/multilevel/index.html][multilevel/index.html]], [[./CarranzaJose-RiosGamaliel/multilevel/index.js][multilevel/index.js]]
+- Comentarios ::
+  - ¡Muy bien! ¡Implementado en otro lenguaje! Es toda una frescura
+    revisar esto, aunque JavaScript y yo no seamos muy buenos amigos 😉
+  - Muy bonita implementación, permite comprender muy bien el
+    algoritmo sobre el tiempo.
+  - Respecto a la inquietud que me plantean, no me queda muy
+    clara... Sí, los SO actuales monitorean a los procesos... Pero no
+    entiendo a qué se refieren como el /cálculo excesivo de cada
+    proceso que lleva en esepra/. ¿Se refieren a que se calculan
+    demasiados valores para cada proceso?
+
+    Explíquenme un poco esta duda, con gusto intento despejarla.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |     10 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Constantino Pablo, Juarez Cristopher
+- Documentación :: [[./ConstantinoPablo-JuarezCristopher/razonamiento.txt][razonamiento.txt]]
+- Archivos :: [[./ConstantinoPablo-JuarezCristopher/loteria.py][loteria.py]]
+- Comentarios ::
+  - Hay varias carencias importantes en la implementación que
+    presentan:
+    - Los procesos no se generan aleatoriamente, sino que están
+      especificados "en duro" en el código.
+    - No manejan un número de tickets por proceso
+    - A todos los procesos se les dan 3 ticks, independientemente de
+      su duración (esto es, de si ya terminaron).
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |   0.5 |    1 |    0.5 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    7.5 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Frias Camille, Organista Ricardo
+- Documentación :: [[./FriasCamille_OrganistaRicardo/Loteria.txt][Loteria.txt]], [[./FriasCamille_OrganistaRicardo/MultilevelFeedbackExplicacion.txt][MultilevelFeedbackExplicacion.txt]]
+- Archivos :: [[./FriasCamille_OrganistaRicardo/Loteria.py][Loteria.py]], [[./FriasCamille_OrganistaRicardo/MultilevelFeedback.py][MultilevelFeedback.py]]
+- Comentarios ::
+  - ¡Cada quién elige sus masoquismos favoritos! 😉 Me da gusto haber
+    influído en sus elecciones de con qué sufrir...
+  - Ambos mecanismos de planificación /me parece que/ están
+    correctos... pero no muestran la representación al final para
+    poder confirmar con el /ojómetro/ 🙁
+  - ¡No te repitas! Cuando veo el siguiente comentario en el código:
+
+    #+begin_src python
+      # El proceso para las demas colas se repite
+      # por lo que podemos omitir los comentarios,
+      # solo seria repetir la informacion =)
+    #+end_src
+
+    de inmediato pienso en el sabio precepto /DRY/: /Don't Repeat
+    Yourself/. ¡No te repitas a tí mismo! Si la implementación es la
+    misma, ¡encuentren cómo evitarla! (si no, su código se vuelve
+    inmantenible)
+  - La pregunta que presentan de la /inversión de prioridades/ entre
+    dos procesos cuando el menos privilegiado ocupa recursos que
+    requiere el más privilegiado es uno de los puntos álgidos del
+    /tiempo real/.  En el caso de la lotería, la única noción que el
+    sistema tiene de prioridad es la cantidad de boletos otorgados a
+    cada uno de ellos.
+  - Respecto a la pregunta que plantean en /Multinivel/, sí:
+    Normalmente hay un número máximo definido de colas. Si no me
+    equivoco, tanto MacOS como Windows implementan 16 colas. Algunas
+    de estas colas son llamadas /de tiempo real/, pero no es TR real:
+    son únicamente colas de prioridad superior a las /normales/, y
+    para las cuales no está definida la migración (siempre tienen
+    prioridad).
+    - No se preocupen tanto por los algoritmos de planificación. Son
+      sin duda importantes, pero más importante es la salud mental, y
+      que duerman sus ocho horas diarias.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |   0.7 |    1 |    0.7 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |   0.7 |    1 |    0.7 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    9.4 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Garcia Erik
+- Documentación :: [[./GarciaErik/Loteria.txt][Loteria.txt]], [[./GarciaErik/Multinivel.txt][Multinivel.txt]]
+- Archivos :: [[./GarciaErik/Proyecto2_loteria.py][Proyecto2_loteria.py]], [[./GarciaErik/Proyecto2_multinivel.py][Proyecto2_multinivel.py]]
+- Comentarios ::
+  - Me parece que la implementación de ambas ejecuciones es correcta,
+    pero /extrañé/ ver las cadenas con las ejecuciones (esto es más
+    fácil de juzgar a ojo 😉)
+  - En la implementación de /Lotería/, no toman en cuenta el momento
+    de llegada de cada uno de los procesos, y por tanto, la tabla de
+    ejecución entrega valores imposibles (menores a 0). Por ejemplo:
+    #+begin_src bash
+      $ python3 GarciaErik/Proyecto2_loteria.py 
+      Lista de procesos:
+      Proceso   Llegada   Duración    Prioridad
+       A           0          10         2
+       B           6           5         2
+       C          12           9         3
+       D           4           9         1
+       E          26           5         2
+       F          14           8         3
+       G          56           5         2
+
+      ,* Inicia ejecución
+
+      Tabla de ejecución:
+      Proceso Inicio Fin      T       E       P
+      G	0	5	5	-56	-11.2
+      C	5	14	9	-7	-0.8
+      E	14	19	5	-12	-2.4
+      B	19	24	5	13	2.6
+      A	24	34	10	24	2.4
+      D	34	43	9	30	3.3
+      F	43	51	8	29	3.6
+
+      Duración total: 51
+    #+end_src
+    - El proceso =G= no dura 5, pero llega en =t=56=. Si lo pones a
+      ejecutar de =t=0= a =t=5=, naturalmente tendrá un tiempo de
+      espera (incorrecto) de -56.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |   0.3 |    1 |    0.3 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |   0.7 |    1 |    0.7 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |     9. |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Magno Omar, Solis Alan
+- Documentación :: [[./MagnoOmar-SolisAlan/Proyecto 2 Planificación por Retroa.txt][Proyecto 2 Planificación por Retroa.txt]]
+- Archivos :: [[./MagnoOmar-SolisAlan/loteria.py][loteria.py]], [[./MagnoOmar-SolisAlan/multinivel.py][multinivel.py]]
+- Comentarios ::
+  - ¡Buenas implementaciones! Concisas y fáciles de leer.
+  - pero no me permitieron ver su razonamiento con las preguntitas que
+    les lancé 🙁
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      9 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Marquez Axel, Oronzor Manases
+- Documentación :: [[./MarquezAxel-OronzorManases/README.md][README.md]]
+- Archivos :: [[./MarquezAxel-OronzorManases/planificacion_por_retroalimentacion_loteria.py][planificacion_por_retroalimentacion_loteria.py]], [[./MarquezAxel-OronzorManases/planificacion_por_retroalimentacion_loteria_2.py][planificacion_por_retroalimentacion_loteria_2.py]], [[./MarquezAxel-OronzorManases/planificacion_por_retroalimentacion_multinivel.py][planificacion_por_retroalimentacion_multinivel.py]]
+- Comentarios ::
+  - Su calificación total es multiplicada por 0.75, por entrega
+    extemporánea ☹
+  - ¡Guau! ¡Qué recorrido tan completo y detallado por el código!
+    - Se ve que le dedicaron un buen tiempo a explicarlo a
+      detalle... Pero bueno, cuando explicamos un programa — podemos
+      dejar que /el código hable/ un poco más, sobre todo para otros
+      programadores,  y concentrar nuestra energía en explicar los
+      puntos /menos claros/.
+  - La explicación se enfoca al algoritmo de lotería "v2". Pero hay un
+    segundo algoritmo de lotería. ¿Por qué /dos implementaciones/? (¡y
+    ambas se ven bastante bien!)
+  - Los comentarios que presentan: Si este proyecto tuvo por efecto
+    que estudiaran y /re-repasaran/ Retroalimentación
+    Multinivel... ¡Muy bien! Mi trabajo está cumplido 😉
+  - En esta ocasión, no tengo mi implementación para mostrarles... no
+    la hice 😉 ¡Pero pueden comparar con la de todos sus compañeros!
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| Subtotal             |       |      |     10 |
+| Entrega extemporánea |       | 0.75 |        |
+| *Total*              |       |      |    7.5 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)::@10$4=@8$4 * @9$3
+
+** Martinez Christian, Santiago Aldo
+- Documentación :: [[./MartinezChristian_SantiagoAldo/README.md][README.md]]
+- Archivos :: [[./MartinezChristian_SantiagoAldo/proyecto02.py][proyecto02.py]]
+- Comentarios ::
+  - Si el algoritmo que implementan /selecciona el proceso con la hora
+    de llegada más temprana y lo ejecuta hasta que se completa o se
+    bloquea, y luego selecciona el siguiente proceso en orden de
+    llegada/, no es uno de los algoritmos solicitados, sino que FIFO o
+    Ronda 🙁
+    - El que haya una =duracion_maxima= hace que sea una Ronda, y esa
+      duración es el tamaño del quantum
+    - Pero la ejecución es subóptima: Dado que esperan a terminar con
+      todos los procesos que se van a encolar en un momento dado,
+      hayan estos llegado o no, vemos cadenas de salida como:
+      #+begin_src text
+	Planificación realizada:
+	AAAAAAAA--BBBBBBBCCCCCC-----DDDD-------EEEEEEEEFFFFFFFFAEF
+	Duración total: 55
+      #+end_src
+      Pero =A= podría volver a ser puesto en ejecución en cualquier
+      momento que tuviéramos /colgado/ del sistema, sin necesidad a
+      esperar a que aparezcan (y sean despachados) =E= y =F=.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |   0.5 |    1 |    0.5 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    6.5 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Martinez Julio
+- Documentación :: [[./MartinezJulio/Lotería.txt][Lotería.txt]], [[./MartinezJulio/Multinivel.txt][Multinivel.txt]]
+- Archivos :: [[./MartinezJulio/proyecto2-1.py][proyecto2-1.py]], [[./MartinezJulio/proyecto2-2.py][proyecto2-2.py]]
+- Comentarios ::
+  - ¡Hazme el trabajo un poquito más fácil! 😉 ¡indica de alguna
+    manera fácil de reconocer de qué algoritmo se tratan
+    =proyecto2-1.py= y =proyecto2-2.py=! (son respectivamente
+    multinivel y lotería)
+  - Para /multinivel/, si bien manejas una /lista ordenada por
+    prioridad/, no veo que haya varias listas (varios niveles), que es
+    lo que da su nombre a este algoritmo
+  - Para /lotería/, si bien hay varios puntos en que usas la
+    aleatoriedad, ninguno de ellos es hasta donde pude entender para
+    elegir el siguiente proceso a elegir (ni veo mención a los boletos
+    (que es el corazón del esquema)
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      7 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Meneses Erick, Mex Aerin
+- Documentación :: [[./MenesesErick-MexAerin/README.txt][README.txt]]
+- Archivos :: [[./MenesesErick-MexAerin/RetroMulti.py][RetroMulti.py]], [[./MenesesErick-MexAerin/loteria.py][loteria.py]]
+- Comentarios ::
+  - ¡Bonitas implementaciones! Simples y limpias.
+  - Me parece que en /Lotería/ se asume que todos los procesos llegan
+    desde =t=0=, no que pueden llegar en diferentes momentos de la
+    ventana de tiempo que observamos.
+    - en /Retroalimentación/, la clase =process= sí tiene un atributo
+      =tiempo=.
+  - ¡Cuiden la ortografía! ¿Cómo que =el proceso A a terminado=? 😝
+  - Para /Retroalimentación/, si bien implementan 5 colas, las 5
+    presentan el mismo comportamiento. Recuerden que la "fuerza" de
+    este mecanismo es la capacidad de modular /n/ y /q/.
+  - ¡No te repitas! Cuando veo el siguiente comentario en el código:
+    #+begin_src text
+      #De aqui hasta la cola 3 es basicamente lo mismo
+    #+end_src
+    y la repetición que le sigue, de inmediato pienso en el sabio
+    precepto /DRY/: /Don't Repeat Yourself/. ¡No te repitas a tí
+    mismo! Si la implementación es la misma, ¡encuentren cómo
+    evitarla! (si no, su código se vuelve inmantenible). Quise probar
+    modificando para aumentar el quantum en FB, y tuve que picarle en
+    demasiados lugares
+  - ¿Y mis preguntitas? 🙁
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |   0.7 |    1 |    0.7 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    8.7 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Miranda Juan
+- Documentación :: [[./MirandaJuan/proyecto2_SO.txt][proyecto2_SO.txt]]
+- Archivos :: [[./MirandaJuan/SO_spn_proyecto2.py][SO_spn_proyecto2.py]], [[./MirandaJuan/proyecto2_SO_loteria.py][proyecto2_SO_loteria.py]]
+- Comentarios ::
+  - Me faltó la respuesta a mis preguntitas 🙁
+  - Los dos algoritmos que pedí eran lotería y /retroalimentación
+    multinivel/.
+  - Una diferencia importante entre el algoritmo ejemplo que les puse
+    y los que les pedí es que /FIFO/ es /cooperativo/ (por eso incluí
+    el comentario =El proceso se ejecuta por toda la carga de trabajo
+    que tiene=), en tanto que /Lotería/ y /Retroalimentación
+    Multinivel/ son ambos /preventivos/ o /apropiativos/, esto es, un
+    proceso se pone en ejecución por cierto número de /ticks/ (y no
+    hasta que éste decida entregar de vuelta el control).
+  - Para que lo que implementaste pueda entenderse como /lotería/,
+    tendría que haber algún elemento de /aleatoriedad/ al poner a uno
+    de los procesos en ejecución, o concepto de /boletos/.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      6 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Morales Fernando
+- Documentación :: [[./MoralesFernando/Reporte_Morales_Zilli.pdf][Reporte_Morales_Zilli.pdf]]
+- Archivos :: [[./MoralesFernando/fb.py][fb.py]], [[./MoralesFernando/lottery.py][lottery.py]]
+- Comentarios ::
+  - El /problema/ que describes como inanición no es inanición... Si
+    no hay ningún proceso por ejecutar, pues no se ejecuta nada y
+    punto 😜
+    - Inanición es cuando el sistema tiene trabajo por hacer, y avanza
+      /de alguna manera/ con este trabajo, pero algún patrón de uso
+      /castiga/ a alguno de los procesos o categorías de procesos
+      haciéndole esperar fuera de lo que se considera adecuado.
+  - Me parece que tu implementación de ambos algoritmos es correcta
+    (leyendo el fuente y observando /por encimita/ la ejecución), pero
+    me falta la confirmación visual que les mostré en el ejemplo, así
+    como el cómputo de totales globales de la ejecución.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |   0.8 |    1 |    0.8 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |   0.8 |    1 |    0.8 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    9.6 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Paniagua Eduardo
+- Documentación :: [[./PaniaguaEduardo/preguntas.txt][preguntas.txt]]
+- Archivos :: [[./PaniaguaEduardo/fb.py][fb.py]], [[./PaniaguaEduardo/loteria.py][loteria.py]]
+- Comentarios ::
+  - ¡Muy buenas respuestas a las preguntas! Algunas muestran que, o
+    has estudiado con detenimiento, o tienes muy buena intuición en la
+    materia 😃
+  - Interesante cómo inicializas tus colas ya "cargaditas" de procesos
+    en /FB/. Formalmente, te diría que todos los procesos –según la
+    definición del algoritmo– deberían iniciar siendo aceptados en la
+    cola de prioridad más alta. Sin embargo, para una simulación
+    sencilla, y para ilustrar mejor que estás tomando una /foto/ de un
+    sistema vivo... Te lo doy perfectamente por bueno 😉
+  - La implementación de lotería, sin embargo... no me parece que sea
+    lo que pedí. Manejas tres colas (este esquema maneja una única
+    cola), y no hay reparto/sorteo de boletos 🙁
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      9 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Ramirez Daniel
+- Archivos :: [[./RamirezDaniel/Proyecto2-multi.py][Proyecto2-multi.py]]
+- Comentarios ::
+  - Sólo entregaste la implementación de uno de los algoritmos, y no
+    es el algoritmo solicitado
+    - Es el algoritmo ejemplo que yo propuse, agregando únicamente la
+      tabla de ejecución.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     0 |    1 |      0 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      6 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Rangel Jose
+- Documentación :: [[./RangelJose/loteriaDoc.txt][loteriaDoc.txt]], [[./RangelJose/multinivelDoc.txt][multinivelDoc.txt]], [[./RangelJose/readme.md][readme.md]]
+- Archivos :: [[./RangelJose/loteria.py][loteria.py]], [[./RangelJose/multinivel.py][multinivel.py]]
+- Otros archivos ::  [[./RangelJose/loteria1.txt][loteria1.txt]], [[./RangelJose/loteria2.txt][loteria2.txt]], [[./RangelJose/loteria3.txt][loteria3.txt]], [[./RangelJose/multinivel1.txt][multinivel1.txt]], [[./RangelJose/multinivel2.txt][multinivel2.txt]], [[./RangelJose/multinivel3.txt][multinivel3.txt]]
+- Comentarios ::
+  - Me faltó la respuesta a mis preguntitas 🙁
+  - ¡Muy interesante implementación de la lotería!
+  - Además, te aventaste el boleto de /crear hilos/ para los
+    diferentes procesos — ¡mayor complejidad que la que el
+    planteamiento te requería!
+  - Ojo, la planificación multinivel /no es lo mismo/ (no sigue la
+    misma lógica de operación) que la de Lotería. Ante un mismo
+    conjunto de procesos, las decisiones que toma /sí son
+    determinísticas/.
+    - Además, estructura la atención a los procesos en varias /colas
+      de prioridad/, que no veo en tu programa.
+  - Me parece que no puedo calificar al algoritmo que implementaste
+    como una retroalimentación multinivel 🙁
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      8 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Rivera Mauricio, Ruiz Laura
+- Documentación :: [[./RiveraMauricio-RuizLaura/README.md][README.md]]
+- Archivos :: [[./RiveraMauricio-RuizLaura/loteria.py][loteria.py]], [[./RiveraMauricio-RuizLaura/retromulti.py][retromulti.py]]
+- Comentarios ::
+  - ¡Me gusta la modificación que hacen en FB cuando todos los
+    procesos han ido "migrando" a colas posteriores! ¡Muy original y
+    bien fundamentado!
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |     10 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Rojas Laylet, Ruiz Miguel
+- Documentación :: [[./RojasLaylet-RuizMiguel/Planificador de Procesos.pdf][Planificador de Procesos.pdf]]
+- Archivos :: [[./RojasLaylet-RuizMiguel/RoundRobin.py][RoundRobin.py]], [[./RojasLaylet-RuizMiguel/planificadorLoteria.py][planificadorLoteria.py]]
+- Comentarios ::
+  - Ojo, ¡retroalimentación multinivel /usa varias colas/, cada una de
+    las cuales se maneja por Ronda (/Round Robin/). La implementación
+    que entregaron... no es la que solicité 🙁
+  - En /Lotería/, si bien al crear un proceso se genera con una
+    duración == random.randint(80,120)= como les solicité, la
+    simulación corre para siempre
+    - ...Y tiene sentido: Tienen a todos los procesos en =cola=, pero
+      si bien le van quitando =tickets= a cada =proceso=,  nunca lo
+      retiran de =cola=, por lo que el =while= de la línea 41 no
+      terminará nunca.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |  0.25 |    1 |   0.25 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |  0.25 |    1 |   0.25 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    8.5 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Rojo Luis, Uriarte Yahir
+- Documentación :: [[./RojoLuis-UriarteYahir/Proyecto2.pdf][Proyecto2.pdf]]
+- Archivos :: [[./RojoLuis-UriarteYahir/PlanificadorFB.py][PlanificadorFB.py]], [[./RojoLuis-UriarteYahir/PlanificadorLoteria.py][PlanificadorLoteria.py]]
+- Comentarios ::
+  - Me gusta la implementación usando =Queue=. ¡Bien! 😃
+  - La lógica del manejo de varias colas lleva a mucha repetición en
+    su código, y eso lleva a una gran rigidez: ¿Qué pasa si en vez de
+    3 colas te piden que sean 5? ¡Hay que copiar manualmente el cacho
+    de código, y editarlo para modificar los detalles dependientes de
+    la posición. ¡No olviden al sabio /principio DRY/ (Don't Repeat
+    Yourself) Si ves que se repite tu lógica, busca cómo xpresar lo
+    mismo de forma que quede parametrizado.
+  - Respecto  las respuestas que entregan: Recuerden que en
+    /Retroalimentación Multinivel/ el administrador no /asigna/
+    prioridades, sino que las prioridades /se van determinando
+    automáticamente/ por la duración de un proceso en la cola. Todos
+    los procesos llegan siendo de máxima prioridad (y, contrario a lo
+    que indican, sólo son /degradados/, nunca promovidos).
+  - Ya viendo las implementaciones: Las decisiones de planificación se
+    toman /a cada momento, basados en la situación existente/. Eso
+    significa que en la lotería, a cada quantum, sólo participan en el
+    sorteo aquellos procesos /que ya llegaron y no han
+    finalizado/. Esto es, ante una ejecución como esta:
+    #+begin_src text
+      $ python3 RojoLuis-UriarteYahir/PlanificadorLoteria.py
+      Lista de procesos:
+
+      Proceso   Tickets   Duracion
+
+	 A          0        116
+	 B          9         93
+	 C          7         89
+	 D         16        114
+	 E          5         82
+
+       - Comenzemos 😎 -
+
+      t=7
+      t=44  ⌚ C 37 tick
+
+       - Orden de los resultados por loteria 🤓 : -
+      -------CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+       - Duración total ⏱️ : 44 -
+    #+end_src
+    Para cualquier ~t < 5~, sólo se sortea entre los boletos de =A=
+    (porque es el único proceso que ha llegado). Para ~5 <= t < 7~ se
+    consideran los boletos de =A, B, E=. Para partir de ~7 <= t < 16~,
+    se sortea entre =A, B, C, E=. Y a partir de ~t = 16~ y hasta que
+    comiencen a terminar, ya se consideran todos.
+  - Para /Retroalimentación Multinivel/, me parece que la
+    implementación está mayomente correcta, pero se detiene en el
+    momento en que no hay ningún proceso pendiente. Esto es:
+    #+begin_src text
+
+      Lista de procesos:
+      Proceso         Duración        Llegada
+	 A               7               0
+	 B               5               8
+	 C               9              19
+	 D               6               8
+      t=0 soy el proceso A y tengo una prioridad de 0
+      El proceso A se ejecuta por 1 ticks
+      t=1 soy el proceso A y tengo una prioridad de 1
+      El proceso A se ejecuta por 2 ticks
+      t=3 soy el proceso A y tengo una prioridad de 2
+      El proceso A se ejecuta por 3 ticks
+      t=6 soy el proceso A y tengo una prioridad de 0
+      A terminó en el tiempo 7
+    #+end_src
+    Como los procesos =B= y =D= llegan en =t=8=, y el algoritmo no
+    contempla que puede haber /tiempos muertos/ legítimamente, termina
+    antes de tiempo, habiendo ejecutado únicamente a uno de los
+    procesos.
+  - Veo que agregaron la cláusula que sugieren en el texto:
+    #+begin_src python
+	      elif not baja_prio_queue.empty():
+		  # (...)
+		  if proceso['duración'] > 0:
+		      # Si el proceso aún no ha terminado, lo sube de nivel para evitar que el proceso pase más tiempo sin ejecutarse
+		      proceso['prioridad'] = alta_prio
+		      alta_prio_queue.put(proceso)
+    #+end_src
+    Esto no forma parte del algoritmo descrito, pero lo acepto dado
+    que lo documentaron 😉
+  - ¡Una disculpa por no haber terminado de calificar esta
+    implementación junto con las otras!
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     0 |    1 |      0 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |   0.7 |    1 |    0.7 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    8.7 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Rosado Kareem
+- Documentación :: [[./RosadoKareem/loteria.pdf][loteria.pdf]]
+- Archivos :: [[./RosadoKareem/loterias.py][loterias.py]]
+- Comentarios ::
+  - Me faltó la respuesta a mis preguntitas 🙁
+  - Si bien tu implemntación elige a uno de los procesos en la cola de
+    ejecución de forma aleatoria (línea 42), no lo hace siguiendo el
+    esquema de boletos/tickets especificado, ino que únicamente sobre
+    la /duración total/ de cada uno de los procesos.
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |   0.7 |    1 |    0.7 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |    6.7 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Sanchez Marco, Teran Mario
+- Documentación :: [[./SanchezMarco-TeranMario/README.md][README.md]]
+- Archivos :: [[./SanchezMarco-TeranMario/loteria/Cargo.toml][Cargo.toml]], [[./SanchezMarco-TeranMario/loteria/src/main.rs][main.rs]]
+- Comentarios ::
+  - Me faltó la respuesta a mis preguntitas 🙁
+  - Su calificación total es multiplicada por 0.75, por entrega
+    extemporánea ☹
+  - En el =README.md= tienen una confusión reiterada entre /proceso/ y
+    /proyecto/ 😉
+  - Con la lógica que presentan para el reparto de tickets, ¿cómo
+    enfreel hecho de que un proceso puede ser puesto en ejecución
+    /antes de haber llegado/? Esto es, tomen esta ejecución ejemplo:
+    #+begin_src text
+      Lista de procesos:
+      Proceso   Duracion   Llegada
+      A	 7	    0
+      B	 9	    11
+      C	 6	    7
+      D	 9	    24
+      E	 9	    32
+      F	 8	    56
+
+      Reparticion de tickets
+      No. de ticket: 1
+      Proceso: F
+      No. de ticket: 2
+      Proceso: F
+      No. de ticket: 3
+      Proceso: C
+      No. de ticket: 4
+      Proceso: E
+      No. de ticket: 5
+      Proceso: E
+      No. de ticket: 6
+      (...)
+    #+end_src
+    En =t=0= (y hasta =t<=7=) únicamente =A= debería ejecutarse; desde
+    ahí y hasta =t=11=, sólo deberíamos ver que alternaran =A= y =B=,
+    etc.
+  - ¡No le echen la culpa a su elección de lenguaje! Claro, escribir
+    en Rust es más complicado porque el compilador verifica /que no
+    hagamos ninguna tontería/ (...¿ya ven por qué no le agarro al
+    maldito lenguaje?), ¡pero no va a imposibilitar llevar
+    contabilidad respecto a la planificación que hicieron!
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |   0.7 |    1 |    0.7 |
+| Implementa /FB/      |     0 |    1 |      0 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     0 |    1 |      0 |
+|----------------------+-------+------+--------|
+| Subtotal             |       |      |    6.7 |
+| Entrega extemporánea |       | 0.75 |        |
+| *Total*              |       |      |  5.025 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)::@10$4=@8$4 * @9$3
+
+** Sotelo Axel, Sierra Nayeli
+- Documentación :: [[./SoteloAxel_SierraNayeli/SoteloAxel_SierraNayeli_Reporte.pdf][SoteloAxel_SierraNayeli_Reporte.pdf]]
+- Archivos :: [[./SoteloAxel_SierraNayeli/lotteria.py][lotteria.py]], [[./SoteloAxel_SierraNayeli/multinivel.py][multinivel.py]]
+- Comentarios ::
+  - intentar ejecutar la planificación multinivel me da error:
+    #+begin_src python
+      $ python3 SoteloAxel_SierraNayeli/multinivel.py 
+      Traceback (most recent call last):
+	File "/home/gwolf/vcs/sistop-2023-2/proyectos/2/SoteloAxel_SierraNayeli/multinivel.py", line 37, in <module>
+	  'duracion': random.randint(ticketMinimo, ticketMaximo),
+		      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	File "/usr/lib/python3.11/random.py", line 362, in randint
+	  return self.randrange(a, b+1)
+		 ^^^^^^^^^^^^^^^^^^^^^^
+	File "/usr/lib/python3.11/random.py", line 345, in randrange
+	  raise ValueError("empty range for randrange() (%d, %d, %d)" % (istart, istop, width))
+      ValueError: empty range for randrange() (5, 2, -3)
+    #+end_src
+    - Me pareció que el problema podría ser en que =ticketMinimo=5= y
+      =ticketMaximo=5=, pero me dejó fundamentalmente en las mismas
+      #+begin_src python
+	$ python3 SoteloAxel_SierraNayeli/multinivel.py 
+	Traceback (most recent call last):
+	  File "/home/gwolf/vcs/sistop-2023-2/proyectos/2/SoteloAxel_SierraNayeli/multinivel.py", line 37, in <module>
+	    'duracion': random.randint(ticketMinimo, ticketMaximo),
+			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	  File "/usr/lib/python3.11/random.py", line 362, in randint
+	    return self.randrange(a, b+1)
+		   ^^^^^^^^^^^^^^^^^^^^^^
+	  File "/usr/lib/python3.11/random.py", line 345, in randrange
+	    raise ValueError("empty range for randrange() (%d, %d, %d)" % (istart, istop, width))
+	ValueError: empty range for randrange() (5, 2, -3)
+      #+end_src
+
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     0 |    1 |      0 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |      9 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+
+** Vázquez Fredin, Arellano Israel
+- Documentación :: [[./VázquezFredin-ArellanoIsrael/Images/1.jpg][1.jpg]], [[./VázquezFredin-ArellanoIsrael/Images/2.jpg][2.jpg]], [[./VázquezFredin-ArellanoIsrael/Images/3.jpg][3.jpg]], [[./VázquezFredin-ArellanoIsrael/Images/4.jpg][4.jpg]], [[./VázquezFredin-ArellanoIsrael/Images/5.jpg][5.jpg]], [[./VázquezFredin-ArellanoIsrael/Images/6.jpg][6.jpg]], [[./VázquezFredin-ArellanoIsrael/README.md][README.md]]
+- Archivos :: [[./VázquezFredin-ArellanoIsrael/Planificación_por_Loteria.py][Planificación_por_Loteria.py]], [[./VázquezFredin-ArellanoIsrael/Planificación_por_Retroalimentación_Multinivel.py][Planificación_por_Retroalimentación_Multinivel.py]]
+- Comentarios ::
+
+  - ¡Muy buenas implementaciones!
+
+|----------------------+-------+------+--------|
+| *Calificación*       | Valor | Peso | Puntos |
+|----------------------+-------+------+--------|
+| Proyecto entregado   |     1 |    5 |      5 |
+| Implementa /Lotería/ |     1 |    1 |      1 |
+| /Lotería/ funciona   |     1 |    1 |      1 |
+| Implementa /FB/      |     1 |    1 |      1 |
+| /FB/ funciona        |     1 |    1 |      1 |
+| Responde preguntas   |     1 |    1 |      1 |
+|----------------------+-------+------+--------|
+| *Total*              |       |      |     10 |
+|----------------------+-------+------+--------|
+#+TBLFM: @2$4..@7$4=$2 * $3::@8$4=vsum(@2..@7)
+

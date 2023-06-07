@@ -186,6 +186,14 @@
 
 * Anatomy of Linux system call on ARM64
 
+** Brandon Campos y Jorge Rosado
+- Archivos :: [[./CamposBrandom-RosadoDominguezproyecto1/CamposBrandon-RosadoDominguez.pdf][CamposBrandon-RosadoDominguez.pdf]]
+- Comentarios ::
+  - Buen resumen ☺
+  - Una disculpa por la demora en calificar esta entrega, me parece
+    que se me "salió del radar"
+- Calificación :: 10
+
 ** Christian Martinez y Aldo Santiago
 - Archivos :: [[./MartinezChristian_SantiagoAldo/Anatomy_of_Linux_system_call_in_ARM64.pdf][Anatomy_of_Linux_system_call_in_ARM64.pdf]]
 - Comentarios ::

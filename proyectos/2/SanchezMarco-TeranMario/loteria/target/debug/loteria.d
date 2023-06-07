@@ -1,0 +1,1 @@
+/home/markosh/Documents/facultad/sistop-2023-2/proyectos/2/SanchezMarco-TeranMario/loteria/target/debug/loteria: /home/markosh/Documents/facultad/sistop-2023-2/proyectos/2/SanchezMarco-TeranMario/loteria/src/main.rs
