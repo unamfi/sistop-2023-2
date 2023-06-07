@@ -1,0 +1,36 @@
+#+title: Exposición: Trampas y el problema del acceso al kernel
+#+author: Gunnar Wolf
+
+- Tema presentado por :: Eduardo Paniagua
+- Calificación global ::  * 0.3 +  * 0.7 = **
+
+* Evaluación grupal
+
+[[./evaluacion_alumnos.pdf][Evaluaciones individuales de los alumnos]]
+
+|--------------+-------+------------+----------+-----------+-------|
+| Originalidad | Nivel | Relevancia | Claridad | Presencia | Total |
+|--------------+-------+------------+----------+-----------+-------|
+|              |       |            |          |           |       |
+
+
+|              |       |            |          |           |       |
+|--------------+-------+------------+----------+-----------+-------|
+|         9.60 |  9.27 |       8.39 |     9.35 |      9.27 |  9.18 |
+|--------------+-------+------------+----------+-----------+-------|
+#+TBLFM: @>$1..@>$6=vmean(@II..@III-1); f-2::@3$>..@>>>$>=vmean($1..$5); f-2
+
+* Evaluación del docente
+
+| *Aspecto*              | *Peso* | *Evaluación* | *Puntos* |
+|------------------------+--------+--------------+----------|
+| Originalidad del tema  |    0.1 |              |       0. |
+| Material desarrollado  |    0.2 |              |       0. |
+| Contenido              |    0.2 |              |       0. |
+| Fuentes bibliográficas |    0.1 |              |       0. |
+| Uso del tiempo         |    0.1 |              |       0. |
+| Dominio del tema       |   0.15 |              |       0. |
+| Presencia              |   0.15 |              |       0. |
+|------------------------+--------+--------------+----------|
+| *Global*               |        |              |     0.00 |
+#+TBLFM: @<<$4..@>>$4=$2*$3::$4=vsum(@<<..@>>);f-2
