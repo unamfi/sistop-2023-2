@@ -1,0 +1,8 @@
+Notas para el profesor: 
+
+El programa corre de la siguiente manera: 
+	Tarea2.py /ruta/al/directorio #días
+	
+Para realizar este programa nos basamos en la documentación de Python 
+y en geeks for geeks :) 
+
