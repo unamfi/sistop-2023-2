@@ -2,7 +2,7 @@
 #+author: Gunnar Wolf
 
 - Tema presentado por :: Aldo Santiago y Christian Martínez
-- Calificación global :: 9.17 * 0.3 + 6 * 0.7 = *6.951*
+- Calificación global :: 9.17 * 0.3 + 6.5 * 0.7 = *7.301*
 
 * Evaluación grupal
 
@@ -51,12 +51,12 @@
 | *Aspecto*              | *Peso* | *Evaluación* | *Puntos* |
 |------------------------+--------+--------------+----------|
 | Originalidad del tema  |    0.1 |          7.5 |     0.75 |
-| Material desarrollado  |    0.2 |            5 |       1. |
+| Material desarrollado  |    0.2 |          7.5 |      1.5 |
 | Contenido              |    0.2 |            5 |       1. |
 | Fuentes bibliográficas |    0.1 |            0 |       0. |
 | Uso del tiempo         |    0.1 |           10 |       1. |
 | Dominio del tema       |   0.15 |          7.5 |    1.125 |
 | Presencia              |   0.15 |          7.5 |    1.125 |
 |------------------------+--------+--------------+----------|
-| *Global*               |        |              |     6.00 |
+| *Global*               |        |              |     6.50 |
 #+TBLFM: @<<$4..@>>$4=$2*$3::$4=vsum(@<<..@>>);f-2
