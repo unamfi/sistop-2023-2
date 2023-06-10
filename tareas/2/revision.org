@@ -232,22 +232,22 @@ entender. Algunas ejecuciones ejemplo de programas de algunos compañeros:
       directorio expresamente... pero nada te hace entender lo que
       pasa:
       #+begin_src bash
-$ python3 OrganistaRicardo/archivos.py /tmp/4
-Ruta:./
-Numero de dias:5
-Listando los archivos menores a 5 días en «./»
-Se mostraran archivos a partir de la fecha:  2023-06-03
-No se encontro la ruta especificada
-$ python3 OrganistaRicardo/archivos.py /tmp/4
-Ruta:OrganistaRicardo/
-Numero de dias:5 
-Listando los archivos menores a 5 días en «OrganistaRicardo/»
-Se mostraran archivos a partir de la fecha:  2023-06-03
-Considerando OrganistaRicardo/archivos.py
-Nombre        Modificación  Tamaño    Modo
-===========================================
-archivos.py   2023-06-08     1510     33188
-      #+end
+	$ python3 OrganistaRicardo/archivos.py /tmp/4
+	Ruta:./
+	Numero de dias:5
+	Listando los archivos menores a 5 días en «./»
+	Se mostraran archivos a partir de la fecha:  2023-06-03
+	No se encontro la ruta especificada
+	$ python3 OrganistaRicardo/archivos.py /tmp/4
+	Ruta:OrganistaRicardo/
+	Numero de dias:5 
+	Listando los archivos menores a 5 días en «OrganistaRicardo/»
+	Se mostraran archivos a partir de la fecha:  2023-06-03
+	Considerando OrganistaRicardo/archivos.py
+	Nombre        Modificación  Tamaño    Modo
+	===========================================
+	archivos.py   2023-06-08     1510     33188
+      #+end_src
 - Calificación :: 7
 
 ** Paniagua Eduardo
