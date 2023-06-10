@@ -1,0 +1,473 @@
+* Notas generales
+
+Presento a continuación algunas notas que fueron frecuentes entre sus implementaciones.
+
+** /Modo/ o /permisos/ de los archivos.
+
+Un detalle importante, pero que no tenían por qué intuir: El /modo/ de
+los archivos lo estás reportando de forma numérica (típicamente
+=33188= o =33261=). Este es un valor decimal que no nos dice
+mucho... Pero hay que verlo como un valor octal, es decir, son
+respectivamente =0o100644= y =0o10755=. El primer carácter es el tipo
+de archivo (1 por "archivo normal"). No estoy seguro del origen /
+significado de los dos ceros. Los últimos tres dígitos se refieren,
+respectivamente, a dueño, grupo y mundo, y tienes que leerlo como un
+conjunto de bits representando RWX – "6" es 110 (RW-), "7" es 111
+(RWX), "5" es 101 (R-X), etc.
+
+** Robustez / amigabilidad
+
+Algunos de ustedes presentaron programas /funcionalmente completos/,
+pero que adolescían en cuanto a su /robustez/ y /amigabilidad/ (esto
+es, en /resistir correctamente/ una invocación incorrecta e indicarle
+al usuario la naturaleza de sus errores de una forma clara y fácil de
+entender. Algunas ejecuciones ejemplo de programas de algunos compañeros:
+
+#+begin_src bash
+  $ python3 AranzuaCesar/tarea2.py .
+  Traceback (most recent call last):
+    File "/home/gwolf/vcs/sistop-2023-2/tareas/2/AranzuaCesar/tarea2.py", line 15, in <module>
+      ruta, dias = str(sys.argv[1]), int(sys.argv[2])
+					 ~~~~~~~~^^^
+  IndexError: list index out of range
+  $ ./ArcigaFernando/datos
+  $ python3 CarranzaMorales/tarea2.py 
+  Traceback (most recent call last):
+    File "/home/gwolf/vcs/sistop-2023-2/tareas/2/CarranzaMorales/tarea2.py", line 44, in <module>
+      ruta = sys.argv[1]
+	     ~~~~~~~~^^^
+  IndexError: list index out of range
+#+end_src
+
+* Revisión de tareas
+** Cesar Aranzua
+- Archivos :: [[./AranzuaCesar/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - Realiza /casi/ correctamente la consigna
+    - El programa entrega los resultados en el orden en que el sistema
+      los va entregando, no en orden lexicográfico:
+      #+begin_src bash
+	$ python3 AranzuaCesar/tarea2.py . 10
+
+		NOMBRE			  TAMAÑO			    ULTIMA_MODIFICACIÓN		 PERMISOS
+	=================================================================================================================================
+	README.md                         3.14 KiB                          31 May 2023, 09:59 AM             644 === rw-r--r--                 
+	revision.org                      5.46 KiB                          08 Jun 2023, 09:15 AM             644 === rw-r--r--                 
+	revision.html                     23.2 KiB                          08 Jun 2023, 09:13 AM             644 === rw-r--r--                 
+      #+end_src
+	- Revisa la nota sobre /Robustez / amigabilidad/.
+
+- Calificación :: 9
+
+** Fernando Arciga
+- Archivos :: [[./ArcigaFernando/datos.c][datos.c]], [[./ArcigaFernando/informameD][informameD]]
+- Comentarios ::
+  - Tu archivo =informameD= es el binario compilado resultante de
+    =datos.c=... Compilado en tu computadora
+    - Recuerda que este es el caso de uso exacto para el que les pedí
+      que usáramos =.gitignore=: No puedes asumir que tu programa
+      compilado va a funcionar en cualquier computadora
+    - Ni yo puedo asumir que sea el resultado de compilar lo que
+      veo. ¿Y si es /malware/ que busca modificar la calificación que
+      te registro? 😉
+  - Revisa la nota sobre /Robustez / amigabilidad/. Si no le
+    especificas ambos argumentos, el programa no realiza nada (sólo
+    hace un =exit(1)=)
+  - No te voy a decir que la salida sea bonita o clara de leer (para
+    este contenido, es natural una salida tabular)... pero es correcta
+    😉
+- Calificación :: 10
+
+** Fabian Armenta
+- Documentación :: [[./ArmentaFabian/README.md][README.md]]
+- Archivos :: [[./ArmentaFabian/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - ¡Interesante! No pedí que entraras /recursivamente/ a todos los
+    directorios debajo del actual, pero lo hiciste. ¡Bien!
+  - No te voy a decir que la salida sea bonita o clara de leer (para
+    este contenido, es natural una salida tabular)... pero es correcta
+    😉
+  - Cuando intentas procesar directorios donde hay subdirectorios para
+    los que no tienes permiso, como =/proc=, te genera una fea
+    excepción:
+    #+begin_src bash
+      $ python3 ArmentaFabian/tarea2.py /proc/ 1
+      Traceback (most recent call last):
+	File "/home/gwolf/vcs/sistop-2023-2/tareas/2/ArmentaFabian/tarea2.py", line 68, in <module>
+	  directorio(ruta_directorio, num_dias)
+	File "/home/gwolf/vcs/sistop-2023-2/tareas/2/ArmentaFabian/tarea2.py", line 38, in directorio
+	  tiempo_modificacion_archivo = os.path.getmtime(ruta_archivo)
+					^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	File "<frozen genericpath>", line 55, in getmtime
+      PermissionError: [Errno 13] Permission denied: '/proc/1/cwd'
+    #+end_src
+  - Revisa la nota /Modo o permisos/ al inicio de esta página para
+    entender el asunto de los permisos de los archivos.
+- Calificación :: 10
+
+** Gustavo Bernal
+- Documentación :: [[./BernalGustavo/Ejecución.pdf][Ejecución.pdf]]
+- Archivos :: [[./BernalGustavo/Directorio2.py][Directorio2.py]]
+- Comentarios ::
+  - Tu programa es interactivo, no recibe su entrada desde línea de
+    comando (que era un requisito de la implementación) 🙁
+    - Piensa en que estás escribiendo un reemplazo para el programa
+      =ls= o =dir=
+  - Revisa la nota /Modo o permisos/ para entender el asunto de los
+    permisos de los archivos.
+  - ¿Para qué imprimes "84 T 98 b" en todas tus ejecuciones? 😕
+- Calificación :: 8
+
+** Juan Camacho
+- Archivos :: [[./CamachoJuan/Tarea2_archivos.py][Tarea2_archivos.py]]
+- Comentarios ::
+  - ¡Muy buena implementación! (me quedé sin nada más que comentar 😉)
+- Calificación :: 10
+
+** David Carranza, Carlos Morales
+- Documentación :: [[./CarranzaMorales/README.md][README.md]]
+- Archivos :: [[./CarranzaMorales/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - Revisa la nota sobre /Robustez / amigabilidad/.
+  - ¡Ojo! ¡Qué bien que me fijé en la documentación! El nombre de
+    directorio para entregar este archivo tendría que haber sido
+    =CarranzaDavid-MoralesCarlos=. Estuve a punto de darle
+    calificación únicamente a David...
+- Calificación :: 10
+
+** Pablo Constantino, Cristopher Juarez
+- Archivos :: [[./ConstantinoPablo-JuarezCristopher/Tarea2.py][Tarea2.py]]
+- Comentarios ::
+  - ¡Excelente manera de obtener y presentar de forma legible al humano
+    el contenido de los permisos! (No como lo que yo haría... ¡Pero
+    excelente!)
+- Calificación :: 10
+
+** Frias Camille
+- Archivos :: [[./FriasCamille/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - ¿Por qué poner directorio y días /en duro/ si es tan fácil
+    recibirlos directamente por Python? Asómate al uso de =argv=.
+- Calificación :: 8
+
+** Erik Garcia
+- Documentación :: [[./GarciaLopez/Tarea2SO.txt][Tarea2SO.txt]]
+- Archivos :: [[./GarciaLopez/Tarea2SO.py][Tarea2SO.py]]
+- Comentarios ::
+  - ¡Muy buen manejo de respuestas inesperados! Reconoces (y reportas)
+    argumentos erróneos, usas =try/except= para /cachar/ excepciónes,
+    etc.
+- Calificación :: 10
+
+** Omar Magno
+- Documentación :: [[./MagnoOmar/ExplicacionTarea2.txt][ExplicacionTarea2.txt]]
+- Archivos :: [[./MagnoOmar/ListaArchivos.py][ListaArchivos.py]]
+- Comentarios ::
+  - ¿Por qué poner directorio y días /en duro/ si es tan fácil
+    recibirlos directamente por Python? Asómate al uso de =argv=.
+- Calificación :: 8
+
+** Axel Marquez, Manases Oronzor
+- Archivos :: [[./MarquezAxel-OronzorManases/Tarea2-directorio.py][Tarea2-directorio.py]]
+- Comentarios ::
+  - ¡Muy buen manejo de situaciones inesperadas! (desde la lista de
+    parámetros hasta la imposibilidad de abrir un archivo
+  - En cuestión estilística: en general, te sugiero comentar tu código
+    con el estilo:
+    #+begin_src python
+      # comparación de búsqueda de días
+      if mod_time >= threshold_time:
+    #+end_src
+    y no:
+    #+begin_src python
+      if mod_time >= threshold_time:  # comparación de búsqueda de días
+    #+end_src
+    Pues resulta en líneas no-demasiado-largas, y eso le ayuda a
+    nuestros cerebros de primate 😉
+- Calificación :: 10
+
+** Julio Martinez
+- Archivos :: [[./MartinezJulio/Tarea2.py][Tarea2.py]]
+- Comentarios ::
+  - Su programa es interactivo, no recibe su entrada desde línea de
+    comando (que era un requisito de la implementación) 🙁
+    - Piensen en que están escribiendo un reemplazo para el programa
+      =ls= o =dir=
+- Calificación :: 8
+
+** Erick Meneses, Aerin Mex
+- Documentación :: [[./MenesesErick-MexAerin/README.txt][README.txt]]
+- Archivos :: [[./MenesesErick-MexAerin/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - Muy buena implementación
+  - Buen uso de =tabulate=
+- Calificación :: 10
+
+** Juan Miranda
+- Archivos :: [[./MirandaJuan/tarea2_SO.py][tarea2_SO.py]]
+- Comentarios ::
+  - ¡Interesante! No pedí que entraras /recursivamente/ a todos los
+    directorios debajo del actual, pero lo hiciste. ¡Bien!
+  - Buen uso de =tabulate=, sobre todo dado que este programa va a
+    reportar muchos más archivos que el de otros compañeros (por
+    entrar recursivamente).
+- Calificación :: 10
+
+** Morales Fernando
+- Archivos :: [[./MoralesFernando/MoralesFernando T2.py][MoralesFernando T2.py]]
+- Comentarios ::
+  - Revisa la nota sobre /Robustez / amigabilidad/.
+- Calificación :: 10
+
+** Organista Ricardo
+- Archivos :: [[./OrganistaRicardo/archivos.py][archivos.py]]
+- Comentarios ::
+  - Tu programa es interactivo, no recibe su entrada desde línea de
+    comando (que era un requisito de la implementación) 🙁
+    - Piensa en que estás escribiendo un reemplazo para el programa
+      =ls= o =dir=
+    - El número de días que recibes de =STDIN= es una cadena, no lo
+      convertiste en entero (con =int(...)=
+    - El programa requiere que indiques el fin de nombre del
+      directorio expresamente... pero nada te hace entender lo que
+      pasa:
+      #+begin_src bash
+$ python3 OrganistaRicardo/archivos.py /tmp/4
+Ruta:./
+Numero de dias:5
+Listando los archivos menores a 5 días en «./»
+Se mostraran archivos a partir de la fecha:  2023-06-03
+No se encontro la ruta especificada
+$ python3 OrganistaRicardo/archivos.py /tmp/4
+Ruta:OrganistaRicardo/
+Numero de dias:5 
+Listando los archivos menores a 5 días en «OrganistaRicardo/»
+Se mostraran archivos a partir de la fecha:  2023-06-03
+Considerando OrganistaRicardo/archivos.py
+Nombre        Modificación  Tamaño    Modo
+===========================================
+archivos.py   2023-06-08     1510     33188
+      #+end
+- Calificación :: 7
+
+** Paniagua Eduardo
+- Archivos :: [[./PaniaguaEduardo/tarea 2.py][tarea 2.py]]
+- Comentarios ::
+  - Tu programa es interactivo, no recibe su entrada desde línea de
+    comando (que era un requisito de la implementación) 🙁
+    - Piensa en que estás escribiendo un reemplazo para el programa
+      =ls= o =dir=
+  - ¡Qué compacta queódó tu implementación ¡Muy bien!
+- Calificación :: 8
+
+** Ramirez Daniel
+- Documentación :: [[./RamirezDaniel/Tarea2SO.txt][Tarea2SO.txt]]
+- Archivos :: [[./RamirezDaniel/Tarea2SO.py][Tarea2SO.py]]
+- Comentarios ::
+  - ¡Interesante! No pedí que entraras /recursivamente/ a todos los
+    directorios debajo del actual, pero lo hiciste. ¡Bien!
+  - ¡Muy bien modularizado en funciones claras y fáciles de leer! 😃
+- Calificación :: 10
+
+** Rangel Jose
+- Documentación :: [[./RangelJose/README.md][README.md]]
+- Archivos :: [[./RangelJose/referencia.py][referencia.py]]
+- Comentarios ::
+  - Realiza /casi/ correctamente la consigna
+    - El programa entrega los resultados en el orden en que el sistema
+      los va entregando, no en orden lexicográfico
+  - Pensando en retrospectiva, me parece raro que tu programa sea el
+    primero que me presenta este problema: Para obtener los atributos
+    de cada archivo, en las líneas 35--38 construyes el /nombre
+    completo/ de cada archivo manualmente:
+    #+begin_src python
+      stats = os.stat(f"{ruta}\\{i}")
+      t_c = datetime.fromtimestamp(os.path.getctime(f"{ruta}\\{i}"))
+      t_m = datetime.fromtimestamp(os.path.getmtime(f"{ruta}\\{i}"))
+    #+end_src
+    - ...Pero tu programa no me servía, porque la separación a cada
+      nivel de directorio se construye distinto en Linux y en Windows
+    - Para evitar estos problemas, te recomiendo considerar el uso de
+      la función =os.path.join()=: En vez de construir la cadena
+      manualmente especificando el caracter =\= (en tu caso) o =/= (en
+      el mío), harías lo siguiente:
+      #+begin_src python
+	stats = os.stat(os.path.join(ruta, i))
+	t_c = datetime.fromtimestamp(os.path.getctime(os.path.join(ruta, i))
+	t_m = datetime.fromtimestamp(os.path.getmtime(os.path.join(ruta, i))
+      #+end_src
+- Calificación :: 9
+
+** Razo Fernando
+- Archivos :: [[./RazoFernando/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - Realiza /casi/ correctamente la consigna
+    - El programa entrega los resultados en el orden en que el sistema
+      los va entregando, no en orden lexicográfico
+- Calificación :: 9
+
+** Rios Gamaliel
+- Documentación :: [[./RiosGamaliel/README.md][README.md]]
+- Archivos :: [[./RiosGamaliel/Main.java][Main.java]]
+- Comentarios ::
+  - A pesar de ser Java, muy buena implementación 😉
+    - Pequeño detallito: Tendrías que haber creado un =.gitignore=
+      incluyendo =Main.class=.
+  - Guau, tuviste que dar toda una vuelta para generar la
+    representación de los permisos (¡ojo que yo no /requería/ que
+    fueran en octal.. "rwxr-xr-x" me tendría tan contento como "755"
+    😉)
+    - En las cadenas de Java puedes formatear los enteros en octal
+      (=%o=), decimal (=%d=) o hexadecimal (=%x=):
+      #+begin_src java
+	public class Octal {
+	    public static void main(String[] args) {
+		int i;
+		for (i=0; i<100; i+=10) {
+		    System.out.printf("%o - %d - %x\n", i, i, i);
+		}
+	    }
+	}
+      #+end_src
+      te da como resultado:
+      #+begin_src text
+	0 - 0 - 0
+	12 - 10 - a
+	24 - 20 - 14
+	36 - 30 - 1e
+	50 - 40 - 28
+	62 - 50 - 32
+	74 - 60 - 3c
+	106 - 70 - 46
+	120 - 80 - 50
+	132 - 90 - 5a
+      #+end_src
+- Calificación :: 10
+
+** Rivera Mauricio, Ruiz Laura
+- Archivos :: [[./RiveraMauricio-RuizLaura/tarea2.py][tarea2.py]]
+- Comentarios ::
+  - Muy buena y concisa implementación. ¡Buena!
+  - Revisen la nota sobre /Robustez / amigabilidad/.
+- Calificación :: 10
+
+** Rojas Laylet, Ruiz Miguel
+- Documentación :: [[./RojasLaylet-RuizMiguel/Documentacion.txt][Documentacion.txt]]
+- Archivos :: [[./RojasLaylet-RuizMiguel/Tarea2.py][Tarea2.py]]
+- Comentarios ::
+  - Buena implementación
+- Calificación :: 10
+
+** Rojo Luis
+- Archivos :: [[./RojoLuis/archivos.py][archivos.py]]
+- Comentarios ::
+  - ¿Por qué poner directorio y días /en duro/ si es tan fácil
+    recibirlos directamente por Python? Asómate al uso de =argv=.
+  - Para obtener los atributos de cada archivo, en la línea 31
+    construyes el /nombre completo/ de cada archivo manualmente:
+    #+begin_src python
+      nombre = ruta + "\\" + i
+    #+end_src
+    - ...Pero tu programa no me servía, porque la separación a cada
+      nivel de directorio se construye distinto en Linux y en Windows
+    - Para evitar estos problemas, te recomiendo considerar el uso de
+      la función =os.path.join()=: En vez de construir la cadena
+      manualmente especificando el caracter =\= (en tu caso) o =/= (en
+      el mío), harías lo siguiente:
+      #+begin_src python
+	nombre = os.path.join(ruta, i)
+      #+end_src
+- Calificación :: 8
+
+** Rosado Jorge
+- Archivos :: [[./RosadoJorge/referencia.py]]
+- Comentarios ::
+  - Implementación correcta, sencilla y concisa. ¡Bien!
+- Calificación :: 10
+
+** Sanchez Marco, Teran Mario
+- Documentación :: [[./SanchezMarco-TeranMario/README.md][README.md]]
+- Archivos :: [[./SanchezMarco-TeranMario/nls/Cargo.toml][Cargo.toml]], [[./SanchezMarco-TeranMario/nls/src/main.rs][main.rs]]
+- Comentarios ::
+  - ¡Felicidades por tomarse en serio el aprendizaje de Rust! 😃
+  - Vean por favor la nota general sobre "modos y permisos". ¡Me
+    sorprende que no pasaran a octal el valor recibido!
+  - Cuando desarrollan código para ser utilizado por terceros,
+    intenten evitar utilizar características demasiado nuevas, como la
+    construcción =let...else= de Rust:
+    #+begin_src bash
+
+	 Compiling nls v0.1.0 (/home/gwolf/vcs/sistop-2023-2/tareas/2/SanchezMarco-TeranMario/nls)
+      error[E0658]: `let...else` statements are unstable
+	--> src/main.rs:50:21
+	 |
+      50 | /                     let Ok(filename) = (entry.file_name()).into_string() else {
+      51 | |                         panic!("Can't get file name");
+      52 | |                     };
+	 | |______________________^
+	 |
+	 = note: see issue #87335 <https://github.com/rust-lang/rust/issues/87335> for more information
+    #+end_src
+    Claro, sé que les gusta usar lo último de lo último... Pero cuando
+    escriben código para compartir con el mundo, hay que considerar
+    que no es el caso de todos 😉
+- Calificación :: 10
+
+** Santiago Aldo, Martinez Christian
+- Documentación :: [[./SantiagoAldo_MartinezChristian/Img1.PNG][Img1.PNG]], [[./SantiagoAldo_MartinezChristian/Img2.PNG][Img2.PNG]], [[./SantiagoAldo_MartinezChristian/README.md][README.md]]
+- Archivos :: [[./SantiagoAldo_MartinezChristian/main.py][main.py]]
+- Comentarios ::
+  - ¡Muy bien! Además, un buen /plus/ para el humano que presenten la
+   información con colores.
+  - Revisen la nota sobre /modos y permisos/.
+  - Recomendación: Como no todos los sistemas operativos usan el mismo
+    caracter para separar los componentes del nombre de un archivo —
+    =/=, =\=, =:=, en la línea 36, en vez de unir =ruta = args.path +
+    "\\" + archivo=, usen =ruta = os.path.join(args.path, archivo)=.
+- Calificación :: 10
+
+** Sierra Nayeli, Sotelo Axel
+- Archivos :: [[./SierraNayeli_SoteloAxel/ruta.py][ruta.py]]
+- Comentarios ::
+  - Buena implementación.
+- Calificación :: 10
+
+** Solis Alan
+- Archivos :: [[./SolisAlan/ref.py][ref.py]]
+- Comentarios ::
+  - Buena implementación.
+- Calificación :: 10
+
+** Toledo Dilan
+- Archivos :: [[./ToledoDilan/Program.cs][Program.cs]]
+- Comentarios ::
+  - ¡Interesante! Es la primera vez que me entregan código en C# 😉
+  - Me llama la atención la lista de bibliotecas que incluyes,
+    particularmente =System.Linq=,
+    =System.Security.Cryptography.X509Certificates= y
+    =System.Threading.Tasks=. ¿Qué tienen estas que ver con el
+    problema que resolviste?
+  - Hiciste un programa interactivo, en vez de uno que funcionara como
+    un comando del sistema, tomando sus parámetros de =ARGV=.  En C#
+    [[https://stackoverflow.com/questions/55931227/how-can-we-get-argv0-in-c][puedes usar el arreglo de cadenas =argv= para recibir argumentos]]
+    de la línea de comando.
+- Calificación :: 8
+
+** Uriarte Yahir
+- Documentación :: [[./UriarteYahir/Tarea2_prueba-ejecucion.pdf][Tarea2_prueba-ejecucion.pdf]]
+- Archivos :: [[./UriarteYahir/Tarea2_URIARTE.py][Tarea2_URIARTE.py]]
+- Comentarios ::
+  - Buena implementación
+- Calificación :: 10
+
+** Vázquez Fredin, Arellano Israel
+- Archivos :: [[./VázquezFredin-ArellanoIsrael/Información_de_un_directorio_T02.py][Información_de_un_directorio_T02.py]]
+- Comentarios ::
+  - ¡Auuuuu mis ojos! ¡cuidado con la ortografía! ¿Cómo que =def
+    imprecion_datos(...)=?
+  - Buena implementación
+  - Curioso uso de =os.path.relpath()= con un valor para =start= que
+    únicamente funciona en su computadora. Lo bueno es que =relpath()=
+    entrega una ruta absoluta en este caso, y todo bien ☺
+- Calificación :: 10
+

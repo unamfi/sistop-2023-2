@@ -30,6 +30,11 @@ programa externo para obtener información, todo debe ser hecho desde
 el lenguaje que hayan elegido para implementar (y de ser posible,
 desde su *biblioteca estándar*).
 
+## ¡Ejercicio calificado!
+
+Pueden ya consultar la [revisión de sus entregas para este
+ejercicio](./revision.org).
+
 ## Ejemplo de ejecución
 
 Como ejemplo, les pongo el resultado de 3 ejecuciones (claro, estas serán
