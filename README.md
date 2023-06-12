@@ -61,7 +61,7 @@ Threat](https://carlchenet.com/the-github-threat/) (_la amenaza de
 GitHub_) para profundizar un poco en esta cuestión, que va desde lo
 técnico hasta lo ideológico, desde la historia comparable de otros
 espacios similares hasta meras suposiciones. A fines de 2018,
-Microsoft compró a GitHub, u si bien el funcionamiento de GitHub se ha
+Microsoft compró a GitHub, y si bien el funcionamiento de GitHub se ha
 mantenido mayormente independiente, en julio de 2019 [GitHub bloqueó
 el acceso a desarrolladores en Irán, Siria y
 Crimea](https://techcrunch.com/2019/07/29/github-ban-sanctioned-countries/),
@@ -74,7 +74,7 @@ por lo cual el peligro de censura no es mera fantasía.
    subdirectorio dentro del área correspondiente.
 3. Todos los alumnos harán un *fork* del árbol y desarrollarán la
    tarea en su *fork*.
-    * Si la tarea es en equipos, basta con que *uno de ustedes* lo
+    * Sí la tarea es en equipos, basta con que *uno de ustedes* lo
       haga — ¡Pero no olviden documentar claramente quiénes son los
       integrantes del equipo!
     * Pueden también crear un *fork* y trabajar colaborativamente en éste
@@ -97,7 +97,7 @@ por lo cual el peligro de censura no es mera fantasía.
    en varios *commits*.
     * Ojo, importa que los mensajes en la bitácora resuman el trabajo
       realizado a cada paso.
-6. Cuando estén contantos con el desarrollo, hagan un *pull
+6. Cuando estén contentos con el desarrollo, hagan un *pull
    request*. Eso (y únicamente eso) contará como una entrega de
    trabajo.
 
